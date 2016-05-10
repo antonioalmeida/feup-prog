@@ -98,6 +98,35 @@ void VendeMaisMais::listProductsAlphabetically() const {
         cout << productsVectorTemp.at(index).getName() << endl;
 }
 
+void VendeMaisMais::editSpecificClient(string name) {
+    
+    //Search for client
+    map<string,int>::const_iterator p = clientIdx.begin();
+    for (p; p!=clientIdx.end(); p++) {
+        
+        if(p->first == name)
+            break;
+    }
+    
+    cout << "The client's current name is " << clientsVector.at(p->second).getName() << ", would you like to change it? (yes or no) ";
+    
+    //Verify and save answer
+    string answer = readYesNo();
+    
+    if(answer == "yes") {
+        cout << "What is the client's new name? : ";
+        string newName;
+        getline(cin, newName);
+        DeleteWhitespace(newName);
+        
+        //Change name
+        clientsVector.at(p->second).changeClientName(newName);
+        //supermercado.changesMade();
+    }
+    
+    
+}
+
 void VendeMaisMais::saveChanges() const{
     if(clientsAltered){
         ofstream clientsWrite;
@@ -149,3 +178,5 @@ string readClientName(const VendeMaisMais &supermercado) {
 
     return clientName;
 }
+
+

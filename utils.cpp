@@ -52,3 +52,22 @@ int readInteger(int minValue, int maxValue){
 
   return number;
 }
+
+string readYesNo() {
+    
+    string answer;
+    bool goodChoice = false;
+    
+    do{
+        getline(cin, answer);
+        
+        if(answer == "yes" || answer == "no")
+            goodChoice = true;
+        
+        if(!goodChoice)
+            cout << "ERROR: That was not a valid answer, please insert valid option (yes or no) :" << endl;
+        
+    } while(!goodChoice);
+    
+    return answer;
+}

@@ -37,6 +37,7 @@ class VendeMaisMais{
   void listClientsAlphabetically() const;
   void listProductsAlphabetically() const;
   void showSpecificClient(string name) const;
+  void editSpecificClient(string name);
   void saveChanges() const;
 
   friend ostream& operator<<(ostream &out, const VendeMaisMais &supermercado);

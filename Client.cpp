@@ -32,6 +32,10 @@ Date Client::getJoinDate() const {
     return joinDate;
 }
 
+void Client::changeClientName(string newName) {
+    name = newName;
+}
+
 void Client::save(ofstream &out) const {
     out << id << " ; " << name << " ; " << shopVolume << endl;
 }

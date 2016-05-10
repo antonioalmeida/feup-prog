@@ -77,9 +77,15 @@ void clientManagementOption(VendeMaisMais &supermarket){
     break;
     }
     case 3:
+    cout << "Qual o nome do cliente? : ";
+    cin.ignore(INT_MAX,'\n');
+    string clientName = readClientName(supermarket);
+    cout << endl;
+    supermarket.editSpecificClient(clientName);
     break;
-    case 4:
-    break;
+    //case 4:
+    //cout << "Option 4 needs implementation.";
+    //break;
     }
 }
 
