@@ -44,14 +44,16 @@ unsigned short int clientManagementMenu(){
   unsigned short int option;
 
   clearScreen();
-  cout << TAB_BIG << "Menu Gestao Clientes" << endl;
+  cout << TAB_BIG << "----------------------" << endl;
+  cout << TAB_BIG << "-Menu Gestao Clientes-" << endl;
+  cout << TAB_BIG << "----------------------" << endl;
   cout << endl;
-  cout << TAB << "1 - Listar clientes" << endl;
-  cout << TAB << "2 - Ver informacao cliente" << endl;
-  cout << TAB << "3 - Editar cliente" << endl;
-  cout << TAB << "4 - Remover cliente" << endl;
-  cout << TAB << "0 - Voltar ao menu inicial" << endl << endl;
-  cout << TAB << "Qual a sua opcao: ";
+  cout << TAB << "1 - Show clients alphabetically" << endl;
+  cout << TAB << "2 - Show a client's properties" << endl;
+  cout << TAB << "3 - Edit a client's properties" << endl;
+  cout << TAB << "4 - Remove a client" << endl;
+  cout << TAB << "0 - Go back to main menu" << endl << endl;
+  cout << TAB << "Choose an option: ";
   option = readUnsignedShortInt(0, 4);
 
   return option;
@@ -98,7 +100,7 @@ unsigned short int transactionsManagementMenu(){
     cout << TAB << "3 - Add a transaction (make a purchase)" << endl;
     cout << TAB << "4 - Show transactions made on a specific date" << endl;
     cout << TAB << "0 - Leave for main menu" << endl << endl;
-    cout << TAB << "Qual a sua opcao: ";
+    cout << TAB << "Choose an option: ";
     option = readUnsignedShortInt(0, 4);
     return 0;
 }
@@ -163,7 +165,7 @@ unsigned short int mainMenu(){
   cout << TAB << "3 - Transactions Menu" << endl;
   cout << TAB << "4 - Recommendation System" << endl;
   cout << TAB << "0 - Exit Program" << endl << endl;
-  cout << TAB << "Qual a sua opcao: ";
+  cout << TAB << "Choose an option: ";
   option = readUnsignedShortInt(0, 4);
 
   return option;
