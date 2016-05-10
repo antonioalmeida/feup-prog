@@ -62,20 +62,20 @@ unsigned short int clientManagementMenu(){
 
 void clientManagementOption(VendeMaisMais &supermarket){
   unsigned int option;
-  string name;
 
   while((option = clientManagementMenu())) //When option = 0, it is interpreted logically as false and exits loop
     switch (option){
     case 1:
     supermarket.listClientsAlphabetically();
     break;
-    case 2:
+    case 2:{
     cout << "Qual o nome do cliente? : ";
     cin.ignore(INT_MAX,'\n');
-    getline(cin, name);
+    string clientName = readClientName(supermarket);
     cout << endl;
-    supermarket.showSpecificClient(name);
+    supermarket.showSpecificClient(clientName);
     break;
+    }
     case 3:
     break;
     case 4:
@@ -88,10 +88,10 @@ void clientManagementOption(VendeMaisMais &supermarket){
    ***************************** */
 
 unsigned short int transactionsManagementMenu(){
-    
+
     unsigned int option;
     string name;
-    
+
     clearScreen();
     cout << TAB_BIG << "-------------------" << endl;
     cout << TAB_BIG << "-Transactions Menu-" << endl;
@@ -128,7 +128,7 @@ void transactionsManagementOption(VendeMaisMais &supermarket){
    ******************************** */
 
 unsigned short int recommendationMenu(){
-    
+
     //Needs implementation
     return 0;
 }
@@ -153,11 +153,11 @@ void recommendationOption(VendeMaisMais & supermarket){
 
 //Main menu
 unsigned short int mainMenu(){
-    
+
   unsigned short int option;
 
   clearScreen();
-    
+
   cout << TAB_BIG << "--------------" << endl;
   cout << TAB_BIG << "-Menu Inicial-" << endl;
   cout << TAB_BIG << "--------------" << endl;
@@ -174,7 +174,7 @@ unsigned short int mainMenu(){
 }
 
 void mainOption(VendeMaisMais &supermarket) {
-    
+
   unsigned short int option;
 
   while(option = mainMenu()){

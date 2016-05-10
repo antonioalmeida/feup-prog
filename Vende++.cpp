@@ -61,15 +61,15 @@ string VendeMaisMais::getStoreName() const {
 }
 
 void VendeMaisMais::listClientsAlphabetically() const {
-    
+
     vector<Client> clientsVectorTemp = clientsVector;
-    
+
     sort(clientsVectorTemp.begin(), clientsVectorTemp.end());
-    
+
     int numberOfClients = clientsVectorTemp.size();
-    
+
     cout << endl << "Showing Clients Alphabetically" << endl << endl;
-    
+
     for(int index = 0; index < numberOfClients; index++)
         cout << "Name: " << clientsVectorTemp.at(index).getName() << " ; ID: " << clientsVectorTemp.at(index).getId() << endl;
 }
@@ -89,11 +89,11 @@ void VendeMaisMais::showSpecificClient(string name) const {
 void VendeMaisMais::listProductsAlphabetically() const {
 
     vector<Product> productsVectorTemp = productsVector;
-    
+
     sort(productsVectorTemp.begin(), productsVectorTemp.end());
-    
+
     int numberOfProducts = productsVectorTemp.size();
-    
+
     for(int index = 0; index < numberOfProducts; index++)
         cout << productsVectorTemp.at(index).getName() << endl;
 }
@@ -129,4 +129,23 @@ ostream& operator<<(ostream &out, const VendeMaisMais &supermercado){
         out << supermercado.transactionsVector.at(index) << endl;
     return out;
     //out.flush();
+}
+
+string readClientName(const VendeMaisMais &supermercado) {
+    string clientName;
+    bool nameExists = false;
+    int numberOfClients = supermercado.clientsVector.size();
+    do{
+        getline(cin, clientName);
+        for(int index = 0; index < numberOfClients; index++){
+            if(supermercado.clientsVector.at(index).getName() == clientName){
+                nameExists = true;
+                break;
+            }
+        }
+    if(!nameExists)
+        cout << "ERROR: Client not found, please insert a valid name: ";
+    }while(!nameExists);
+
+    return clientName;
 }

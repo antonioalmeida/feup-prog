@@ -27,12 +27,9 @@ class VendeMaisMais{
   vector<Client> clientsVector;
   vector<Product> productsVector;
   vector<Transaction> transactionsVector;
-  map<string, int> clientIdx;  // map para "traduzir" nome do cliente no indice dele no vetor de clientes
-  map<string, int> productIdx;  // map para "traduzir" nome do produto no indice dele no vetor de produtos
-  multimap<int, int> transactionIdx; // multimap para "traduzir" o identificador do
-				   // cliente nos indices das suas
-				   // transacoes no vetor de
-				   // transacoes
+  map<string, int> clientIdx;
+  map<string, int> productIdx;
+  multimap<int, int> transactionIdx;
 
  public:
   VendeMaisMais(string store, string clientsFileName, string productsFileName, string transactionsFileName);
@@ -43,4 +40,5 @@ class VendeMaisMais{
   void saveChanges() const;
 
   friend ostream& operator<<(ostream &out, const VendeMaisMais &supermercado);
+  friend string readClientName(const VendeMaisMais &supermercado); //Loops until a valid client name is read
 };
