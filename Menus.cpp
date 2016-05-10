@@ -60,7 +60,7 @@ unsigned short int clientManagementMenu(){
 
 void clientManagementOption(VendeMaisMais &supermarket){
   unsigned int option;
-  string nome;
+  string name;
 
   while((option = clientManagementMenu())) //When option = 0, it is interpreted logically as false and exits loop
     switch (option){
@@ -69,8 +69,8 @@ void clientManagementOption(VendeMaisMais &supermarket){
     break;
     case 2:
     cout << "Qual o nome do cliente: ";
-    getline(cin, nome);
-    supermarket.showSpecificClient(nome);
+    getline(cin, name);
+    supermarket.showSpecificClient(name);
     break;
     case 3:
     break;
@@ -85,7 +85,21 @@ void clientManagementOption(VendeMaisMais &supermarket){
 
 unsigned short int transactionsManagementMenu(){
     
-    //Needs implementation
+    unsigned int option;
+    string name;
+    
+    clearScreen();
+    cout << TAB_BIG << "-------------------" << endl;
+    cout << TAB_BIG << "-Transactions Menu-" << endl;
+    cout << TAB_BIG << "-------------------" << endl;
+    cout << endl;
+    cout << TAB << "1 - Show transactions between two dates" << endl;
+    cout << TAB << "2 - Show a client's transactions (alphabetically)" << endl;
+    cout << TAB << "3 - Add a transaction (make a purchase)" << endl;
+    cout << TAB << "4 - Show transactions made on a specific date" << endl;
+    cout << TAB << "0 - Leave for main menu" << endl << endl;
+    cout << TAB << "Qual a sua opcao: ";
+    option = readUnsignedShortInt(0, 4);
     return 0;
 }
 
@@ -132,17 +146,23 @@ void recommendationOption(VendeMaisMais & supermarket){
 
 }
 
+
+//Main menu
 unsigned short int mainMenu(){
+    
   unsigned short int option;
 
   clearScreen();
-  cout << TAB_BIG << "Menu Inicial" << endl;
+    
+  cout << TAB_BIG << "--------------" << endl;
+  cout << TAB_BIG << "-Menu Inicial-" << endl;
+  cout << TAB_BIG << "--------------" << endl;
   cout << endl;
-  cout << TAB << "1 - Gestao de clientes" << endl;
-  cout << TAB << "2 - Lista produto disponiveis" << endl;
-  cout << TAB << "3 - Gestao de transacoes" << endl;
-  cout << TAB << "4 - Recomendacoes" << endl;
-  cout << TAB << "0 - Sair do programa" << endl << endl;
+  cout << TAB << "1 - Clients Management" << endl;
+  cout << TAB << "2 - Show availible products" << endl;
+  cout << TAB << "3 - Transactions Menu" << endl;
+  cout << TAB << "4 - Recommendation System" << endl;
+  cout << TAB << "0 - Exit Program" << endl << endl;
   cout << TAB << "Qual a sua opcao: ";
   option = readUnsignedShortInt(0, 4);
 
@@ -150,8 +170,8 @@ unsigned short int mainMenu(){
 }
 
 void mainOption(VendeMaisMais &supermarket) {
-  unsigned int option;
-
+    
+  unsigned short int option;
 
   while(option = mainMenu()){
     switch (option){

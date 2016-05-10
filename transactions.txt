@@ -1,0 +1,5 @@
+4
+1 ; 1/01/2016 ; laranja, banana
+1 ; 3/01/2016 ; peixe, carne, batatas fritas
+16 ; 15/03/2016 ; banana, laranja, peixe
+6 ; 20/05/2016 ; peixe, batatas fritas, laranja
