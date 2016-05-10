@@ -40,19 +40,19 @@ VendeMaisMais::VendeMaisMais(string store, string clientsFileName, string produc
   clientsRead.close();
   productsRead.close();
   transactionsRead.close();
-  
-  //<string,int> map - Each client's name to its position on the clients vector 
+
+  //<string,int> map - Each client's name to its position on the clients vector
   for(int counter = 0; counter < numberOfClients; counter++){
     clientIdx[clientsVector.at(counter).getName()] = counter;
   }
-  
-  //<string,int> map - Each product's name to its position on the products vector 
+
+  //<string,int> map - Each product's name to its position on the products vector
   for(int counter = 0; counter < numberOfProducts; counter++){
     productIdx[productsVector.at(counter).getName()] = counter;
   }
-  
+
   //<int,int> multimap - Each client's ID to each of his transactions' position on the transactions vector
-  
+
   // COMPLETAR
 }
 
@@ -65,27 +65,28 @@ void VendeMaisMais::listClientsAlphabetically() const{
     sort(clientsVectorTemp.begin(), clientsVectorTemp.end());
     int numberOfClients = clientsVectorTemp.size();
     for(int index = 0; index < numberOfClients; index++)
-        cout << clientsVectorTemp.at(index) << endl;
+        cout << clientsVectorTemp.at(index).getName() << endl;
 }
 
-void VendeMaisMais::showSpecificClient(string name) {
-    
-    for (map<string,int>::const_iterator p=clientsVector.begin(); p!=clientsVector.end(); p++) {
-        
+void VendeMaisMais::showSpecificClient(string name) const {
+
+    map<string,int>::const_iterator p=clientIdx.begin();
+    for (p; p!=clientIdx.end(); p++) {
+
      if(p->first == name)
         break;
     }
-    
+
     cout << clientsVector.at(p->second);
 }
 
 void VendeMaisMais::listProductsAlphabetically() const {
-    
+
     vector<Product> productsVectorTemp = productsVector;
     sort(productsVectorTemp.begin(), productsVectorTemp.end());
     int numberOfProducts = productsVectorTemp.size();
     for(int index = 0; index < numberOfProducts; index++)
-        cout << productsVectorTemp.at(index) << endl;
+        cout << productsVectorTemp.at(index).getName() << endl;
 }
 
 void VendeMaisMais::saveChanges() const{
@@ -109,10 +110,14 @@ void VendeMaisMais::saveChanges() const{
 }
 
 ostream& operator<<(ostream &out, const VendeMaisMais &supermercado){
-    out << "Supermercado " << supermercado.getStoreName() << endl;
-    out << "Conta atualmente com:" << endl;
-    out << supermercado.clientsVector.size() << " clientes" << endl;
-    out << supermercado.productsVector.size() << " produtos no stock" << endl;
-    out << supermercado.transactionsVector.size() << "transacoes realizadas, num valor total de " << /*adicionar funcao para calcular valor total gasto? << */ endl;
+    out << "Supermercado " << supermercado.getStoreName() << endl << "Conta atualmente com:" << endl << supermercado.clientsVector.size() <<
+    " clientes" << endl << supermercado.productsVector.size() << " produtos no stock" << endl << supermercado.transactionsVector.size() << "transacoes realizadas, num valor total de " << /*adicionar funcao para calcular valor total gasto? << */ endl;
+    for(int index = 0; index < supermercado.clientsVector.size(); index++)
+        out << supermercado.clientsVector.at(index) << endl;
+    for(int index = 0; index < supermercado.productsVector.size(); index++)
+        out << supermercado.productsVector.at(index) << endl;
+    for(int index = 0; index < supermercado.transactionsVector.size(); index++)
+        out << supermercado.transactionsVector.at(index) << endl;
+    return out;
     //out.flush();
 }

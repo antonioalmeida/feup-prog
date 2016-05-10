@@ -20,5 +20,7 @@ int main(){
   cout << supermercado << endl;
 
   mainOption(supermercado);
+  supermercado.listClientsAlphabetically();
+  supermercado.listProductsAlphabetically();
   return 0;
 }

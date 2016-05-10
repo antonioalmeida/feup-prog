@@ -5,7 +5,7 @@
 
 Transaction::Transaction(ifstream &in) {
     string line;
-    string productTemp; //To store each product bought on a transaction before inserting it in the vector
+    string pline; //To store each product bought on a transaction before inserting it in the vector
     getline(in, line);
     istringstream readTemp;
     readTemp.str(line);
@@ -14,9 +14,9 @@ Transaction::Transaction(ifstream &in) {
     getline(readTemp,line,';');
     DeleteWhitespace(line);
     dateOfTransaction = Date(line);
-    while(getline(readTemp, line, ',')) {
-        DeleteWhitespace(line);
-        productsBought.push_back(line);
+    while(getline(readTemp, pline, ',')) {
+        DeleteWhitespace(pline);
+        productsBought.push_back(pline);
     }
 }
 
