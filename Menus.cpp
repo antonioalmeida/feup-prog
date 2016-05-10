@@ -70,7 +70,8 @@ void clientManagementOption(VendeMaisMais &supermarket){
     supermarket.listClientsAlphabetically();
     break;
     case 2:
-    cout << "Qual o nome do cliente: ";
+    cout << "Qual o nome do cliente? : ";
+    cin.ignore(INT_MAX,'\n');
     getline(cin, name);
     supermarket.showSpecificClient(name);
     break;
