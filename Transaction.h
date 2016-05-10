@@ -1,0 +1,30 @@
+#pragma once
+
+
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <vector>
+#include <string>
+#include <climits>
+
+#include "Date.h"
+
+
+
+using namespace std;
+
+
+class Transaction {
+ private:
+  unsigned int clientId;
+  Date dateOfTransaction;
+  vector<string> productsBought;
+
+ public:
+  Transaction(ifstream &in);
+  unsigned int getClientId() const;
+  Date getDateOfTransaction() const;
+  vector<string> getProductsBought() const;
+  void save(ofstream &out) const;
+  friend ostream& operator<<(ostream &out, const Transaction &trans);
