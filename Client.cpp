@@ -37,7 +37,7 @@ void Client::save(ofstream &out) const {
 }
 
 ostream& operator<<(ostream& out, const Client &cli) {
-  out << "ID Nr." << cli.id << " is named " << cli.name << ", joined on " << cli.joinDate << " and spent a total amount of " << cli.shopVolume << endl;
+  out << "ID: " << cli.id << " ; Name: " << cli.name << " ; Joined on: " << cli.joinDate << " ; Total Spent: " << cli.shopVolume << endl;
     return out;
 }
 

@@ -60,17 +60,23 @@ string VendeMaisMais::getStoreName() const {
     return storeName;
 }
 
-void VendeMaisMais::listClientsAlphabetically() const{
+void VendeMaisMais::listClientsAlphabetically() const {
+    
     vector<Client> clientsVectorTemp = clientsVector;
+    
     sort(clientsVectorTemp.begin(), clientsVectorTemp.end());
+    
     int numberOfClients = clientsVectorTemp.size();
+    
+    cout << endl << "Showing Clients Alphabetically" << endl << endl;
+    
     for(int index = 0; index < numberOfClients; index++)
-        cout << clientsVectorTemp.at(index).getName() << endl;
+        cout << "Name: " << clientsVectorTemp.at(index).getName() << " ; ID: " << clientsVectorTemp.at(index).getId() << endl;
 }
 
 void VendeMaisMais::showSpecificClient(string name) const {
 
-    map<string,int>::const_iterator p=clientIdx.begin();
+    map<string,int>::const_iterator p = clientIdx.begin();
     for (p; p!=clientIdx.end(); p++) {
 
      if(p->first == name)
@@ -83,8 +89,11 @@ void VendeMaisMais::showSpecificClient(string name) const {
 void VendeMaisMais::listProductsAlphabetically() const {
 
     vector<Product> productsVectorTemp = productsVector;
+    
     sort(productsVectorTemp.begin(), productsVectorTemp.end());
+    
     int numberOfProducts = productsVectorTemp.size();
+    
     for(int index = 0; index < numberOfProducts; index++)
         cout << productsVectorTemp.at(index).getName() << endl;
 }

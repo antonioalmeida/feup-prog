@@ -73,6 +73,7 @@ void clientManagementOption(VendeMaisMais &supermarket){
     cout << "Qual o nome do cliente? : ";
     cin.ignore(INT_MAX,'\n');
     getline(cin, name);
+    cout << endl;
     supermarket.showSpecificClient(name);
     break;
     case 3:
