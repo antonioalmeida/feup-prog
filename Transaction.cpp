@@ -1,5 +1,7 @@
-#include "Transaction.h"
+#pragma once
 
+#include "Transaction.h"
+#include "utils.h"
 
 Transaction::Transaction(ifstream &in) {
     string line;
@@ -12,9 +14,9 @@ Transaction::Transaction(ifstream &in) {
     getline(readTemp,line,';');
     DeleteWhitespace(line);
     dateOfTransaction = Date(line);
-    while(getline(readTemp, pline, ',')) {
-        DeleteWhitespace(pline);
-        productsBought.push_back(pline);
+    while(getline(readTemp, line, ',')) {
+        DeleteWhitespace(line);
+        productsBought.push_back(line);
     }
 }
 
@@ -60,4 +62,5 @@ ostream& operator<<(ostream& out, const Transaction &trans) {
                                 out << " and ";
                         }
     }
+    return out;
 }

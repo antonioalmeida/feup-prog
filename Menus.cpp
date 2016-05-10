@@ -84,7 +84,9 @@ void clientManagementOption(VendeMaisMais &supermarket){
    ***************************** */
 
 unsigned short int transactionsManagementMenu(){
-
+    
+    //Needs implementation
+    return 0;
 }
 
 void transactionsManagementOption(VendeMaisMais &supermarket){
@@ -108,7 +110,9 @@ void transactionsManagementOption(VendeMaisMais &supermarket){
    ******************************** */
 
 unsigned short int recommendationMenu(){
-
+    
+    //Needs implementation
+    return 0;
 }
 
 void recommendationOption(VendeMaisMais & supermarket){

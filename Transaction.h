@@ -28,3 +28,4 @@ class Transaction {
   vector<string> getProductsBought() const;
   void save(ofstream &out) const;
   friend ostream& operator<<(ostream &out, const Transaction &trans);
+};

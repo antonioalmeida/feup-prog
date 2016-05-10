@@ -43,12 +43,12 @@ VendeMaisMais::VendeMaisMais(string store, string clientsFileName, string produc
   
   //<string,int> map - Each client's name to its position on the clients vector 
   for(int counter = 0; counter < numberOfClients; counter++){
-    clientIdx[clientsVector.at(counter).getNome()] = counter;
+    clientIdx[clientsVector.at(counter).getName()] = counter;
   }
   
   //<string,int> map - Each product's name to its position on the products vector 
   for(int counter = 0; counter < numberOfProducts; counter++){
-    productIdx[productsVector.at(counter).getNome()] = counter;
+    productIdx[productsVector.at(counter).getName()] = counter;
   }
   
   //<int,int> multimap - Each client's ID to each of his transactions' position on the transactions vector
@@ -68,15 +68,19 @@ void VendeMaisMais::listClientsAlphabetically() const{
         cout << clientsVectorTemp.at(index) << endl;
 }
 
-void VendeMaisMais::showSpecificClient(string name){
+void VendeMaisMais::showSpecificClient(string name) {
+    
     for (map<string,int>::const_iterator p=clientsVector.begin(); p!=clientsVector.end(); p++) {
+        
      if(p->first == name)
         break;
     }
+    
     cout << clientsVector.at(p->second);
 }
 
-void VendeMaisMais::listProductsAlphabetically() const{
+void VendeMaisMais::listProductsAlphabetically() const {
+    
     vector<Product> productsVectorTemp = productsVector;
     sort(productsVectorTemp.begin(), productsVectorTemp.end());
     int numberOfProducts = productsVectorTemp.size();

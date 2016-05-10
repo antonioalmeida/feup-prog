@@ -41,4 +41,5 @@ void Date::save(ofstream &out) const{
 
 ostream& operator<<(ostream& out, const Date &date){
   out << date.day << "-" << date.month << "-" << date.year; // - instead of / just to be different from the save method...
+    return out;
 }
