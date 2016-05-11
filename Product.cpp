@@ -8,6 +8,7 @@ Product::Product(ifstream &in){
   istringstream readTemp;
   readTemp.str(line);
   getline(readTemp, name, ';');
+  DeleteWhitespace(name);
   readTemp >> cost;
 }
 

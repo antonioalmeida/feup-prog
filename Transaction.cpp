@@ -20,6 +20,45 @@ Transaction::Transaction(ifstream &in) {
     }
 }
 
+Transaction::Transaction(const multimap<int, int> &transactionMaping, const map<string, int> &productMaping) {
+    //Reading ID of client who made the transaction
+    unsigned int customerId;
+    multimap<int,int>::const_iterator id_it;
+    cout << "Insert the transaction's author's ID: ";
+    do{
+        cin >> customerId;
+        id_it = transactionMaping.find(customerId);
+        if(id_it == transactionMaping.end()) //Means that ID was not found
+            cout << "ERROR: Invalid client ID, please insert a valid value: ";
+    }while(id_it == transactionMaping.end());
+
+    clientId = customerId;
+
+    //Reading transaction date
+    cin.ignore(numeric_limits<int>::max(), '\n'); //Because of mixed use of cin and getline
+    string newTransactionDate;
+    cout << "Insert the transaction's date: ";
+    getline(cin, newTransactionDate);
+    DeleteWhitespace(newTransactionDate);
+    dateOfTransaction = Date(newTransactionDate);
+
+    //Reading products bought
+    string newProduct;
+    map<string,int>::const_iterator p_it;
+    do{
+        cout << "Insert a product bought (0 to finish): ";
+        getline(cin, newProduct);
+        DeleteWhitespace(newProduct);
+        p_it = productMaping.find(newProduct);
+        if(p_it == productMaping.end()) { //Means that product was not found
+           if(newProduct != "0") //Invalid product inserted
+                cout << "ERROR: Invalid product, please insert a valid product name" << endl;
+        }
+        else
+            productsBought.push_back(newProduct);
+    }while(newProduct != "0");
+}
+
 unsigned int Transaction::getClientId() const {
   return clientId;
 }
@@ -41,11 +80,11 @@ void Transaction::save(ofstream &out) const {
     for(int index = 0; index < amountOfProducts; index++) {
             out << productsBought.at(index);
             if(amountOfProducts > 1) { //If there is only one product, commas are not necessary
-                    if (index != amountOfProducts - 1) //If index does not correspond to the last element
+                    if (index != amountOfProducts - 1) //If current element is not the last, a comma is inserted
                         out << ", ";
             }
-        out << endl;
     }
+    out << endl;
 }
 
 ostream& operator<<(ostream& out, const Transaction &trans) {

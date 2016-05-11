@@ -41,6 +41,10 @@ VendeMaisMais::VendeMaisMais(string store, string clientsFileName, string produc
   productsRead.close();
   transactionsRead.close();
 
+  int lastElement = clientsVector.size() - 1;
+
+  maxClientID = clientsVector.at(lastElement).getId();
+
   //<string,int> map - Each client's name to its position on the clients vector
   for(int counter = 0; counter < numberOfClients; counter++){
     clientIdx[clientsVector.at(counter).getName()] = counter;
@@ -48,12 +52,16 @@ VendeMaisMais::VendeMaisMais(string store, string clientsFileName, string produc
 
   //<string,int> map - Each product's name to its position on the products vector
   for(int counter = 0; counter < numberOfProducts; counter++){
-    productIdx[productsVector.at(counter).getName()] = counter;
+    productIdx.insert(pair<string,int>(productsVector.at(counter).getName(), counter));
   }
 
   //<int,int> multimap - Each client's ID to each of his transactions' position on the transactions vector
-
-  // COMPLETAR
+  for(int maincounter = 0; maincounter < numberOfClients; maincounter++){
+    for(int secondarycounter = 0; secondarycounter < numberOfTransactions; secondarycounter++){
+        if(clientsVector.at(maincounter).getId() == transactionsVector.at(secondarycounter).getClientId()) //If current transaction is from the client treated in the current iteration
+            transactionIdx.insert(pair<int,int>(clientsVector.at(maincounter).getId(),secondarycounter));
+    }
+  }
 }
 
 string VendeMaisMais::getStoreName() const {
@@ -71,7 +79,8 @@ void VendeMaisMais::listClientsAlphabetically() const {
     cout << endl << "Showing Clients Alphabetically" << endl << endl;
 
     for(int index = 0; index < numberOfClients; index++)
-        cout << "- " << clientsVectorTemp.at(index).getName() << " ; ID: " << clientsVectorTemp.at(index).getId() << endl;
+        //cout << "- " << clientsVectorTemp.at(index).getName() << " ; ID: " << clientsVectorTemp.at(index).getId() << endl;
+        cout << clientsVectorTemp.at(index) << endl;
 }
 
 void VendeMaisMais::showSpecificClient(string name) const {
@@ -121,6 +130,30 @@ void VendeMaisMais::editSpecificClient(string name) {
 
 }
 
+void VendeMaisMais::addTransaction() {
+    Transaction newTransaction = Transaction(transactionIdx,productIdx);
+    transactionsVector.push_back(newTransaction);
+    transactionsAltered = true;
+
+    //Loop to update the client's total shopping volume
+    unsigned int newTranId = newTransaction.getClientId();
+    vector<string> newTranProd = newTransaction.getProductsBought();
+    float sum = 0;
+    for(int counter = 0; counter < newTranProd.size(); counter++){
+        int currentProductIndex = productIdx.find(newTranProd.at(counter))->second;
+        float currentProductCost = productsVector.at(currentProductIndex).getCost();
+        sum = sum + currentProductCost;
+    }
+
+    for(int index = 0; index < clientsVector.size(); index++){
+        if(clientsVector.at(index).getId() == newTranId){
+            clientsVector.at(index).updateShopVolume(sum);
+            break;
+        }
+    }
+    clientsAltered = true;
+}
+
 void VendeMaisMais::saveChanges() const{
     if(clientsAltered){
         ofstream clientsWrite;
@@ -150,6 +183,7 @@ ostream& operator<<(ostream &out, const VendeMaisMais &supermercado){
         out << supermercado.productsVector.at(index) << endl;
     for(int index = 0; index < supermercado.transactionsVector.size(); index++)
         out << supermercado.transactionsVector.at(index) << endl;
+
     return out;
     //out.flush();
 }

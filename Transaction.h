@@ -7,6 +7,7 @@
 #include <vector>
 #include <string>
 #include <climits>
+#include <map>
 
 #include "Date.h"
 
@@ -23,6 +24,7 @@ class Transaction {
 
  public:
   Transaction(ifstream &in);
+  Transaction(const multimap<int, int> &transactionMaping, const map<string, int> &productMaping); //Map and multimap are called to make sure given ID and each product name is valid
   unsigned int getClientId() const;
   Date getDateOfTransaction() const;
   vector<string> getProductsBought() const;

@@ -36,8 +36,14 @@ void Client::changeClientName(string newName) {
     name = newName;
 }
 
+void Client::updateShopVolume(float sum) {
+    shopVolume = shopVolume + sum;
+}
+
 void Client::save(ofstream &out) const {
-    out << id << " ; " << name << " ; " << shopVolume << endl;
+    out << id << " ; " << name << " ; ";
+    joinDate.save(out);
+    out << " ; " << shopVolume << endl;
 }
 
 ostream& operator<<(ostream& out, const Client &cli) {
