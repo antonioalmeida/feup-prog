@@ -119,8 +119,12 @@ void VendeMaisMais::editSpecificClient(string name) {
         getline(cin, newName);
         DeleteWhitespace(newName);
         
-        //Change name
+        //Change name in vector
         clientsVector.at(p->second).changeClientName(newName);
+        
+        //Change name in map
+        clientIdx.insert(p, pair<string,int>(newName, p->second));
+        
         //supermercado.changesMade();
     }
     
