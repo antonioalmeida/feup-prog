@@ -27,5 +27,5 @@ class Client {
   void changeClientName(string newName);
   void save(ofstream &out) const;
   friend ostream& operator<<(ostream &out, const Client &cli);
-  friend bool operator<(const Client &cli1, const Client &cli2); // compara 2 clientes (1 cleinte e menor que outro se o seu nome for "alfabeticamente" inferior)
+  friend bool operator<(const Client &cli1, const Client &cli2);
 };

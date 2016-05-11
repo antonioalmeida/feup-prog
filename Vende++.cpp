@@ -71,17 +71,12 @@ void VendeMaisMais::listClientsAlphabetically() const {
     cout << endl << "Showing Clients Alphabetically" << endl << endl;
 
     for(int index = 0; index < numberOfClients; index++)
-        cout << "Name: " << clientsVectorTemp.at(index).getName() << " ; ID: " << clientsVectorTemp.at(index).getId() << endl;
+        cout << "- " << clientsVectorTemp.at(index).getName() << " ; ID: " << clientsVectorTemp.at(index).getId() << endl;
 }
 
 void VendeMaisMais::showSpecificClient(string name) const {
 
-    map<string,int>::const_iterator p = clientIdx.begin();
-    for (p; p!=clientIdx.end(); p++) {
-
-     if(p->first == name)
-        break;
-    }
+    map<string,int>::const_iterator p = clientIdx.find(name);
 
     cout << clientsVector.at(p->second);
 }
@@ -95,40 +90,35 @@ void VendeMaisMais::listProductsAlphabetically() const {
     int numberOfProducts = productsVectorTemp.size();
 
     for(int index = 0; index < numberOfProducts; index++)
-        cout << productsVectorTemp.at(index).getName() << endl;
+        cout << "- " << productsVectorTemp.at(index).getName() << "/ Cost: " << productsVectorTemp.at(index).getCost() << endl;
 }
 
 void VendeMaisMais::editSpecificClient(string name) {
-    
+
     //Search for client
-    map<string,int>::const_iterator p = clientIdx.begin();
-    for (p; p!=clientIdx.end(); p++) {
-        
-        if(p->first == name)
-            break;
-    }
-    
+    map<string,int>::const_iterator p = clientIdx.find(name);
+
     cout << "The client's current name is " << clientsVector.at(p->second).getName() << ", would you like to change it? (yes or no) ";
-    
+
     //Verify and save answer
     string answer = readYesNo();
-    
+
     if(answer == "yes") {
         cout << "What is the client's new name? : ";
         string newName;
         getline(cin, newName);
         DeleteWhitespace(newName);
-        
+
         //Change name in vector
         clientsVector.at(p->second).changeClientName(newName);
-        
+
         //Change name in map
         clientIdx.insert(p, pair<string,int>(newName, p->second));
-        
+
         //supermercado.changesMade();
     }
-    
-    
+
+
 }
 
 void VendeMaisMais::saveChanges() const{
