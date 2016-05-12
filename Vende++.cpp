@@ -123,11 +123,32 @@ void VendeMaisMais::editSpecificClient(string name) {
 
         //Change name in map
         clientIdx.insert(p, pair<string,int>(newName, p->second));
-
-        //supermercado.changesMade();
+        
+        //Change altered boolean to save changes
+        clientsAltered = true;
     }
-
-
+    
+    cout << "The client's current join date is " << clientsVector.at(p->second).getJoinDate() << ", would you like to change it? (yes or no) ";
+    
+    //Verify and save answer
+    answer = readYesNo();
+    
+    if(answer == "yes") {
+        cout << "What is the client's new join date? (DD/MM/YYYY) : ";
+        string newDate;
+        getline(cin, newDate);
+        DeleteWhitespace(newDate);
+        
+        //Create temporary date
+        Date newDateClass(newDate);
+        
+        //Change date in vector
+        clientsVector.at(p->second).changeClientJoinDate(newDateClass);
+        
+        //Change altered boolean to save changes
+        clientsAltered = true;
+    }
+    
 }
 
 void VendeMaisMais::addTransaction() {

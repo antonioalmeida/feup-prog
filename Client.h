@@ -25,6 +25,7 @@ class Client {
   float getShopVolume() const;
   Date getJoinDate() const;
   void changeClientName(string newName);
+  void changeClientJoinDate(Date newDate);
   void updateShopVolume(float sum);
   void save(ofstream &out) const;
   friend ostream& operator<<(ostream &out, const Client &cli);

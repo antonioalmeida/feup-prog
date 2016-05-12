@@ -36,6 +36,10 @@ void Client::changeClientName(string newName) {
     name = newName;
 }
 
+void Client::changeClientJoinDate(Date newDate) {
+    joinDate = newDate;
+}
+
 void Client::updateShopVolume(float sum) {
     shopVolume = shopVolume + sum;
 }
