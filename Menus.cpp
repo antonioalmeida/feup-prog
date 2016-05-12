@@ -71,7 +71,7 @@ void clientManagementOption(VendeMaisMais &supermarket){
             break;
         case 2:{
             cout << "What is the client's name? : ";
-            cin.ignore(INT_MAX,'\n');
+            cin.ignore(numeric_limits<int>::max(),'\n');
             string clientName = readClientName(supermarket);
             cout << endl;
             supermarket.showSpecificClient(clientName);
@@ -79,7 +79,7 @@ void clientManagementOption(VendeMaisMais &supermarket){
         }
         case 3:{
             cout << "What is the client's name? : ";
-            cin.ignore(INT_MAX,'\n');
+            cin.ignore(numeric_limits<int>::max(),'\n');
             string clientName = readClientName(supermarket);
             cout << endl;
             supermarket.editSpecificClient(clientName);
@@ -87,7 +87,7 @@ void clientManagementOption(VendeMaisMais &supermarket){
         }
         case 4:{
             cout << "What is the new client's name? : ";
-            cin.ignore(INT_MAX,'\n');
+            cin.ignore(numeric_limits<int>::max(),'\n');
             string clientName;
             getline(cin, clientName, '\n');
             DeleteWhitespace(clientName);
@@ -102,13 +102,13 @@ void clientManagementOption(VendeMaisMais &supermarket){
             cout << "What is the client's shop volume? : ";
             cin >> shopVolume;
             Client tempClient(clientName, newDateClass, shopVolume);
-            cin.ignore(INT_MAX, '\n');
+            cin.ignore(numeric_limits<int>::max(), '\n');
             supermarket.addClient(tempClient);
             break;
         }
         case 5:{
             cout << "What is the client's name? : ";
-            cin.ignore(INT_MAX,'\n');
+            cin.ignore(numeric_limits<int>::max(),'\n');
             string clientName = readClientName(supermarket);
             cout << endl;
             supermarket.removeSpecificClient(clientName);
@@ -137,7 +137,7 @@ unsigned short int transactionsManagementMenu(){
     cout << TAB << "5 - Show all transactions made" << endl;
     cout << TAB << "0 - Leave for main menu" << endl << endl;
     cout << TAB << "Choose an option: ";
-    option = readUnsignedShortInt(0, 4);
+    option = readUnsignedShortInt(0, 5);
     return option;
 }
 
@@ -160,11 +160,14 @@ void transactionsManagementOption(VendeMaisMais &supermarket){
             case 0:
                 break;
             case 1:{
+
                 unsigned int cliUniqueId = readClientId(supermarket);
                 supermarket.showClientTransactions(cliUniqueId);
                 break;
             }
             case 2:{
+                cin.ignore(numeric_limits<int>::max(), '\n');
+                cout << "Insert the client's name: ";
                 string cliName = readClientName(supermarket);
                 supermarket.showClientTransactions(cliName);
                 break;
@@ -177,6 +180,9 @@ void transactionsManagementOption(VendeMaisMais &supermarket){
         break;
     case 4:
         supermarket.showTransactionsOnDate();
+        break;
+    case 5:
+        supermarket.showAllTransactions();
         break;
     }
 }
@@ -217,11 +223,11 @@ unsigned short int mainMenu(){
   clearScreen();
 
   cout << TAB_BIG << "--------------" << endl;
-  cout << TAB_BIG << "-Menu Inicial-" << endl;
+  cout << TAB_BIG << "---MainMenu---" << endl;
   cout << TAB_BIG << "--------------" << endl;
   cout << endl;
   cout << TAB << "1 - Clients Management" << endl;
-  cout << TAB << "2 - Show availible products" << endl;
+  cout << TAB << "2 - Show available products" << endl;
   cout << TAB << "3 - Transactions Menu" << endl;
   cout << TAB << "4 - Recommendation System" << endl;
   cout << TAB << "0 - Exit Program" << endl << endl;

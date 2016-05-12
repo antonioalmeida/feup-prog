@@ -7,7 +7,7 @@ Client::Client(ifstream &in) {
     istringstream readTemp;
     readTemp.str(line);
     readTemp >> id;
-    readTemp.ignore(INT_MAX,';');
+    readTemp.ignore(numeric_limits<int>::max(),';');
     getline(readTemp,name,';');
     DeleteWhitespace(name);
     getline(readTemp,line,';');

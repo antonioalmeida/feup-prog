@@ -1,5 +1,5 @@
 4
-1 ; Rui Pereira ; 1/3/2008 ; 10.2
-2 ; Maria de Lurdes ; 23/4/2009 ; 0
-6 ; Joana Beires ; 15/10/2010 ; 7.5
+1 ; Rui Pereira ; 1/3/2008 ; 10.6
+2 ; Maria de Lurdes ; 23/4/2009 ; 8.7
+6 ; Joana Beires ; 15/10/2010 ; 14.6
 16 ; Manuela Moura ; 31/3/2016 ; 17

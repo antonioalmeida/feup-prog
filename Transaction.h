@@ -24,7 +24,7 @@ class Transaction {
 
  public:
   Transaction(ifstream &in);
-  Transaction(const multimap<int, int> &transactionMaping, const map<string, int> &productMaping); //Map and multimap are called to make sure given ID and each product name is valid
+  Transaction(const vector<int> &idVec, const map<string, int> &productMaping); //Structures called to make sure given ID and each product name are valid
   unsigned int getClientId() const;
   Date getDateOfTransaction() const;
   vector<string> getProductsBought() const;

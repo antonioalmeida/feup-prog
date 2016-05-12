@@ -20,17 +20,23 @@ Transaction::Transaction(ifstream &in) {
     }
 }
 
-Transaction::Transaction(const multimap<int, int> &transactionMaping, const map<string, int> &productMaping) {
+Transaction::Transaction(const vector<int> &idVec, const map<string, int> &productMaping) {
     //Reading ID of client who made the transaction
     unsigned int customerId;
-    multimap<int,int>::const_iterator id_it;
+    bool foundId;
     cout << "Insert the transaction's author's ID: ";
     do{
+        foundId = false;
         cin >> customerId;
-        id_it = transactionMaping.find(customerId);
-        if(id_it == transactionMaping.end()) //Means that ID was not found
+        for(int index = 0; index < idVec.size(); index++){
+            if(idVec.at(index) == customerId){
+                foundId = true;
+                break;
+            }
+        }
+        if(!foundId) //Means that ID was not found
             cout << "ERROR: Invalid client ID, please insert a valid value: ";
-    }while(id_it == transactionMaping.end());
+    }while(!foundId);
 
     clientId = customerId;
 

@@ -9,7 +9,7 @@ void clearScreen(){
 void pressToContinue(){
     cout << "Press any key, followed by ENTER to continue" << endl;
     //getchar();
-    cin.ignore(INT_MAX, '\n');
+    cin.ignore(numeric_limits<int>::max(), '\n');
     clearScreen();
 }
 */
@@ -47,7 +47,7 @@ int readInteger(int minValue, int maxValue){
   do{
       cin >> number;
       if(number < minValue || number > maxValue)
-        cout << "ERROR: Out of range value, please insert a value between " << minValue << "-" << maxValue << endl;
+        cout << "ERROR: Out of range value, please insert a value between " << minValue << "-" << maxValue << ":";
   }while(number < minValue || number > maxValue);
 
   return number;

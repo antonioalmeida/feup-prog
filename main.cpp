@@ -15,8 +15,11 @@ int main(){
 
   VendeMaisMais supermarket(store, clientsFileName, productsFileName, transactionsFileName);
 
-  cout << "Informacao da loja '" << store << " do supermarket Vende++:" << endl;
+  cout << "Initial statistics on '" << store << "' from supermarket Vende++:" << endl;
   cout << supermarket << endl;
   mainOption(supermarket);
+  cout << "Final statistics on '" << store << "' from supermarket Vende++:" << endl;
+  cout << supermarket << endl;
+  cout << "See you soon!" << endl;
   return 0;
 }

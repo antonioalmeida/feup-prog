@@ -43,6 +43,7 @@ class VendeMaisMais{
   void addTransaction();
   void showTransactionsBetweenDates() const;
   void showTransactionsOnDate() const;
+  void showAllTransactions() const;
   void showClientTransactions(string name) const; //Overloaded function since user can choose between specifying client ID or name to show the respective transactions
   void showClientTransactions(unsigned int cliUniqueId) const; //Overloaded function since user can choose between specifying client ID or name to show the respective transactions
   void saveChanges() const;

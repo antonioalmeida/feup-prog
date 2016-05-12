@@ -186,7 +186,10 @@ void VendeMaisMais::removeSpecificClient(string name) {
 
 
 void VendeMaisMais::addTransaction() {
-    Transaction newTransaction = Transaction(transactionIdx,productIdx);
+    vector<int> idVector;
+    for(int index = 0; index < clientsVector.size(); index++)
+        idVector.push_back(clientsVector.at(index).getId());
+    Transaction newTransaction = Transaction(idVector,productIdx);
     transactionsVector.push_back(newTransaction);
     transactionsAltered = true;
 
@@ -254,8 +257,15 @@ void VendeMaisMais::showTransactionsOnDate() const {
                         cout << " and ";
                     }
             }
+            cout << endl;
         }
     }
+}
+
+void VendeMaisMais::showAllTransactions() const {
+    cout << "All transactions made in supermarket " << storeName << ":" << endl;
+    for(int index = 0; index < transactionsVector.size(); index++)
+        cout << transactionsVector.at(index) << endl;
 }
 
 void VendeMaisMais::showClientTransactions(string name) const {
@@ -303,12 +313,6 @@ void VendeMaisMais::saveChanges() const{
 //Print supermarket
 ostream& operator<<(ostream &out, const VendeMaisMais &supermarket){
 	out << "supermarket " << supermarket.getStoreName() << endl << "Conta atualmente com:" << endl << supermarket.clientsVector.size() << " clientes" << endl << supermarket.productsVector.size() << " produtos no stock" << endl << supermarket.transactionsVector.size() << "transacoes realizadas, num valor total de " << totalAmountSpent(supermarket) << endl;
-    for(map<string,int>::const_iterator p = supermarket.clientIdx.begin(); p != supermarket.clientIdx.end(); p++)
-        cout << p->first << " - " << p->second << endl;
-    for(map<string,int>::const_iterator p = supermarket.productIdx.begin(); p != supermarket.productIdx.end(); p++)
-        cout << p->first << " - " << p->second << endl;
-    for(multimap<int,int>::const_iterator p = supermarket.transactionIdx.begin(); p != supermarket.transactionIdx.end(); p++)
-        cout << p->first << " - " << p->second << endl;
 
     return out;
 }
