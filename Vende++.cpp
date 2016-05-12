@@ -15,22 +15,25 @@ VendeMaisMais::VendeMaisMais(string store, string clientsFileName, string produc
 
   unsigned int numberOfClients;
   clientsRead >> numberOfClients;
+  unsigned int numberOfProducts;
+  productsRead >> numberOfProducts;
+  unsigned int numberOfTransactions;
+  transactionsRead >> numberOfTransactions;
+
   clientsRead.ignore(numeric_limits<int>::max(), '\n');
   for(int counter = 0; counter < numberOfClients; counter++) {
-    Client c1 = Client(clientsRead);
+	Client c1 = Client(clientsRead);
     clientsVector.push_back(c1);
   }
 
-  unsigned int numberOfProducts;
-  productsRead >> numberOfProducts;
+
   productsRead.ignore(numeric_limits<int>::max(), '\n');
   for(int counter = 0; counter < numberOfProducts; counter++) {
     Product p1 = Product(productsRead);
     productsVector.push_back(p1);
   }
 
-  unsigned int numberOfTransactions;
-  transactionsRead >> numberOfTransactions;
+
   transactionsRead.ignore(numeric_limits<int>::max(), '\n');
   for(int counter = 0; counter < numberOfTransactions; counter++) {
     Transaction t1 = Transaction(transactionsRead);
@@ -211,6 +214,23 @@ void VendeMaisMais::addTransaction() {
     transactionIdx.insert(pair<int,int>(newTranId, newTranIndex));
 }
 
+void VendeMaisMais::showTransactionsBetweenDates() {
+    cin.ignore(numeric_limits<int>::max(),'\n');
+    string date1, date2;
+    cout << "Insert the date corresponding to the period beginning: ";
+    getline(cin, date1);
+    Date d1 = Date(date1);
+    cout << "Insert the date corresponding to the period end: ";
+    getline(cin, date2);
+    Date d2 = Date(date2);
+
+    cout << "Transactions made between " << d1 << " and " << d2 << " (including themselves):" << endl;
+    for(int index = 0; index < transactionsVector.size(); index++){
+        if(transactionsVector.at(index).getDateOfTransaction() >= d1 && transactionsVector.at(index).getDateOfTransaction() <= d2)
+            cout << transactionsVector.at(index) << endl;
+    }
+}
+
 void VendeMaisMais::showClientTransactions(string name) const {
     map<string,int>::const_iterator name_it = clientIdx.find(name); //returns iterator pointing to client's index in clients vector
     unsigned int cliUniqueId = clientsVector.at(name_it->second).getId(); //returns client's unique ID
@@ -225,8 +245,12 @@ void VendeMaisMais::showClientTransactions(unsigned int cliUniqueId) const {
             clientTransactionsTemp.push_back(transactionsVector.at(id_it->second)); //If ID matches client ID, push transaction with index pointed by id_it
     }
 
-    //Sorting vector according to comparison function defined in Transaction class
+    //Sorting vector according to comparison function defined in utils header
     sort(clientTransactionsTemp.begin(), clientTransactionsTemp.end(), compareTrans);
+
+    for(int index = 0; index < clientTransactionsTemp.size(); index++)
+        cout << clientTransactionsTemp.at(index) << endl;
+}
 
 
 void VendeMaisMais::saveChanges() const{
@@ -251,14 +275,7 @@ void VendeMaisMais::saveChanges() const{
 
 //Print supermarket
 ostream& operator<<(ostream &out, const VendeMaisMais &supermarket){
-    out << "supermarket " << supermarket.getStoreName() << endl << "Conta atualmente com:" << endl << supermarket.clientsVector.size() <<
-    " clientes" << endl << supermarket.productsVector.size() << " produtos no stock" << endl << supermarket.transactionsVector.size() << "transacoes realizadas, num valor total de " << totalAmountSpent(supermarket) << endl;
-    for(int index = 0; index < supermarket.clientsVector.size(); index++)
-        out << supermarket.clientsVector.at(index) << endl;
-    for(int index = 0; index < supermarket.productsVector.size(); index++)
-        out << supermarket.productsVector.at(index) << endl;
-    for(int index = 0; index < supermarket.transactionsVector.size(); index++)
-        out << supermarket.transactionsVector.at(index) << endl;
+	out << "supermarket " << supermarket.getStoreName() << endl << "Conta atualmente com:" << endl << supermarket.clientsVector.size() << " clientes" << endl << supermarket.productsVector.size() << " produtos no stock" << endl << supermarket.transactionsVector.size() << "transacoes realizadas, num valor total de " << totalAmountSpent(supermarket) << endl;
 
     return out;
 }
@@ -298,13 +315,13 @@ unsigned int readClientId(const VendeMaisMais &supermarket) {
 
 float totalAmountSpent(const VendeMaisMais &supermarket) {
     float sum = 0;
-    for(int mainindex = 0; mainindex < supermarket.transactionsVector.size(); mainindex++){
+    /*for(int mainindex = 0; mainindex < supermarket.transactionsVector.size(); mainindex++){
         for(int secondaryindex = 0; secondaryindex < supermarket.transactionsVector.at(mainindex).getProductsBought().size(); secondaryindex++){
             int currentProductIndex = (supermarket.productIdx.find(supermarket.transactionsVector.at(mainindex).getProductsBought().at(secondaryindex)))->second;
             float currentProductCost = supermarket.productsVector.at(currentProductIndex).getCost();
             sum = sum + currentProductCost;
         }
-    }
+    }*/
 
     return sum;
 }

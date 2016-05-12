@@ -147,7 +147,8 @@ void transactionsManagementOption(VendeMaisMais &supermarket){
   while((option = transactionsManagementMenu()))
     switch (option){
     case 1:
-      break;
+        supermarket.showTransactionsBetweenDates();
+        break;
     case 2: {
         cout << TAB << "Choose the way you want to identify the client:" << endl;
         cout << TAB << "1 - Specify client unique ID" << endl;

@@ -71,3 +71,7 @@ string readYesNo() {
 
     return answer;
 }
+
+bool compareTrans(const Transaction &tran1, const Transaction &tran2) {
+    return tran1.getDateOfTransaction() <= tran2.getDateOfTransaction();
+}

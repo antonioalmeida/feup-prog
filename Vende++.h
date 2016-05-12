@@ -41,6 +41,7 @@ class VendeMaisMais{
   void addClient(Client newClient);
   void removeSpecificClient(string name);
   void addTransaction();
+  void showTransactionsBetweenDates();
   void showClientTransactions(string name) const; //Overloaded function since user can choose between specifying client ID or name to show the respective transactions
   void showClientTransactions(unsigned int cliUniqueId) const; //Overloaded function since user can choose between specifying client ID or name to show the respective transactions
   void saveChanges() const;

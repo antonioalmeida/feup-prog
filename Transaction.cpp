@@ -103,7 +103,3 @@ ostream& operator<<(ostream& out, const Transaction &trans) {
     }
     return out;
 }
-
-bool compareTrans(const Transaction &tran1, const Transaction &tran2) {
-    return tran1.dateOfTransaction <= tran2.dateOfTransaction;
-}
