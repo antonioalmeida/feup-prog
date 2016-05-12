@@ -17,7 +17,7 @@ Client::Client(ifstream &in) {
 
 //Version to add clients in menu
 Client::Client(string name, Date joinDate, float shopVolume) {
-    
+
     this->name = name;
     this->joinDate = joinDate;
     this->shopVolume = shopVolume;
@@ -47,12 +47,12 @@ void Client::changeClientJoinDate(Date newDate) {
     joinDate = newDate;
 }
 
-void Client::changeClientId(unsigned int newId) {
-    id = newId;
-}
-
 void Client::updateShopVolume(float sum) {
     shopVolume = shopVolume + sum;
+}
+
+void Client::changeClientId(unsigned int newId) {
+    id = newId;
 }
 
 void Client::save(ofstream &out) const {

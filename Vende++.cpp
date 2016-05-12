@@ -47,7 +47,7 @@ VendeMaisMais::VendeMaisMais(string store, string clientsFileName, string produc
 
   //<string,int> map - Each client's name to its position on the clients vector
   for(int counter = 0; counter < numberOfClients; counter++){
-    clientIdx[clientsVector.at(counter).getName()] = counter;
+    clientIdx.insert(pair<string,int>(clientsVector.at(counter).getName(), counter));
   }
 
   //<string,int> map - Each product's name to its position on the products vector
@@ -152,13 +152,13 @@ void VendeMaisMais::editSpecificClient(string name) {
 }
 
 void VendeMaisMais::addClient(Client newClient) {
-    
+
     //Set client's Id
     newClient.changeClientId(maxClientID+1);
-    
+
     //Add client to clientsVector
     clientsVector.push_back(newClient);
-        
+
     //Add client to map
     clientIdx.insert(pair<string, int>(newClient.getName(), clientsVector.size()-1));
 }
@@ -197,6 +197,7 @@ void VendeMaisMais::addTransaction() {
         sum = sum + currentProductCost;
     }
 
+    //Loop to update client's shopping volume
     for(int index = 0; index < clientsVector.size(); index++){
         if(clientsVector.at(index).getId() == newTranId){
             clientsVector.at(index).updateShopVolume(sum);
@@ -204,7 +205,28 @@ void VendeMaisMais::addTransaction() {
         }
     }
     clientsAltered = true;
+
+    //Update transaction multimap
+    int newTranIndex = transactionsVector.size() - 1;
+    transactionIdx.insert(pair<int,int>(newTranId, newTranIndex));
 }
+
+void VendeMaisMais::showClientTransactions(string name) const {
+    map<string,int>::const_interator name_it = clientIdx.find(name); //returns iterator pointing to client's index in clients vector
+    unsigned int cliUniqueId = clientsVector.at(name_it->second).getId(); //returns client's unique ID
+    showClientTransactions(cliUniqueId);
+}
+
+void VendeMaisMais::showClientTransactions(unsigned int cliUniqueId) const {
+    vector<Transaction> clientTransactionsTemp;
+    multimap<int,int>::const_iterator id_it = transactionIdx.begin();
+    for(id_it; id_it != transactionIdx.end(); id_it++){
+        if(id_it->first == cliUniqueId)
+            clientTransactionsTemp.push_back(transactionsVector.at(id_it->second)); //If ID matches client ID, push transaction with index pointed by id_it
+    }
+    //Organizar vetor transacoes (criar comparador de transacoes pela data) e mostrar
+}
+
 
 void VendeMaisMais::saveChanges() const{
     if(clientsAltered){
@@ -259,6 +281,19 @@ string readClientName(const VendeMaisMais &supermarket) {
     return clientName;
 }
 
+unsigned int readClientId(const VendeMaisMais &supermarket) {
+    unsigned int customerId;
+    multimap<int,int>::const_iterator id_it;
+    cout << "Insert the client's ID: ";
+    do{
+        cin >> customerId;
+        id_it = supermarket.transactionIdx.find(customerId);
+        if(id_it == supermarket.transactionIdx.end()) //Means that ID was not found
+            cout << "ERROR: Invalid client ID, please insert a valid value: ";
+    }while(id_it == supermarket.transactionIdx.end());
+
+    return customerId;
+}
 
 float totalAmountSpent(const VendeMaisMais &supermarket) {
     float sum = 0;

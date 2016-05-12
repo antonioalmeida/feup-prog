@@ -41,9 +41,12 @@ class VendeMaisMais{
   void addClient(Client newClient);
   void removeSpecificClient(string name);
   void addTransaction();
+  void showClientTransactions(string name) const; //Overloaded function since user can choose between specifying client ID or name to show the respective transactions
+  void showClientTransactions(unsigned int cliUniqueId) const; //Overloaded function since user can choose between specifying client ID or name to show the respective transactions
   void saveChanges() const;
 
   friend ostream& operator<<(ostream &out, const VendeMaisMais &supermarket);
   friend string readClientName(const VendeMaisMais &supermarket); //Loops until a valid client name is read
+  friend unsigned int readClientId(const VendeMaisMais &supermarket); //Loops until a valid client ID is read
   friend float totalAmountSpent(const VendeMaisMais &supermarket); //Calculates the total amount spent by all clients (used for showing supermarket's statistics)
 };

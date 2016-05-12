@@ -6,7 +6,6 @@
 #include "Menus.h"
 #include "utils.h"
 
-
 int main(){
   string store, clientsFileName, productsFileName, transactionsFileName;
 
@@ -14,11 +13,10 @@ int main(){
   if(!validState)
     return -1;
 
-  VendeMaisMais supermercado(store, clientsFileName, productsFileName, transactionsFileName);
+  VendeMaisMais supermarket(store, clientsFileName, productsFileName, transactionsFileName);
 
-  cout << "Informacao da loja '" << store << " do supermercado Vende++:" << endl;
-  cout << supermercado << endl;
-
-  mainOption(supermercado);
+  cout << "Informacao da loja '" << store << " do supermarket Vende++:" << endl;
+  cout << supermarket << endl;
+  mainOption(supermarket);
   return 0;
 }

@@ -1,5 +1,4 @@
 #include "Menus.h"
-#include <cstdlib>
 
 
 bool initialInformation(string &store, string &clientsFileName, string &productsFileName, string &transactionsFileName) {
@@ -56,7 +55,7 @@ unsigned short int clientManagementMenu(){
   cout << TAB << "5 - Remove a client" << endl;
   cout << TAB << "0 - Go back to main menu" << endl << endl;
   cout << TAB << "Choose an option: ";
-  option = readUnsignedShortInt(0, 4);
+  option = readUnsignedShortInt(0, 5);
 
   return option;
 }
@@ -125,7 +124,6 @@ void clientManagementOption(VendeMaisMais &supermarket){
 unsigned short int transactionsManagementMenu(){
 
     unsigned int option;
-    string name;
 
     clearScreen();
     cout << TAB_BIG << "-------------------" << endl;
@@ -136,6 +134,7 @@ unsigned short int transactionsManagementMenu(){
     cout << TAB << "2 - Show a client's transactions (by chronological order)" << endl;
     cout << TAB << "3 - Add a transaction (make a purchase)" << endl;
     cout << TAB << "4 - Show transactions made on a specific date" << endl;
+    cout << TAB << "5 - Show all transactions made" << endl;
     cout << TAB << "0 - Leave for main menu" << endl << endl;
     cout << TAB << "Choose an option: ";
     option = readUnsignedShortInt(0, 4);
@@ -149,8 +148,29 @@ void transactionsManagementOption(VendeMaisMais &supermarket){
     switch (option){
     case 1:
       break;
-    case 2:
-      break;
+    case 2: {
+        cout << TAB << "Choose the way you want to identify the client:" << endl;
+        cout << TAB << "1 - Specify client unique ID" << endl;
+        cout << TAB << "2 - Specify client name" << endl;
+        cout << TAB << "0 - Back to transaction menu" << endl;
+
+        unsigned int option = readUnsignedShortInt(0,2);
+        switch(option){
+            case 0:
+                break;
+            case 1:{
+                unsigned int cliUniqueId = readClientId(supermarket);
+                supermarket.showClientTransactions(cliUniqueId);
+                break;
+            }
+            case 2:{
+                string cliName = readClientName(supermarket);
+                supermarket.showClientTransactions(cliName);
+                break;
+            }
+        }
+        break;
+    }
     case 3:
         supermarket.addTransaction();
         break;
