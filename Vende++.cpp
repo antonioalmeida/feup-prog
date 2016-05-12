@@ -151,6 +151,25 @@ void VendeMaisMais::editSpecificClient(string name) {
     
 }
 
+void VendeMaisMais::removeSpecificClient(string name) {
+    
+    //Search for client
+    map<string,int>::const_iterator p = clientIdx.find(name);
+    
+    //Remove in vector
+    clientsVector.erase(clientsVector.begin() + p->second);
+    
+    clientIdx.clear();
+    
+    //Change index in map
+    //<string,int> map - Each product's name to its position on the products vector
+    for( int counter = 0 ; counter < clientsVector.size() ; counter++){
+        
+        clientIdx.insert(pair<string,int>(clientsVector.at(counter).getName(), counter));
+    }
+}
+
+
 void VendeMaisMais::addTransaction() {
     Transaction newTransaction = Transaction(transactionIdx,productIdx);
     transactionsVector.push_back(newTransaction);
@@ -195,6 +214,7 @@ void VendeMaisMais::saveChanges() const{
     }
 }
 
+//Print supermarket
 ostream& operator<<(ostream &out, const VendeMaisMais &supermercado){
     out << "Supermercado " << supermercado.getStoreName() << endl << "Conta atualmente com:" << endl << supermercado.clientsVector.size() <<
     " clientes" << endl << supermercado.productsVector.size() << " produtos no stock" << endl << supermercado.transactionsVector.size() << "transacoes realizadas, num valor total de " << /*adicionar funcao para calcular valor total gasto? << */ endl;

@@ -38,6 +38,7 @@ class VendeMaisMais{
   void listProductsAlphabetically() const;
   void showSpecificClient(string name) const;
   void editSpecificClient(string name);
+  void removeSpecificClient(string name);
   void addTransaction();
   void saveChanges() const;
 

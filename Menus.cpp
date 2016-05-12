@@ -65,28 +65,33 @@ void clientManagementOption(VendeMaisMais &supermarket){
 
   while((option = clientManagementMenu())) //When option = 0, it is interpreted logically as false and exits loop
     switch (option){
-    case 1:
-    supermarket.listClientsAlphabetically();
-    break;
-    case 2:{
-    cout << "What is the client's name? : ";
-    cin.ignore(INT_MAX,'\n');
-    string clientName = readClientName(supermarket);
-    cout << endl;
-    supermarket.showSpecificClient(clientName);
-    break;
-    }
-    case 3:
-    cout << "What is the client's name? : ";
-    cin.ignore(INT_MAX,'\n');
-    string clientName = readClientName(supermarket);
-    cout << endl;
-    supermarket.editSpecificClient(clientName);
-    break;
-    //case 4:
-    //cout << "Option 4 needs implementation.";
-    //break;
-    }
+        case 1:
+            supermarket.listClientsAlphabetically();
+            break;
+        case 2:{
+            cout << "What is the client's name? : ";
+            cin.ignore(INT_MAX,'\n');
+            string clientName = readClientName(supermarket);
+            cout << endl;
+            supermarket.showSpecificClient(clientName);
+            break;
+        }
+        case 3:{
+            cout << "What is the client's name? : ";
+            cin.ignore(INT_MAX,'\n');
+            string clientName = readClientName(supermarket);
+            cout << endl;
+            supermarket.editSpecificClient(clientName);
+            break;
+        }
+        case 4:
+            cout << "What is the client's name? : ";
+            cin.ignore(INT_MAX,'\n');
+            string clientName = readClientName(supermarket);
+            cout << endl;
+            supermarket.removeSpecificClient(clientName);
+            break;
+        }
 }
 
 /* *****************************
