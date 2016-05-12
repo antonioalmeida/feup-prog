@@ -123,48 +123,48 @@ void VendeMaisMais::editSpecificClient(string name) {
 
         //Change name in map
         clientIdx.insert(p, pair<string,int>(newName, p->second));
-        
+
         //Change altered boolean to save changes
         clientsAltered = true;
     }
-    
+
     cout << "The client's current join date is " << clientsVector.at(p->second).getJoinDate() << ", would you like to change it? (yes or no) ";
-    
+
     //Verify and save answer
     answer = readYesNo();
-    
+
     if(answer == "yes") {
         cout << "What is the client's new join date? (DD/MM/YYYY) : ";
         string newDate;
         getline(cin, newDate);
         DeleteWhitespace(newDate);
-        
+
         //Create temporary date
         Date newDateClass(newDate);
-        
+
         //Change date in vector
         clientsVector.at(p->second).changeClientJoinDate(newDateClass);
-        
+
         //Change altered boolean to save changes
         clientsAltered = true;
     }
-    
+
 }
 
 void VendeMaisMais::removeSpecificClient(string name) {
-    
+
     //Search for client
     map<string,int>::const_iterator p = clientIdx.find(name);
-    
+
     //Remove in vector
     clientsVector.erase(clientsVector.begin() + p->second);
-    
+
     clientIdx.clear();
-    
+
     //Change index in map
     //<string,int> map - Each product's name to its position on the products vector
     for( int counter = 0 ; counter < clientsVector.size() ; counter++){
-        
+
         clientIdx.insert(pair<string,int>(clientsVector.at(counter).getName(), counter));
     }
 }
@@ -215,28 +215,27 @@ void VendeMaisMais::saveChanges() const{
 }
 
 //Print supermarket
-ostream& operator<<(ostream &out, const VendeMaisMais &supermercado){
-    out << "Supermercado " << supermercado.getStoreName() << endl << "Conta atualmente com:" << endl << supermercado.clientsVector.size() <<
-    " clientes" << endl << supermercado.productsVector.size() << " produtos no stock" << endl << supermercado.transactionsVector.size() << "transacoes realizadas, num valor total de " << /*adicionar funcao para calcular valor total gasto? << */ endl;
-    for(int index = 0; index < supermercado.clientsVector.size(); index++)
-        out << supermercado.clientsVector.at(index) << endl;
-    for(int index = 0; index < supermercado.productsVector.size(); index++)
-        out << supermercado.productsVector.at(index) << endl;
-    for(int index = 0; index < supermercado.transactionsVector.size(); index++)
-        out << supermercado.transactionsVector.at(index) << endl;
+ostream& operator<<(ostream &out, const VendeMaisMais &supermarket){
+    out << "supermarket " << supermarket.getStoreName() << endl << "Conta atualmente com:" << endl << supermarket.clientsVector.size() <<
+    " clientes" << endl << supermarket.productsVector.size() << " produtos no stock" << endl << supermarket.transactionsVector.size() << "transacoes realizadas, num valor total de " << totalAmountSpent(supermarket) << endl;
+    for(int index = 0; index < supermarket.clientsVector.size(); index++)
+        out << supermarket.clientsVector.at(index) << endl;
+    for(int index = 0; index < supermarket.productsVector.size(); index++)
+        out << supermarket.productsVector.at(index) << endl;
+    for(int index = 0; index < supermarket.transactionsVector.size(); index++)
+        out << supermarket.transactionsVector.at(index) << endl;
 
     return out;
-    //out.flush();
 }
 
-string readClientName(const VendeMaisMais &supermercado) {
+string readClientName(const VendeMaisMais &supermarket) {
     string clientName;
     bool nameExists = false;
-    int numberOfClients = supermercado.clientsVector.size();
+    int numberOfClients = supermarket.clientsVector.size();
     do{
         getline(cin, clientName);
         for(int index = 0; index < numberOfClients; index++){
-            if(supermercado.clientsVector.at(index).getName() == clientName){
+            if(supermarket.clientsVector.at(index).getName() == clientName){
                 nameExists = true;
                 break;
             }
@@ -248,4 +247,15 @@ string readClientName(const VendeMaisMais &supermercado) {
     return clientName;
 }
 
+float totalAmountSpent(const VendeMaisMais &supermarket) {
+    float sum = 0;
+    for(int mainindex = 0; mainindex < supermarket.transactionsVector.size(); mainindex++){
+        for(int secondaryindex = 0; secondaryindex < supermarket.transactionsVector.at(mainindex).getProductsBought().size(); secondaryindex++){
+            int currentProductIndex = (supermarket.productIdx.find(supermarket.transactionsVector.at(mainindex).getProductsBought().at(secondaryindex)))->second;
+            float currentProductCost = supermarket.productsVector.at(currentProductIndex).getCost();
+            sum = sum + currentProductCost;
+        }
+    }
 
+    return sum;
+}

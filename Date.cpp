@@ -40,6 +40,22 @@ void Date::save(ofstream &out) const{
 }
 
 ostream& operator<<(ostream& out, const Date &date){
-  out << date.day << "-" << date.month << "-" << date.year; // - instead of / just to be different from the save method...
+  out << date.day << "-" << date.month << "-" << date.year; // - instead of / just to be different from the save method
     return out;
+}
+
+bool operator<=(const Date &date1, const Date &date2) {
+    bool isBefore = (date1.year < date2.year) || (date1.year == date2.year && date1.month < date2.month) || (date1.year == date2.year && date1.month == date2.month && date1.day < date2.day);
+    bool isEqual = (date1.year == date2.year) && (date1.month == date2.month) && (date1.day == date2.day);
+    return isBefore || isEqual;
+}
+
+bool operator>=(const Date &date1, const Date &date2) {
+    bool isAfter = (date1.year > date2.year) || (date1.year == date2.year && date1.month > date2.month) || (date1.year == date2.year && date1.month == date2.month && date1.day > date2.day);
+    bool isEqual = (date1.year == date2.year) && (date1.month == date2.month) && (date1.day == date2.day);
+    return isAfter || isEqual;
+}
+
+bool operator==(const Date &date1, const Date &date2) {
+    return (date1.year == date2.year) && (date1.month == date2.month) && (date1.day == date2.day);
 }

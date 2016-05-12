@@ -42,6 +42,7 @@ class VendeMaisMais{
   void addTransaction();
   void saveChanges() const;
 
-  friend ostream& operator<<(ostream &out, const VendeMaisMais &supermercado);
-  friend string readClientName(const VendeMaisMais &supermercado); //Loops until a valid client name is read
+  friend ostream& operator<<(ostream &out, const VendeMaisMais &supermarket);
+  friend string readClientName(const VendeMaisMais &supermarket); //Loops until a valid client name is read
+  friend float totalAmountSpent(const VendeMaisMais &supermarket); //Calculates the total amount spent by all clients (used for showing supermarket's statistics)
 };
