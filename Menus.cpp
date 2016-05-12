@@ -176,7 +176,8 @@ void transactionsManagementOption(VendeMaisMais &supermarket){
         supermarket.addTransaction();
         break;
     case 4:
-      break;
+        supermarket.showTransactionsOnDate();
+        break;
     }
 }
 

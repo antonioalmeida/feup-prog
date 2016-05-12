@@ -214,7 +214,7 @@ void VendeMaisMais::addTransaction() {
     transactionIdx.insert(pair<int,int>(newTranId, newTranIndex));
 }
 
-void VendeMaisMais::showTransactionsBetweenDates() {
+void VendeMaisMais::showTransactionsBetweenDates() const {
     cin.ignore(numeric_limits<int>::max(),'\n');
     string date1, date2;
     cout << "Insert the date corresponding to the period beginning: ";
@@ -228,6 +228,33 @@ void VendeMaisMais::showTransactionsBetweenDates() {
     for(int index = 0; index < transactionsVector.size(); index++){
         if(transactionsVector.at(index).getDateOfTransaction() >= d1 && transactionsVector.at(index).getDateOfTransaction() <= d2)
             cout << transactionsVector.at(index) << endl;
+    }
+}
+
+void VendeMaisMais::showTransactionsOnDate() const {
+    cin.ignore(numeric_limits<int>::max(),'\n');
+    string date;
+    cout << "Insert the date intended: ";
+    getline(cin, date);
+    Date d1 = Date(date);
+
+    cout << "Transactions made on " << d1 << ":" << endl;
+    for(int mainindex = 0; mainindex < transactionsVector.size(); mainindex++){
+        if(transactionsVector.at(mainindex).getDateOfTransaction() == d1){
+            cout << "ID Nr." << transactionsVector.at(mainindex).getClientId() << " bought ";
+            for (int secondaryindex = 0; secondaryindex < transactionsVector.at(mainindex).getProductsBought().size(); secondaryindex++) {
+                cout << transactionsVector.at(mainindex).getProductsBought().at(secondaryindex);
+                /*Logical test: If there are more than 2 products left to show, after the first one is shown a comma is inserted.
+                If there are 2 products left, an 'and' is inserted. However, this is only done if there is more than one product.
+                If there is only one product, nothing is added after such product*/
+				if(transactionsVector.at(mainindex).getProductsBought().size() > 1) {
+                    if (secondaryindex < transactionsVector.at(mainindex).getProductsBought().size() - 2)
+                        cout << ", ";
+                    else if (secondaryindex == transactionsVector.at(mainindex).getProductsBought().size() - 2)
+                        cout << " and ";
+                    }
+            }
+        }
     }
 }
 
@@ -276,6 +303,12 @@ void VendeMaisMais::saveChanges() const{
 //Print supermarket
 ostream& operator<<(ostream &out, const VendeMaisMais &supermarket){
 	out << "supermarket " << supermarket.getStoreName() << endl << "Conta atualmente com:" << endl << supermarket.clientsVector.size() << " clientes" << endl << supermarket.productsVector.size() << " produtos no stock" << endl << supermarket.transactionsVector.size() << "transacoes realizadas, num valor total de " << totalAmountSpent(supermarket) << endl;
+    for(map<string,int>::const_iterator p = supermarket.clientIdx.begin(); p != supermarket.clientIdx.end(); p++)
+        cout << p->first << " - " << p->second << endl;
+    for(map<string,int>::const_iterator p = supermarket.productIdx.begin(); p != supermarket.productIdx.end(); p++)
+        cout << p->first << " - " << p->second << endl;
+    for(multimap<int,int>::const_iterator p = supermarket.transactionIdx.begin(); p != supermarket.transactionIdx.end(); p++)
+        cout << p->first << " - " << p->second << endl;
 
     return out;
 }
