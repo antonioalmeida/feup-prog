@@ -15,6 +15,13 @@ Client::Client(ifstream &in) {
     readTemp >> shopVolume;
 }
 
+//Version to add clients in menu
+Client::Client(string name, Date joinDate, float shopVolume) {
+    
+    this->name = name;
+    this->joinDate = joinDate;
+    this->shopVolume = shopVolume;
+}
 
 string Client::getName() const {
   return name;
@@ -38,6 +45,10 @@ void Client::changeClientName(string newName) {
 
 void Client::changeClientJoinDate(Date newDate) {
     joinDate = newDate;
+}
+
+void Client::changeClientId(unsigned int newId) {
+    id = newId;
 }
 
 void Client::updateShopVolume(float sum) {

@@ -1,4 +1,5 @@
 #include "Menus.h"
+#include <cstdlib>
 
 
 bool initialInformation(string &store, string &clientsFileName, string &productsFileName, string &transactionsFileName) {
@@ -51,7 +52,8 @@ unsigned short int clientManagementMenu(){
   cout << TAB << "1 - Show clients alphabetically" << endl;
   cout << TAB << "2 - Show a client's properties" << endl;
   cout << TAB << "3 - Edit a client's properties" << endl;
-  cout << TAB << "4 - Remove a client" << endl;
+  cout << TAB << "4 - Add a new client" << endl;
+  cout << TAB << "5 - Remove a client" << endl;
   cout << TAB << "0 - Go back to main menu" << endl << endl;
   cout << TAB << "Choose an option: ";
   option = readUnsignedShortInt(0, 4);
@@ -84,7 +86,28 @@ void clientManagementOption(VendeMaisMais &supermarket){
             supermarket.editSpecificClient(clientName);
             break;
         }
-        case 4:
+        case 4:{
+            cout << "What is the new client's name? : ";
+            cin.ignore(INT_MAX,'\n');
+            string clientName;
+            getline(cin, clientName, '\n');
+            DeleteWhitespace(clientName);
+            cout << endl;
+            cout << "What is the client's new join date? (DD/MM/YYYY) : ";
+            string clientDate;
+            getline(cin, clientDate);
+            DeleteWhitespace(clientDate);
+            //Create temporary date
+            Date newDateClass(clientDate);
+            float shopVolume;
+            cout << "What is the client's shop volume? : ";
+            cin >> shopVolume;
+            Client tempClient(clientName, newDateClass, shopVolume);
+            cin.ignore(INT_MAX, '\n');
+            supermarket.addClient(tempClient);
+            break;
+        }
+        case 5:{
             cout << "What is the client's name? : ";
             cin.ignore(INT_MAX,'\n');
             string clientName = readClientName(supermarket);
@@ -92,6 +115,7 @@ void clientManagementOption(VendeMaisMais &supermarket){
             supermarket.removeSpecificClient(clientName);
             break;
         }
+    }
 }
 
 /* *****************************

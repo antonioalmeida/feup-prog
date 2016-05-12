@@ -151,6 +151,18 @@ void VendeMaisMais::editSpecificClient(string name) {
 
 }
 
+void VendeMaisMais::addClient(Client newClient) {
+    
+    //Set client's Id
+    newClient.changeClientId(maxClientID+1);
+    
+    //Add client to clientsVector
+    clientsVector.push_back(newClient);
+        
+    //Add client to map
+    clientIdx.insert(pair<string, int>(newClient.getName(), clientsVector.size()-1));
+}
+
 void VendeMaisMais::removeSpecificClient(string name) {
 
     //Search for client
@@ -246,6 +258,7 @@ string readClientName(const VendeMaisMais &supermarket) {
 
     return clientName;
 }
+
 
 float totalAmountSpent(const VendeMaisMais &supermarket) {
     float sum = 0;
