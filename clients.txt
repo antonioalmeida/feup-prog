@@ -1,5 +1,5 @@
 4
-1 ; Rui das Peras ; 1/12/2016 ; 2.7
+1 ; Rui das Peras ; 2/10/2016 ; 2.7
 2 ; Maria de Lurdes ; 23/4/2009 ; 6
 6 ; Joana Beires ; 15/10/2010 ; 7.5
 16 ; Manuela Moura ; 31/3/2016 ; 8.3
