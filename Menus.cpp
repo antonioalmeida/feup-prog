@@ -69,7 +69,7 @@ void clientManagementOption(VendeMaisMais &supermarket){
     supermarket.listClientsAlphabetically();
     break;
     case 2:{
-    cout << "What is the clients name? : ";
+    cout << "What is the client's name? : ";
     cin.ignore(INT_MAX,'\n');
     string clientName = readClientName(supermarket);
     cout << endl;
