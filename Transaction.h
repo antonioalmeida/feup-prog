@@ -30,4 +30,5 @@ class Transaction {
   vector<string> getProductsBought() const;
   void save(ofstream &out) const;
   friend ostream& operator<<(ostream &out, const Transaction &trans);
+  friend bool compareTrans(const Transaction &tran1, const Transaction &tran2); //Compares two transactions; returns true if tran1 was made before tran2 in the Gregorian calendar
 };

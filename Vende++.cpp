@@ -212,7 +212,7 @@ void VendeMaisMais::addTransaction() {
 }
 
 void VendeMaisMais::showClientTransactions(string name) const {
-    map<string,int>::const_interator name_it = clientIdx.find(name); //returns iterator pointing to client's index in clients vector
+    map<string,int>::const_iterator name_it = clientIdx.find(name); //returns iterator pointing to client's index in clients vector
     unsigned int cliUniqueId = clientsVector.at(name_it->second).getId(); //returns client's unique ID
     showClientTransactions(cliUniqueId);
 }
@@ -224,8 +224,9 @@ void VendeMaisMais::showClientTransactions(unsigned int cliUniqueId) const {
         if(id_it->first == cliUniqueId)
             clientTransactionsTemp.push_back(transactionsVector.at(id_it->second)); //If ID matches client ID, push transaction with index pointed by id_it
     }
-    //Organizar vetor transacoes (criar comparador de transacoes pela data) e mostrar
-}
+
+    //Sorting vector according to comparison function defined in Transaction class
+    sort(clientTransactionsTemp.begin(), clientTransactionsTemp.end(), compareTrans);
 
 
 void VendeMaisMais::saveChanges() const{
