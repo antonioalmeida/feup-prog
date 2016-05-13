@@ -23,3 +23,9 @@ int readInteger(int minValue, int maxValue);
 string readYesNo ();
 
 bool compareTrans(const Transaction &tran1, const Transaction &tran2); //Compares two transactions; returns true if tran1 was made before tran2 in the Gregorian calendar
+
+//Checks if leap year
+bool isLeapYear(int year);
+
+//Returns the number of days on a given month
+int numDays(unsigned int year,unsigned int month);

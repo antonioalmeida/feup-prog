@@ -1,4 +1,5 @@
 #include "Date.h"
+#include "utils.h"
 
 
 Date::Date(string date) {
@@ -59,3 +60,33 @@ bool operator>=(const Date &date1, const Date &date2) {
 bool operator==(const Date &date1, const Date &date2) {
     return (date1.year == date2.year) && (date1.month == date2.month) && (date1.day == date2.day);
 }
+
+
+//Function to verify date
+bool Date::verifyDate() const {
+    
+    bool result;
+    
+    if(numDays(year, month) >= day && month > 0 && month < 13)
+        result = true;
+    else {
+        cout << "The date you inserted was not valid, please try again." << endl;
+        result = false;
+    }
+    return result;
+}
+
+
+        
+
+
+
+
+
+
+
+
+
+
+
+

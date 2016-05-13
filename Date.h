@@ -7,6 +7,8 @@
 #include <string>
 #include <limits>
 
+#include "utils.h"
+
 using namespace std;
 
 
@@ -26,6 +28,7 @@ class Date {
   void setMonth(unsigned int month);
   void setYear(unsigned int year);
   void save(ofstream &out) const;
+  bool verifyDate() const;
 
   friend ostream& operator<<(ostream& out, const Date &date);
   friend bool operator<=(const Date &date1, const Date &date2); //Compares date1 with date2; returns true if date1 does not come after date2 in the Gregorian calendar

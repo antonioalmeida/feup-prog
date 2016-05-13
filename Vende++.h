@@ -47,6 +47,7 @@ class VendeMaisMais{
   void showClientTransactions(string name) const; //Overloaded function since user can choose between specifying client ID or name to show the respective transactions
   void showClientTransactions(unsigned int cliUniqueId) const; //Overloaded function since user can choose between specifying client ID or name to show the respective transactions
   void saveChanges() const;
+  void showBottom10() const;
 
   friend ostream& operator<<(ostream &out, const VendeMaisMais &supermarket);
   friend string readClientName(const VendeMaisMais &supermarket); //Loops until a valid client name is read

@@ -114,6 +114,9 @@ void clientManagementOption(VendeMaisMais &supermarket){
             supermarket.removeSpecificClient(clientName);
             break;
         }
+        case 6:{
+            //supermarket.showBottom10();
+        }
     }
 }
 

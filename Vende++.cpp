@@ -137,14 +137,19 @@ void VendeMaisMais::editSpecificClient(string name) {
     answer = readYesNo();
 
     if(answer == "yes") {
-        cout << "What is the client's new join date? (DD/MM/YYYY) : ";
-        string newDate;
-        getline(cin, newDate);
-        DeleteWhitespace(newDate);
+        
+        Date newDateClass;
+        
+        do {
+            cout << "What is the client's new join date? (DD/MM/YYYY) : ";
+            string newDate;
+            getline(cin, newDate);
+            DeleteWhitespace(newDate);
 
-        //Create temporary date
-        Date newDateClass(newDate);
-
+            //Create temporary date
+            Date newDateClass(newDate);
+        } while(!newDateClass.verifyDate());
+        
         //Change date in vector
         clientsVector.at(p->second).changeClientJoinDate(newDateClass);
 
@@ -158,6 +163,7 @@ void VendeMaisMais::addClient(Client newClient) {
 
     //Set client's Id
     newClient.changeClientId(maxClientID+1);
+    maxClientID++;
 
     //Add client to clientsVector
     clientsVector.push_back(newClient);
@@ -361,4 +367,8 @@ float totalAmountSpent(const VendeMaisMais &supermarket) {
     }*/
 
     return sum;
+}
+
+void VendeMaisMais::showBottom10() const {
+    //Needs implementation
 }

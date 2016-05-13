@@ -75,3 +75,32 @@ string readYesNo() {
 bool compareTrans(const Transaction &tran1, const Transaction &tran2) {
     return tran1.getDateOfTransaction() <= tran2.getDateOfTransaction();
 }
+
+
+//Check if leap year
+bool isLeapYear(int year) {
+    bool leap = true;
+    if(year%4 == 0) {
+        if(year%100 == 0) {
+            if(year%400!=0) leap = false;
+        }
+    }
+    
+    if(leap) return true;
+    else return false;
+}
+
+//Returns the number of days on a given month
+int numDays(int year, int month) {
+    
+    int days;
+    
+    if(month==1 || month==3 || month==5 || month==7 || month==8 || month==10 || month==12) days = 31;
+    else if(month == 2) {
+        if(isLeapYear(year)) days = 29;
+        else days = 28;
+    }
+    else days = 30;
+    
+    return days;
+}
