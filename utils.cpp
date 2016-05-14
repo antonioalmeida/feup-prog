@@ -98,3 +98,11 @@ unsigned int numDays(unsigned int year,unsigned int month) {
 
     return days;
 }
+
+bool isMember(const vector<int> &idVector, int id) {
+    for(int index = 0; index < idVector.size(); index++){
+        if(idVector.at(index) == id)
+            return true;
+    }
+    return false;
+}

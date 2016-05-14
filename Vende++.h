@@ -40,14 +40,16 @@ class VendeMaisMais{
   void editSpecificClient(string name);
   void addClient(Client newClient);
   void removeSpecificClient(string name);
+  void showBottom10() const;
   void addTransaction();
   void showTransactionsBetweenDates() const;
   void showTransactionsOnDate() const;
   void showAllTransactions() const;
   void showClientTransactions(string name) const; //Overloaded function since user can choose between specifying client ID or name to show the respective transactions
   void showClientTransactions(unsigned int cliUniqueId) const; //Overloaded function since user can choose between specifying client ID or name to show the respective transactions
+  void recommendProductSingleClient() const;
+  void recommendProductBottom10() const;
   void saveChanges() const;
-  void showBottom10() const;
 
   friend ostream& operator<<(ostream &out, const VendeMaisMais &supermarket);
   friend string readClientName(const VendeMaisMais &supermarket); //Loops until a valid client name is read

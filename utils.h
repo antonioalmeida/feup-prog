@@ -29,3 +29,6 @@ bool isLeapYear(int year);
 
 //Returns the number of days on a given month
 unsigned int numDays(unsigned int year,unsigned int month);
+
+//Checks if given number(ID) is already in the vector
+bool isMember(const vector<int> &idVector, int id);

@@ -138,11 +138,11 @@ void VendeMaisMais::editSpecificClient(string name) {
     answer = readYesNo();
 
     if(answer == "yes") {
-        
+
         string newDate;
         Date newDateClass;
         bool exit = false;
-        
+
         do {
             cout << "What is the client's new join date? (DD/MM/YYYY) : ";
             getline(cin, newDate);
@@ -150,14 +150,14 @@ void VendeMaisMais::editSpecificClient(string name) {
 
             //Create temporary date
             Date newDateClass(newDate);
-            
+
             exit = newDateClass.verifyDate();
-            
+
             if(exit) //Change date in vector
                 clientsVector.at(p->second).changeClientJoinDate(newDateClass);
-            
+
         } while(!exit);
-        
+
         //Change altered boolean to save changes
         clientsAltered = true;
     }
@@ -195,6 +195,9 @@ void VendeMaisMais::removeSpecificClient(string name) {
     }
 }
 
+void VendeMaisMais::showBottom10() const {
+    //Needs implementation
+}
 
 void VendeMaisMais::addTransaction() {
     vector<int> idVector;
@@ -300,6 +303,112 @@ void VendeMaisMais::showClientTransactions(unsigned int cliUniqueId) const {
         cout << clientTransactionsTemp.at(index) << endl;
 }
 
+void VendeMaisMais::recommendProductSingleClient() const {
+    map<int,int> clientIdtoIndex; //int to int map that translates each client's ID to his position in the matrix used
+    /*vector that contains every ID that made at least one transaction and respective initialization
+    Note that simply getting the IDs from current clients is not good practice,
+    since it is relatively likely that there are clients with no transactions or transactions from clients who have been removed*/
+    vector<int> idsThatMadeTransactions;
+    for(int index = 0; index < transactionsVector.size(); index++){
+        if(!isMember(idsThatMadeTransactions, transactionsVector.at(index).getClientId()))
+            idsThatMadeTransactions.push_back(transactionsVector.at(index).getClientId());
+    }
+    //Sorting makes it easier
+    sort(idsThatMadeTransactions.begin(), idsThatMadeTransactions.end());
+
+    //Initializing int to int client ID to matrix position map
+    for(int counter = 0; counter < idsThatMadeTransactions.size(); counter++)
+        clientIdtoIndex.insert(pair<int,int>(idsThatMadeTransactions.at(counter), counter));
+
+    /*PRINTING TEST (DELETE)
+    for(map<int,int>::const_iterator p = clientIdtoIndex.begin(); p != clientIdtoIndex.end(); p++)
+        cout << p->first << " - " << p->second << endl;*/
+
+    //Matrix initialization with the conditions required
+    vector<vector<bool>> marketingmatrix(clientIdtoIndex.size(), vector<bool>(productsVector.size(),false));
+
+    //Changing every bought product on each client boolean to #t
+    for(int clientindex = 0; clientindex < marketingmatrix.size(); clientindex++){
+        for(int transactionindex = 0; transactionindex < transactionsVector.size(); transactionindex++){
+            if(clientIdtoIndex[transactionsVector.at(transactionindex).getClientId()] == clientindex) { //If ID of the client from current transaction is the one from the current loop in the marketing matrix
+                    vector<string> products = transactionsVector.at(transactionindex).getProductsBought();
+                    for(int productindex = 0; productindex < products.size(); productindex++){
+                        int productIndexInMatrix = (productIdx.find(products.at(productindex)))->second;
+                        marketingmatrix.at(clientindex).at(productIndexInMatrix) = true;
+                    }
+            }
+        }
+    }
+
+    /*PRINTING TEST (DELETE)
+    for(int i = 0; i < marketingmatrix.size(); i++){
+        cout << "Index " << i << " - ";
+        for(int j = 0; j < productsVector.size(); j++)
+            cout << marketingmatrix.at(i).at(j) << " ";
+        cout << endl;
+    }*/
+
+    //Reading target client ID
+    unsigned int targetId;
+    cout << "Insert the target client's ID: ";
+    map<int,int>::const_iterator id_it;
+    do{
+        cin >> targetId;
+        id_it = clientIdtoIndex.find(targetId);
+        if(id_it == clientIdtoIndex.end()) //Invalid ID
+            cout << "ERROR: Invalid client ID, please insert a valid ID: ";
+    }while(id_it == clientIdtoIndex.end());
+
+    //Vector that counts number of common products between each client and the target client (target client if left with 0 so it is ignored later)
+    vector<int> numberOfCommonProducts(marketingmatrix.size(), 0);
+    int targetIndex = clientIdtoIndex[targetId];
+    for(int index = 0; index < marketingmatrix.size(); index++){
+        if(index != targetIndex) { //If it's not the target client
+            for(int productindex = 0; productindex < productsVector.size(); productindex++){
+                if(marketingmatrix.at(index).at(productindex) && marketingmatrix.at(targetIndex).at(productindex)) //If both products are set as #t
+                    numberOfCommonProducts.at(index)++;
+            }
+        }
+    }
+
+    /*PRINTING TEST (DELETE)
+    for(int k = 0; k < numberOfCommonProducts.size(); k++)
+        cout << "index " << k << " - " << numberOfCommonProducts.at(k) << endl;*/
+
+    //Holds the maximum number of common products (used for next loop)
+    int maxCommon = *(max_element(numberOfCommonProducts.begin(),numberOfCommonProducts.end()));
+
+    //Vector that holds all indexes of products that most common clients have bought and target client has not (with repetitions, so the maximum can be calculated and presented soon after)
+    vector<int> indexesOfPossibleProducts;
+    for(int index = 0; index < marketingmatrix.size(); index++){
+        if(numberOfCommonProducts.at(index) == maxCommon) { //If current client is (one of) the most common
+            for(int productindex = 0; productindex < productsVector.size(); productindex++){
+                if(marketingmatrix.at(index).at(productindex) && !marketingmatrix.at(targetIndex).at(productindex)) //If common client has bought the product and target client has not
+                    indexesOfPossibleProducts.push_back(productindex);
+            }
+        }
+    }
+
+    //Determine the suggested product's index
+    int currentMax = 0;
+    int suggestedProductIndex = indexesOfPossibleProducts.at(0);
+    for(int index = 0; index < indexesOfPossibleProducts.size(); index++)
+    {
+        int temp = (int)count(indexesOfPossibleProducts.begin(), indexesOfPossibleProducts.end(), indexesOfPossibleProducts.at(index)); //Count occurrences of current product
+        if(temp > currentMax)
+        {       currentMax = temp;
+                suggestedProductIndex = indexesOfPossibleProducts.at(index);
+        }
+    }
+
+    //Suggesting
+    cout << "ID Nr." << targetId << ", you should buy " << productsVector.at(suggestedProductIndex).getName() << ", it only costs " << productsVector.at(suggestedProductIndex).getCost() << "!" << endl;
+}
+
+void VendeMaisMais::recommendProductBottom10() const {
+    //Needs implementation
+}
+
 
 void VendeMaisMais::saveChanges() const{
     if(clientsAltered){
@@ -372,8 +481,4 @@ float totalAmountSpent(const VendeMaisMais &supermarket) {
     }*/
 
     return sum;
-}
-
-void VendeMaisMais::showBottom10() const {
-    //Needs implementation
 }

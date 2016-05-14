@@ -199,31 +199,25 @@ unsigned short int recommendationMenu(){
     cout << TAB_BIG << "-Recommendation Menu-" << endl;
     cout << TAB_BIG << "---------------------" << endl;
     cout << endl;
-    cout << TAB << "1 - Show transactions between two dates" << endl;
-    cout << TAB << "2 - Show a client's transactions (by chronological order)" << endl;
-    cout << TAB << "3 - Add a transaction (make a purchase)" << endl;
-    cout << TAB << "4 - Show transactions made on a specific date" << endl;
-    cout << TAB << "5 - Show all transactions made" << endl;
+    cout << TAB << "1 - Recommend product for a single client" << endl;
+    cout << TAB << "2 - Recommend product for 'Bottom10' clients" << endl;
     cout << TAB << "0 - Leave for main menu" << endl << endl;
     cout << TAB << "Choose an option: ";
-    option = readUnsignedShortInt(0, 5);
+    option = readUnsignedShortInt(0, 2);
     return option;
-    return 0;
 }
 
-void recommendationOption(VendeMaisMais & supermarket){
+void recommendationOption(VendeMaisMais &supermarket){
   unsigned int option;
 
   while((option = recommendationMenu()))
     switch (option){
     case 1:
-      break;
+        supermarket.recommendProductSingleClient();
+        break;
     case 2:
-      break;
-    case 3:
-      break;
-    case 4:
-      break;
+        supermarket.recommendProductBottom10();
+        break;
     }
 
 }
