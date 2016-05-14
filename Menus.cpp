@@ -45,7 +45,7 @@ unsigned short int clientManagementMenu(){
 
   clearScreen();
   cout << TAB_BIG << "----------------------" << endl;
-  cout << TAB_BIG << "-Menu Gestao Clientes-" << endl;
+  cout << TAB_BIG << "-----Client menu------" << endl;
   cout << TAB_BIG << "----------------------" << endl;
   cout << endl;
   cout << TAB << "1 - Show clients alphabetically" << endl;
@@ -53,9 +53,10 @@ unsigned short int clientManagementMenu(){
   cout << TAB << "3 - Edit a client's properties" << endl;
   cout << TAB << "4 - Add a new client" << endl;
   cout << TAB << "5 - Remove a client" << endl;
+  cout << TAB << "6 - Show 'Bottom10' clients" << endl;
   cout << TAB << "0 - Go back to main menu" << endl << endl;
   cout << TAB << "Choose an option: ";
-  option = readUnsignedShortInt(0, 5);
+  option = readUnsignedShortInt(0, 6);
 
   return option;
 }
@@ -98,11 +99,7 @@ void clientManagementOption(VendeMaisMais &supermarket){
             DeleteWhitespace(clientDate);
             //Create temporary date
             Date newDateClass(clientDate);
-            float shopVolume;
-            cout << "What is the client's shop volume? : ";
-            cin >> shopVolume;
-            Client tempClient(clientName, newDateClass, shopVolume);
-            cin.ignore(numeric_limits<int>::max(), '\n');
+            Client tempClient(clientName, newDateClass);
             supermarket.addClient(tempClient);
             break;
         }
@@ -157,13 +154,12 @@ void transactionsManagementOption(VendeMaisMais &supermarket){
         cout << TAB << "1 - Specify client unique ID" << endl;
         cout << TAB << "2 - Specify client name" << endl;
         cout << TAB << "0 - Back to transaction menu" << endl;
-
+        cout << TAB << "Your option: ";
         unsigned int option = readUnsignedShortInt(0,2);
         switch(option){
             case 0:
                 break;
             case 1:{
-
                 unsigned int cliUniqueId = readClientId(supermarket);
                 supermarket.showClientTransactions(cliUniqueId);
                 break;
@@ -196,7 +192,22 @@ void transactionsManagementOption(VendeMaisMais &supermarket){
 
 unsigned short int recommendationMenu(){
 
-    //Needs implementation
+    unsigned int option;
+
+    clearScreen();
+    cout << TAB_BIG << "---------------------" << endl;
+    cout << TAB_BIG << "-Recommendation Menu-" << endl;
+    cout << TAB_BIG << "---------------------" << endl;
+    cout << endl;
+    cout << TAB << "1 - Show transactions between two dates" << endl;
+    cout << TAB << "2 - Show a client's transactions (by chronological order)" << endl;
+    cout << TAB << "3 - Add a transaction (make a purchase)" << endl;
+    cout << TAB << "4 - Show transactions made on a specific date" << endl;
+    cout << TAB << "5 - Show all transactions made" << endl;
+    cout << TAB << "0 - Leave for main menu" << endl << endl;
+    cout << TAB << "Choose an option: ";
+    option = readUnsignedShortInt(0, 5);
+    return option;
     return 0;
 }
 

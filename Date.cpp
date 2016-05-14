@@ -64,11 +64,9 @@ bool operator==(const Date &date1, const Date &date2) {
 
 //Function to verify date
 bool Date::verifyDate() const {
-    
+
     bool result;
-    
-    cout << month << endl << day << endl;
-    
+
     if(numDays(year, month) >= day && month > 0 && month < 13)
         result = true;
     else {
@@ -79,7 +77,7 @@ bool Date::verifyDate() const {
 }
 
 
-        
+
 
 
 

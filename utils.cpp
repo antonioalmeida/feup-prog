@@ -79,28 +79,22 @@ bool compareTrans(const Transaction &tran1, const Transaction &tran2) {
 
 //Check if leap year
 bool isLeapYear(int year) {
-    bool leap = true;
-    if(year%4 == 0) {
-        if(year%100 == 0) {
-            if(year%400!=0) leap = false;
-        }
-    }
-    
-    if(leap) return true;
-    else return false;
+    bool leap = ((year % 4 == 0) && (year % 100 != 0)) || (year % 400 == 0);
+
+    return leap;
 }
 
 //Returns the number of days on a given month
 unsigned int numDays(unsigned int year,unsigned int month) {
-    
+
     unsigned int days;
-    
+
     if(month==1 || month==3 || month==5 || month==7 || month==8 || month==10 || month==12) days = 31;
     else if(month == 2) {
         if(isLeapYear(year)) days = 29;
         else days = 28;
     }
     else days = 30;
-    
+
     return days;
 }

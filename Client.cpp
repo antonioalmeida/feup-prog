@@ -16,11 +16,11 @@ Client::Client(ifstream &in) {
 }
 
 //Version to add clients in menu
-Client::Client(string name, Date joinDate, float shopVolume) {
+Client::Client(string name, Date joinDate) {
 
     this->name = name;
     this->joinDate = joinDate;
-    this->shopVolume = shopVolume;
+    shopVolume = 0;
 }
 
 string Client::getName() const {
