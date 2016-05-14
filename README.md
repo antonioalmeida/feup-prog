@@ -1,7 +1,7 @@
 # Sell++ 
 
 C++ based clients & transactions management tool that uses .txt files as input and output.
-A project in collaboration with @cyrilico regarding a subject for college. 
+A project in collaboration with <a href="http://github.com/cyrilico">@cyrilico</a> regarding a subject for college. 
 
 ## Features
 
@@ -25,7 +25,7 @@ A project in collaboration with @cyrilico regarding a subject for college.
 2. Show recommended product for 'Bottom10' clients
 
 #####Others
-	1. Show available products
+1. Show available products
 	
 ##Usage
 1. Run program
