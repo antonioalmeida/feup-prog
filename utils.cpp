@@ -91,9 +91,9 @@ bool isLeapYear(int year) {
 }
 
 //Returns the number of days on a given month
-int numDays(int year, int month) {
+unsigned int numDays(unsigned int year,unsigned int month) {
     
-    int days;
+    unsigned int days;
     
     if(month==1 || month==3 || month==5 || month==7 || month==8 || month==10 || month==12) days = 31;
     else if(month == 2) {

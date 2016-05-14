@@ -67,6 +67,8 @@ bool Date::verifyDate() const {
     
     bool result;
     
+    cout << month << endl << day << endl;
+    
     if(numDays(year, month) >= day && month > 0 && month < 13)
         result = true;
     else {

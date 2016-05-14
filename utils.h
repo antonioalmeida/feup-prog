@@ -28,4 +28,4 @@ bool compareTrans(const Transaction &tran1, const Transaction &tran2); //Compare
 bool isLeapYear(int year);
 
 //Returns the number of days on a given month
-int numDays(unsigned int year,unsigned int month);
+unsigned int numDays(unsigned int year,unsigned int month);

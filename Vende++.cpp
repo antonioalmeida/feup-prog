@@ -1,3 +1,4 @@
+
 #include "Vende++.h"
 
 
@@ -138,21 +139,25 @@ void VendeMaisMais::editSpecificClient(string name) {
 
     if(answer == "yes") {
         
+        string newDate;
         Date newDateClass;
+        bool exit = false;
         
         do {
             cout << "What is the client's new join date? (DD/MM/YYYY) : ";
-            string newDate;
             getline(cin, newDate);
             DeleteWhitespace(newDate);
 
             //Create temporary date
             Date newDateClass(newDate);
-        } while(!newDateClass.verifyDate());
+            
+            exit = newDateClass.verifyDate();
+            
+            if(exit) //Change date in vector
+                clientsVector.at(p->second).changeClientJoinDate(newDateClass);
+            
+        } while(!exit);
         
-        //Change date in vector
-        clientsVector.at(p->second).changeClientJoinDate(newDateClass);
-
         //Change altered boolean to save changes
         clientsAltered = true;
     }
