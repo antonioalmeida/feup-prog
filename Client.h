@@ -20,7 +20,7 @@ class Client {
 
  public:
   Client(ifstream &in);
-  Client(string name, Date joinDate);
+  Client(string name, Date joinDate, float shopVolume);
   string getName() const;
   unsigned int getId() const;
   float getShopVolume() const;
