@@ -175,6 +175,9 @@ void VendeMaisMais::addClient(Client newClient) {
 
     //Add client to map
     clientIdx.insert(pair<string, int>(newClient.getName(), clientsVector.size()-1));
+
+    //Update maxClientID
+    maxClientID++;
 }
 
 void VendeMaisMais::removeSpecificClient(string name) {

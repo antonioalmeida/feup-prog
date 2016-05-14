@@ -98,11 +98,7 @@ void clientManagementOption(VendeMaisMais &supermarket){
             DeleteWhitespace(clientDate);
             //Create temporary date
             Date newDateClass(clientDate);
-            float shopVolume;
-            cout << "What is the client's shop volume? : ";
-            cin >> shopVolume;
-            Client tempClient(clientName, newDateClass, shopVolume);
-            cin.ignore(numeric_limits<int>::max(), '\n');
+            Client tempClient(clientName, newDateClass);
             supermarket.addClient(tempClient);
             break;
         }
@@ -157,13 +153,12 @@ void transactionsManagementOption(VendeMaisMais &supermarket){
         cout << TAB << "1 - Specify client unique ID" << endl;
         cout << TAB << "2 - Specify client name" << endl;
         cout << TAB << "0 - Back to transaction menu" << endl;
-
+        cout << TAB << "Your option : ";
         unsigned int option = readUnsignedShortInt(0,2);
         switch(option){
             case 0:
                 break;
             case 1:{
-
                 unsigned int cliUniqueId = readClientId(supermarket);
                 supermarket.showClientTransactions(cliUniqueId);
                 break;
