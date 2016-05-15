@@ -340,9 +340,16 @@ void VendeMaisMais::showClientTransactions(unsigned int cliUniqueId) const {
     //Sorting vector according to comparison function defined in utils header
     sort(clientTransactionsTemp.begin(), clientTransactionsTemp.end(), compareTrans);
 
-    cout << endl;
-    for(int index = 0; index < clientTransactionsTemp.size(); index++)
-        cout << clientTransactionsTemp.at(index) << endl;
+    if(clientTransactionsTemp.size() == 0) { //No transactions made
+        cout << endl;
+        cout << "ID Nr." << cliUniqueId << " has not made any transactions!" << endl;
+    }
+
+    else {
+        cout << endl;
+        for(int index = 0; index < clientTransactionsTemp.size(); index++)
+            cout << clientTransactionsTemp.at(index) << endl;
+    }
 
     cout << endl;
     pressToContinue();
@@ -562,12 +569,19 @@ unsigned int readClientId(const VendeMaisMais &supermarket) {
     unsigned int customerId;
     multimap<int,int>::const_iterator id_it;
     cout << "Insert the client's ID: ";
+    bool cliFound;
     do{
+        cliFound = false;
         cin >> customerId;
-        id_it = supermarket.transactionIdx.find(customerId);
-        if(id_it == supermarket.transactionIdx.end()) //Means that ID was not found
+        for(int index = 0; index < supermarket.clientsVector.size(); index++){
+            if(supermarket.clientsVector.at(index).getId() == customerId){
+                cliFound = true;
+                break;
+            }
+        }
+        if(!cliFound)
             cout << "ERROR: Invalid client ID, please insert a valid value: ";
-    }while(id_it == supermarket.transactionIdx.end());
+    }while(!cliFound);
 
     return customerId;
 }

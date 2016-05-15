@@ -160,6 +160,7 @@ void transactionsManagementOption(VendeMaisMais &supermarket){
                 break;
             case 1:{
                 unsigned int cliUniqueId = readClientId(supermarket);
+                cin.ignore(numeric_limits<int>::max(),'\n');
                 supermarket.showClientTransactions(cliUniqueId);
                 break;
             }
