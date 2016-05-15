@@ -82,6 +82,9 @@ void VendeMaisMais::listClientsAlphabetically() const {
     for(int index = 0; index < numberOfClients; index++)
         //cout << "- " << clientsVectorTemp.at(index).getName() << " ; ID: " << clientsVectorTemp.at(index).getId() << endl;
         cout << clientsVectorTemp.at(index) << endl;
+
+    cin.ignore(numeric_limits<int>::max(),'\n');
+    pressToContinue();
 }
 
 void VendeMaisMais::showSpecificClient(string name) const {
@@ -89,6 +92,10 @@ void VendeMaisMais::showSpecificClient(string name) const {
     map<string,int>::const_iterator p = clientIdx.find(name);
 
     cout << clientsVector.at(p->second);
+
+    cout << endl;
+
+    pressToContinue();
 }
 
 void VendeMaisMais::listProductsAlphabetically() const {
@@ -99,8 +106,16 @@ void VendeMaisMais::listProductsAlphabetically() const {
 
     int numberOfProducts = productsVectorTemp.size();
 
+    cout << endl;
+
+    cout << "Current available products:" << endl;
+
     for(int index = 0; index < numberOfProducts; index++)
-        cout << "- " << productsVectorTemp.at(index).getName() << "/ Cost: " << productsVectorTemp.at(index).getCost() << endl;
+        cout << "- " << productsVectorTemp.at(index).getName() << ", at a cost of " << productsVectorTemp.at(index).getCost() << endl;
+
+    cin.ignore(numeric_limits<int>::max(),'\n');
+    cout << endl;
+    pressToContinue();
 }
 
 void VendeMaisMais::editSpecificClient(string name) {
@@ -159,6 +174,12 @@ void VendeMaisMais::editSpecificClient(string name) {
         clientsAltered = true;
     }
 
+    cout << endl;
+    cout << "Client successfully altered!" << endl;
+    cout << endl;
+
+    pressToContinue();
+
 }
 
 void VendeMaisMais::addClient(Client newClient) {
@@ -172,6 +193,11 @@ void VendeMaisMais::addClient(Client newClient) {
 
     //Add client to map
     clientIdx.insert(pair<string, int>(newClient.getName(), clientsVector.size()-1));
+
+    cout << endl;
+    cout << "Client successfully added!" << endl;
+    cout << endl;
+    pressToContinue();
 }
 
 void VendeMaisMais::removeSpecificClient(string name) {
@@ -190,6 +216,10 @@ void VendeMaisMais::removeSpecificClient(string name) {
 
         clientIdx.insert(pair<string,int>(clientsVector.at(counter).getName(), counter));
     }
+
+    cout << "Client successfully removed!" << endl;
+    cout << endl;
+    pressToContinue();
 }
 
 void VendeMaisMais::showBottom10() const {
@@ -226,6 +256,11 @@ void VendeMaisMais::addTransaction() {
     //Update transaction multimap
     int newTranIndex = transactionsVector.size() - 1;
     transactionIdx.insert(pair<int,int>(newTranId, newTranIndex));
+
+    cout << endl;
+    cout << "Transaction successfully added!" << endl;
+    cout << endl;
+    pressToContinue();
 }
 
 void VendeMaisMais::showTransactionsBetweenDates() const {
@@ -243,6 +278,9 @@ void VendeMaisMais::showTransactionsBetweenDates() const {
         if(transactionsVector.at(index).getDateOfTransaction() >= d1 && transactionsVector.at(index).getDateOfTransaction() <= d2)
             cout << transactionsVector.at(index) << endl;
     }
+
+    cout << endl;
+    pressToContinue();
 }
 
 void VendeMaisMais::showTransactionsOnDate() const {
@@ -271,12 +309,18 @@ void VendeMaisMais::showTransactionsOnDate() const {
             cout << endl;
         }
     }
+    cout << endl;
+    pressToContinue();
 }
 
 void VendeMaisMais::showAllTransactions() const {
     cout << "All transactions made in supermarket " << storeName << ":" << endl;
     for(int index = 0; index < transactionsVector.size(); index++)
         cout << transactionsVector.at(index) << endl;
+
+    cin.ignore(numeric_limits<int>::max(),'\n');
+    cout << endl;
+    pressToContinue();
 }
 
 void VendeMaisMais::showClientTransactions(string name) const {
@@ -296,8 +340,12 @@ void VendeMaisMais::showClientTransactions(unsigned int cliUniqueId) const {
     //Sorting vector according to comparison function defined in utils header
     sort(clientTransactionsTemp.begin(), clientTransactionsTemp.end(), compareTrans);
 
+    cout << endl;
     for(int index = 0; index < clientTransactionsTemp.size(); index++)
         cout << clientTransactionsTemp.at(index) << endl;
+
+    cout << endl;
+    pressToContinue();
 }
 
 void VendeMaisMais::recommendProductSingleClient() const {
@@ -451,7 +499,12 @@ void VendeMaisMais::recommendProductSingleClient() const {
     }
 
     //Suggesting
+    cout << endl;
     cout << "ID Nr." << targetId << ", you should buy " << productsVector.at(suggestedProductIndex).getName() << ", it only costs " << productsVector.at(suggestedProductIndex).getCost() << "!" << endl;
+    cout << endl;
+
+    cin.ignore(numeric_limits<int>::max(),'\n');
+    pressToContinue();
 }
 
 void VendeMaisMais::recommendProductBottom10() const {
@@ -481,7 +534,7 @@ void VendeMaisMais::saveChanges() const{
 
 //Print supermarket
 ostream& operator<<(ostream &out, const VendeMaisMais &supermarket){
-	out << "supermarket " << supermarket.getStoreName() << endl << "Conta atualmente com:" << endl << supermarket.clientsVector.size() << " clientes" << endl << supermarket.productsVector.size() << " produtos no stock" << endl << supermarket.transactionsVector.size() << "transacoes realizadas, num valor total de " << totalAmountSpent(supermarket) << endl;
+	out << endl << "supermarket " << supermarket.getStoreName() << endl << "Conta atualmente com:" << endl << supermarket.clientsVector.size() << " clientes" << endl << supermarket.productsVector.size() << " produtos no stock" << endl << supermarket.transactionsVector.size() << "transacoes realizadas, num valor total de " << totalAmountSpent(supermarket) << endl;
 
     return out;
 }

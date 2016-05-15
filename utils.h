@@ -14,7 +14,7 @@ using namespace std;
 
 
 void clearScreen();
-// void pressToContinue();
+void pressToContinue();
 void DeleteWhitespace(string &s);
 unsigned short int readUnsignedShortInt(unsigned short int minValue, unsigned short int maxValue);
 int readInteger(int minValue, int maxValue);

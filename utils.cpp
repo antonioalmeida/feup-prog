@@ -5,14 +5,14 @@ void clearScreen(){
   for(int counter = 0; counter < ALTURA_ECRA; counter++)
     cout << endl;
 }
-/*
+
 void pressToContinue(){
+    string lixo;
     cout << "Press any key, followed by ENTER to continue" << endl;
-    //getchar();
-    cin.ignore(numeric_limits<int>::max(), '\n');
+    getline(cin,lixo);
     clearScreen();
 }
-*/
+
 
 void DeleteWhitespace(string &s){
   //Delete whitespace characters in the beginning
