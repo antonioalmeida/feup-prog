@@ -1,6 +1,6 @@
 5
 1 ; Rui Pereira ; 1/12/2008 ; 10.2
 2 ; Maria de Lurdes ; 23/4/2009 ; 0
-6 ; Joana Beires ; 15/10/2010 ; 7.5
+6 ; Joana Beires ; 15/10/2010 ; 16.2
 16 ; Manuela Moura ; 31/3/2016 ; 8.3
 17 ; Cyril Damascheta ; 31/12/2010 ; 0

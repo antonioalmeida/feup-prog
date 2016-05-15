@@ -60,11 +60,8 @@ VendeMaisMais::VendeMaisMais(string store, string clientsFileName, string produc
   }
 
   //<int,int> multimap - Each client's ID to each of his transactions' position on the transactions vector
-  for(int maincounter = 0; maincounter < numberOfClients; maincounter++){
-    for(int secondarycounter = 0; secondarycounter < numberOfTransactions; secondarycounter++){
-        if(clientsVector.at(maincounter).getId() == transactionsVector.at(secondarycounter).getClientId()) //If current transaction is from the client treated in the current iteration
-            transactionIdx.insert(pair<int,int>(clientsVector.at(maincounter).getId(),secondarycounter));
-    }
+  for(int counter = 0; counter < numberOfTransactions; counter++){
+    transactionIdx.insert(pair<int,int>(transactionsVector.at(counter).getClientId(),counter));
   }
 }
 
@@ -308,6 +305,7 @@ void VendeMaisMais::recommendProductSingleClient() const {
     /*vector that contains every ID that made at least one transaction and respective initialization
     Note that simply getting the IDs from current clients is not good practice,
     since it is relatively likely that there are clients with no transactions or transactions from clients who have been removed*/
+
     vector<int> idsThatMadeTransactions;
     for(int index = 0; index < transactionsVector.size(); index++){
         if(!isMember(idsThatMadeTransactions, transactionsVector.at(index).getClientId()))
@@ -327,7 +325,8 @@ void VendeMaisMais::recommendProductSingleClient() const {
     //Matrix initialization with the conditions required
     vector<vector<bool>> marketingmatrix(clientIdtoIndex.size(), vector<bool>(productsVector.size(),false));
 
-    //Changing every bought product on each client boolean to #t
+    /*
+    //Changing every bought product on each client boolean to #t (OLD WAY; DELETE LATER)
     for(int clientindex = 0; clientindex < marketingmatrix.size(); clientindex++){
         for(int transactionindex = 0; transactionindex < transactionsVector.size(); transactionindex++){
             if(clientIdtoIndex[transactionsVector.at(transactionindex).getClientId()] == clientindex) { //If ID of the client from current transaction is the one from the current loop in the marketing matrix
@@ -339,14 +338,28 @@ void VendeMaisMais::recommendProductSingleClient() const {
             }
         }
     }
+    */
 
-    /*PRINTING TEST (DELETE)
+    //Changing every bought product on each client boolean to #t (NEW WAY: USING transactionIdx multimap (practically not used in the whole program)
+    for(map<int,int>::const_iterator id_it = transactionIdx.begin(); id_it != transactionIdx.end(); id_it++){
+            int clientIndex = (clientIdtoIndex.find(id_it->first))->second;
+            vector<string> products = transactionsVector.at(id_it->second).getProductsBought(); //Products bought on current transaction
+            for(int productindex = 0; productindex < products.size(); productindex++){
+                int productIndexInMatrix = (productIdx.find(products.at(productindex)))->second;
+                marketingmatrix.at(clientIndex).at(productIndexInMatrix) = true;
+            }
+    }
+
+
+    /*
+    //PRINTING TEST (DELETE)
     for(int i = 0; i < marketingmatrix.size(); i++){
         cout << "Index " << i << " - ";
         for(int j = 0; j < productsVector.size(); j++)
             cout << marketingmatrix.at(i).at(j) << " ";
         cout << endl;
-    }*/
+    }
+    */
 
     //Reading target client ID
     unsigned int targetId;
@@ -367,6 +380,8 @@ void VendeMaisMais::recommendProductSingleClient() const {
 
     map<int,int>::const_iterator id_it = clientIdtoIndex.find(targetId);
     if(id_it == clientIdtoIndex.end()) { //Client has not made any transactions -> use alternative marketing method
+
+        //Extract every product bought on every transaction (since target client has no transactions, all clients who made are considered "most common", no need to verify it
         vector<int> indexesOfPossibleProducts;
         for(int index = 0; index < marketingmatrix.size(); index++){
             for(int productindex = 0; productindex < productsVector.size(); productindex++){
@@ -392,6 +407,7 @@ void VendeMaisMais::recommendProductSingleClient() const {
         return; //Exit function
     }
 
+    //ORIGINAL METHOD: Used when target client has at least one transaction
     //Vector that counts number of common products between each client and the target client (target client if left with 0 so it is ignored later)
     vector<int> numberOfCommonProducts(marketingmatrix.size(), 0);
     int targetIndex = clientIdtoIndex[targetId];

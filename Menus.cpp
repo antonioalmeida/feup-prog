@@ -3,7 +3,6 @@
 
 bool initialInformation(string &store, string &clientsFileName, string &productsFileName, string &transactionsFileName) {
 
-  clearScreen();
   cout << "Insert the store's name: " << endl;
   getline(cin, store);
 

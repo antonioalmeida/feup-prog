@@ -1,7 +1,7 @@
 #pragma once
 
 
-#define ALTURA_ECRA 24
+#define ALTURA_ECRA 29
 
 #define TAB_BIG "          "
 #define TAB    "   "
