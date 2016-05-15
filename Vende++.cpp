@@ -350,14 +350,47 @@ void VendeMaisMais::recommendProductSingleClient() const {
 
     //Reading target client ID
     unsigned int targetId;
+    bool clientHasTransactions;
+    bool clientFound;
     cout << "Insert the target client's ID: ";
-    map<int,int>::const_iterator id_it;
     do{
         cin >> targetId;
-        id_it = clientIdtoIndex.find(targetId);
-        if(id_it == clientIdtoIndex.end()) //Invalid ID
+        for(int index = 0; index < clientsVector.size(); index++){
+            if(clientsVector.at(index).getId() == targetId){
+                clientFound = true;
+                break;
+            }
+        }
+        if(!clientFound)
             cout << "ERROR: Invalid client ID, please insert a valid ID: ";
-    }while(id_it == clientIdtoIndex.end());
+    }while(!clientFound);
+
+    map<int,int>::const_iterator id_it = clientIdtoIndex.find(targetId);
+    if(id_it == clientIdtoIndex.end()) { //Client has not made any transactions -> use alternative marketing method
+        vector<int> indexesOfPossibleProducts;
+        for(int index = 0; index < marketingmatrix.size(); index++){
+            for(int productindex = 0; productindex < productsVector.size(); productindex++){
+                if(marketingmatrix.at(index).at(productindex)) //If product is set as #t (by other words, was bought by a client)
+                    indexesOfPossibleProducts.push_back(productindex);
+            }
+        }
+
+        //Determine the suggested product's index
+        int currentMax = 0;
+        int suggestedProductIndex = indexesOfPossibleProducts.at(0);
+        for(int index = 0; index < indexesOfPossibleProducts.size(); index++) {
+                int temp = (int)count(indexesOfPossibleProducts.begin(), indexesOfPossibleProducts.end(), indexesOfPossibleProducts.at(index)); //Count occurrences of current product
+                if(temp > currentMax) {
+                    currentMax = temp;
+                    suggestedProductIndex = indexesOfPossibleProducts.at(index);
+                }
+        }
+
+        //Suggesting
+        cout << "ID Nr." << targetId << ", it seems that you have not made any transactions yet!" << endl;
+        cout << "The most bought product currently is " << productsVector.at(suggestedProductIndex).getName() << ", so why not start there? It only costs " << productsVector.at(suggestedProductIndex).getCost() << "!" << endl;
+        return; //Exit function
+    }
 
     //Vector that counts number of common products between each client and the target client (target client if left with 0 so it is ignored later)
     vector<int> numberOfCommonProducts(marketingmatrix.size(), 0);
