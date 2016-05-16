@@ -1,6 +1,10 @@
-5
+9
 1 ; 1/1/2016 ; laranja, banana
-2 ; 3/1/2016 ; peixe, laranja, batatas fritas
+1 ; 3/1/2016 ; peixe, laranja, batatas fritas
 16 ; 15/3/2016 ; banana, laranja, peixe
 3 ; 20/12/2015 ; banana, batatas fritas
-1 ; 12/2/2010 ; laranja, banana, peixe
+6 ; 20/5/2016 ; peixe, batatas fritas, laranja
+17 ; 2/2/2002 ; banana, batatas fritas, peixe
+21 ; 2/2/2002 ; peixe, batatas fritas
+20 ; 1/1/2001 ; laranja
+18 ; 2/2/2021 ; batatas fritas

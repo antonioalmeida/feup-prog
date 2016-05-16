@@ -18,6 +18,7 @@ int main(){
   cout << "Initial statistics on '" << store << "' from supermarket Vende++:" << endl;
   cout << supermarket << endl;
   mainOption(supermarket);
+  cout << endl;
   cout << "Final statistics on '" << store << "' from supermarket Vende++:" << endl;
   cout << supermarket << endl;
   cout << "See you soon!" << endl;

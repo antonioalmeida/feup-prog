@@ -230,9 +230,9 @@ unsigned short int mainMenu(){
 
   clearScreen();
 
-  cout << TAB_BIG << "--------------" << endl;
-  cout << TAB_BIG << "---MainMenu---" << endl;
-  cout << TAB_BIG << "--------------" << endl;
+  cout << TAB_BIG << "---------------" << endl;
+  cout << TAB_BIG << "---Main Menu---" << endl;
+  cout << TAB_BIG << "---------------" << endl;
   cout << endl;
   cout << TAB << "1 - Clients Management" << endl;
   cout << TAB << "2 - Show available products" << endl;

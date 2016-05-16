@@ -223,12 +223,10 @@ void VendeMaisMais::removeSpecificClient(string name) {
 }
 
 void VendeMaisMais::showBottom10() const {
-    
+
     vector<Client> tempClient = clientsVector;
-    
+
     sort(tempClient.begin(), tempClient.end(), compareClients);
-    
-    //tempClient.resize(10);
 
     for (vector<Client>::iterator index = tempClient.begin(); index!=tempClient.begin()+10 ; index++) {
         cout << *index;
@@ -236,7 +234,7 @@ void VendeMaisMais::showBottom10() const {
     cin.ignore(numeric_limits<int>::max(),'\n');
     cout << endl;
     pressToContinue();
-    
+
 }
 
 void VendeMaisMais::addTransaction() {
@@ -408,7 +406,7 @@ void VendeMaisMais::recommendProductSingleClient() const {
     }
     */
 
-    //Changing every bought product on each client boolean to #t (NEW WAY: USING transactionIdx multimap (practically not used in the whole program)
+    //Changing every bought product on each client boolean to #t (NEW WAY: USING transactionIdx multimap (practically not used in the whole program))
     for(map<int,int>::const_iterator id_it = transactionIdx.begin(); id_it != transactionIdx.end(); id_it++){
             int clientIndex = (clientIdtoIndex.find(id_it->first))->second;
             vector<string> products = transactionsVector.at(id_it->second).getProductsBought(); //Products bought on current transaction
@@ -447,9 +445,9 @@ void VendeMaisMais::recommendProductSingleClient() const {
     }while(!clientFound);
 
     map<int,int>::const_iterator id_it = clientIdtoIndex.find(targetId);
-    if(id_it == clientIdtoIndex.end()) { //Client has not made any transactions -> use alternative marketing method
+    if(id_it == clientIdtoIndex.end()) { //CLIENT HAS NOT MADE ANY TRANSACTIONS -> USE ALTERNATIVE METHOD
 
-        //Extract every product bought on every transaction (since target client has no transactions, all clients who made are considered "most common", no need to verify it
+        //Extract every product bought on every transaction (since target client has no transactions, all clients who made are considered "most common", no need to verify it)
         vector<int> indexesOfPossibleProducts;
         for(int index = 0; index < marketingmatrix.size(); index++){
             for(int productindex = 0; productindex < productsVector.size(); productindex++){
@@ -472,13 +470,14 @@ void VendeMaisMais::recommendProductSingleClient() const {
         //Suggesting
         cout << "ID Nr." << targetId << ", it seems that you have not made any transactions yet!" << endl;
         cout << "The most bought product currently is " << productsVector.at(suggestedProductIndex).getName() << ", so why not start there? It only costs " << productsVector.at(suggestedProductIndex).getCost() << "!" << endl;
-        
+
         cout << endl;
         pressToContinue();
         return; //Exit function
     }
 
     //ORIGINAL METHOD: Used when target client has at least one transaction
+
     //Vector that counts number of common products between each client and the target client (target client if left with 0 so it is ignored later)
     vector<int> numberOfCommonProducts(marketingmatrix.size(), 0);
     int targetIndex = clientIdtoIndex[targetId];
@@ -531,7 +530,120 @@ void VendeMaisMais::recommendProductSingleClient() const {
 }
 
 void VendeMaisMais::recommendProductBottom10() const {
-    //Needs implementation
+    /* ********************************************************
+    ********BOTTOM10 CLIENTS DATA INITIALIZATION***************/
+
+    //Calculating Bottom10 clients (first ten clients in sorted vector)
+    vector<Client> sortedClients = clientsVector;
+    sort(sortedClients.begin(), sortedClients.end(), compareClients);
+
+    //Client to Products matrix for Bottom10 clients
+    vector<vector<bool>> bottom10matrix(10, vector<bool>(productsVector.size(),false));
+
+    //Int to int map to associate each Bottom10 client's ID to his position in the matrix
+    map<int,int> bottom10IdtoIndex;
+    for(int counter = 0; counter < 10; counter++)
+        bottom10IdtoIndex.insert(pair<int,int>(sortedClients.at(counter).getId(), counter));
+
+    //Changing every bought product by each Bottom10 client boolean to #t
+    for(map<int,int>::const_iterator id_it = transactionIdx.begin(); id_it != transactionIdx.end(); id_it++){
+            map<int,int>::const_iterator idFinder = bottom10IdtoIndex.find(id_it->first);
+            if(idFinder != bottom10IdtoIndex.end()) { //Means that current transaction was made by a Bottom10 client, so good to go
+                int clientIndex = (bottom10IdtoIndex.find(id_it->first))->second;
+                vector<string> products = transactionsVector.at(id_it->second).getProductsBought(); //Products bought on current transaction
+                for(int productindex = 0; productindex < products.size(); productindex++){
+                    int productIndexInMatrix = (productIdx.find(products.at(productindex)))->second;
+                    bottom10matrix.at(clientIndex).at(productIndexInMatrix) = true;
+                }
+            }
+    }
+
+    /*
+    //PRINTING TEST (DELETE)
+    for(int i = 0; i < bottom10matrix.size(); i++){
+        cout << "Index " << i << " - ";
+        for(int j = 0; j < productsVector.size(); j++)
+            cout << bottom10matrix.at(i).at(j) << " ";
+        cout << endl;
+    }
+    */
+
+    //Calculating vector that holds indexes of common products from Bottom10 clients
+    vector<int> indexesOfCommonBottom10Products;
+    for(int productindex = 0; productindex < productsVector.size(); productindex){
+        bool commonProduct = true;
+        for(int clientindex = 0; clientindex < bottom10matrix.size(); clientindex++){
+            if(!bottom10matrix.at(clientindex).at(productindex)) { //One client has not bought the product, so it is not common
+                commonProduct = false;
+                break;
+            }
+        }
+
+        if(commonProduct)
+            indexesOfCommonBottom10Products.push_back(productindex);
+    }
+
+    /* ********************************************************
+    ********OTHER CLIENTS DATA INITIALIZATION***************/
+
+    map<int,int> otherClientsIdtoIndex; //int to int map that translates other clients' ID to their position in the matrix used
+    /*vector that contains every ID that made at least one transaction and respective initialization
+    Note that simply getting the IDs from current clients is not good practice,
+    since it is relatively likely that there are clients with no transactions (who are of no use here) or transactions from clients who have been removed*/
+
+    vector<int> idsThatMadeTransactions;
+    //vector<Transaction> otherClientsTransactions; //Vector that will store transactions that are not from Bottom10 clients
+    for(int index = 0; index < transactionsVector.size(); index++){
+        bool alreadyInTheMap = isMember(idsThatMadeTransactions, transactionsVector.at(index).getClientId());
+        map<int,int>::const_iterator id_it = bottom10IdtoIndex.find(transactionsVector.at(index).getClientId());
+        bool notBottom10;
+        if(id_it == bottom10IdtoIndex.end()) //Current ID is not from a Bottom10 client
+            notBottom10 = true;
+        else
+            notBottom10 = false;
+        if(!alreadyInTheMap && notBottom10){
+            idsThatMadeTransactions.push_back(transactionsVector.at(index).getClientId());
+            //otherClientsTransactions.push_back(transactionsVector.at(index));
+        }
+    }
+
+    //Sorting makes it easier
+    sort(idsThatMadeTransactions.begin(), idsThatMadeTransactions.end());
+
+    //Initializing int to int client ID to matrix position map
+    for(int counter = 0; counter < idsThatMadeTransactions.size(); counter++)
+        otherClientsIdtoIndex.insert(pair<int,int>(idsThatMadeTransactions.at(counter), counter));
+
+    /*
+    //PRINTING TEST (DELETE)
+    for(map<int,int>::const_iterator p = otherClientsIdtoIndex.begin(); p != otherClientsIdtoIndex.end(); p++)
+        cout << p->first << " - " << p->second << endl;
+    */
+
+    //Client to product matrix for other clients
+    vector<vector<bool>> otherClientsMatrix(otherClientsIdtoIndex.size(), vector<bool>(productsVector.size(),false));
+
+    //Changing every bought product by each "other client" boolean to #t
+    for(map<int,int>::const_iterator id_it = transactionIdx.begin(); id_it != transactionIdx.end(); id_it++){
+            map<int,int>::const_iterator idFinder = otherClientsIdtoIndex.find(id_it->first);
+            if(idFinder != otherClientsIdtoIndex.end()) { //Means that current transaction was made by a "other client", so good to go
+                int clientIndex = (otherClientsIdtoIndex.find(id_it->first))->second;
+                vector<string> products = transactionsVector.at(id_it->second).getProductsBought(); //Products bought on current transaction
+                for(int productindex = 0; productindex < products.size(); productindex++){
+                    int productIndexInMatrix = (productIdx.find(products.at(productindex)))->second;
+                    otherClientsMatrix.at(clientIndex).at(productIndexInMatrix) = true;
+                }
+            }
+    }
+
+    //PRINTING TEST (DELETE)
+    for(int i = 0; i < otherClientsMatrix.size(); i++){
+        cout << "Index " << i << " - ";
+        for(int j = 0; j < productsVector.size(); j++)
+            cout << otherClientsMatrix.at(i).at(j) << " ";
+        cout << endl;
+    }
+
 }
 
 

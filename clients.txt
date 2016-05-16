@@ -1,15 +1,12 @@
-13
-1 ; Rui das Peras ; 12/2/2010 ; 24.1
+11
+1 ; Rui Pereira ; 1/12/2008 ; 10.2
 2 ; Maria de Lurdes ; 23/4/2009 ; 0
-6 ; Joana Beires ; 15/10/2010 ; 16.6
-17 ; Cyril Damascheta ; 31/12/2010 ; 0
-18 ; Ganda Nome ; 31/12/2010 ; 0
-19 ; Cliente Fixe ; 31/12/2010 ; 0
-20 ; Amigo Lazaro ; 31/12/2010 ; 0
-21 ; Rei das Infusias ; 31/12/2010 ; 0
-22 ; Piroxenas Maluco ; 31/12/2010 ; 0
-23 ; Hpl1908w ; 31/12/2010 ; 0
-24 ; Windows10 Sucks ; 31/12/2010 ; 0
-25 ; Bootcamp Lixo ; 31/12/2010 ; 0
-26 ; iPhone r8 8/8 m8 ;  31/12/2010 ; 0
-
+6 ; Joana Beires ; 15/10/2010 ; 7.5
+16 ; Manuela Moura ; 31/3/2016 ; 8.3
+17 ; Cyril Damascheta ; 31/12/2010 ; 7.2
+18 ; Cyril Cheta ; 2/2/2002 ; 0.4
+19 ; Cenas Piroxenadas ; 2/2/2002 ; 0
+20 ; Gajo das Piroxenas ; 3/3/2003 ; 1.5
+21 ; Diogo Torres ; 1/1/2001 ; 6
+22 ; Luis Martins ; 9/9/2009 ; 0
+23 ; Joana Pimenta ; 6/2/2001 ; 0
