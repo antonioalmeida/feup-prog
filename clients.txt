@@ -1,6 +1,15 @@
-5
-1 ; Rui Pereira ; 1/12/2008 ; 15.8
+13
+1 ; Rui das Peras ; 12/2/2010 ; 24.1
 2 ; Maria de Lurdes ; 23/4/2009 ; 0
 6 ; Joana Beires ; 15/10/2010 ; 16.6
-16 ; Manuela Moura ; 31/3/2016 ; 8.3
 17 ; Cyril Damascheta ; 31/12/2010 ; 0
+18 ; Ganda Nome ; 31/12/2010 ; 0
+19 ; Cliente Fixe ; 31/12/2010 ; 0
+20 ; Amigo Lazaro ; 31/12/2010 ; 0
+21 ; Rei das Infusias ; 31/12/2010 ; 0
+22 ; Piroxenas Maluco ; 31/12/2010 ; 0
+23 ; Hpl1908w ; 31/12/2010 ; 0
+24 ; Windows10 Sucks ; 31/12/2010 ; 0
+25 ; Bootcamp Lixo ; 31/12/2010 ; 0
+26 ; iPhone r8 8/8 m8 ;  31/12/2010 ; 0
+

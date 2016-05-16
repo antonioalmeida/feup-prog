@@ -72,11 +72,6 @@ string readYesNo() {
     return answer;
 }
 
-bool compareTrans(const Transaction &tran1, const Transaction &tran2) {
-    return tran1.getDateOfTransaction() <= tran2.getDateOfTransaction();
-}
-
-
 //Check if leap year
 bool isLeapYear(int year) {
     bool leap = ((year % 4 == 0) && (year % 100 != 0)) || (year % 400 == 0);

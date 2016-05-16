@@ -223,7 +223,20 @@ void VendeMaisMais::removeSpecificClient(string name) {
 }
 
 void VendeMaisMais::showBottom10() const {
-    //Needs implementation
+    
+    vector<Client> tempClient = clientsVector;
+    
+    sort(tempClient.begin(), tempClient.end(), compareClients);
+    
+    //tempClient.resize(10);
+
+    for (vector<Client>::iterator index = tempClient.begin(); index!=tempClient.begin()+10 ; index++) {
+        cout << *index;
+    }
+    cin.ignore(numeric_limits<int>::max(),'\n');
+    cout << endl;
+    pressToContinue();
+    
 }
 
 void VendeMaisMais::addTransaction() {
@@ -459,6 +472,9 @@ void VendeMaisMais::recommendProductSingleClient() const {
         //Suggesting
         cout << "ID Nr." << targetId << ", it seems that you have not made any transactions yet!" << endl;
         cout << "The most bought product currently is " << productsVector.at(suggestedProductIndex).getName() << ", so why not start there? It only costs " << productsVector.at(suggestedProductIndex).getCost() << "!" << endl;
+        
+        cout << endl;
+        pressToContinue();
         return; //Exit function
     }
 
@@ -597,4 +613,14 @@ float totalAmountSpent(const VendeMaisMais &supermarket) {
     }*/
 
     return sum;
+}
+
+//Compares two transactions; returns true if tran1 was made before tran2 in the Gregorian calendar
+bool compareTrans(const Transaction &tran1, const Transaction &tran2) {
+    return tran1.getDateOfTransaction() <= tran2.getDateOfTransaction();
+}
+
+//Compares two clients, returns true if clients1 spent less than client2
+bool compareClients(const Client &client1, const Client &client2) {
+    return client1.getShopVolume() < client2.getShopVolume();
 }

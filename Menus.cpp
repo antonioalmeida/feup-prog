@@ -111,7 +111,7 @@ void clientManagementOption(VendeMaisMais &supermarket){
             break;
         }
         case 6:{
-            //supermarket.showBottom10();
+            supermarket.showBottom10();
         }
     }
 }

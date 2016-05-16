@@ -1,6 +1,5 @@
 #include "Client.h"
 
-
 Client::Client(ifstream &in) {
     string line;
     getline(in, line);
