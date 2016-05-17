@@ -79,18 +79,33 @@ void VendeMaisMais::listClientsAlphabetically() const {
 
     cout << endl << "Showing Clients Alphabetically" << endl << endl;
 
+    cout << setw(4) << "ID";
+    cout << setw(22) << "Name";
+    cout << setw(17) << "Join Date";
+    cout << setw(15) << "Shop Volume";
+    cout << endl << endl;
+    
     for(int index = 0; index < numberOfClients; index++)
         //cout << "- " << clientsVectorTemp.at(index).getName() << " ; ID: " << clientsVectorTemp.at(index).getId() << endl;
-        cout << clientsVectorTemp.at(index) << endl;
+        cout << clientsVectorTemp.at(index);
 
     cin.ignore(numeric_limits<int>::max(),'\n');
+    cout << endl;
     pressToContinue();
 }
 
 void VendeMaisMais::showSpecificClient(string name) const {
 
     map<string,int>::const_iterator p = clientIdx.find(name);
-
+    
+    cout << endl << "Showing Specific Client" << endl << endl;
+    
+    cout << setw(4) << "ID";
+    cout << setw(22) << "Name";
+    cout << setw(17) << "Join Date";
+    cout << setw(15) << "Shop Volume";
+    cout << endl << endl;
+    
     cout << clientsVector.at(p->second);
 
     cout << endl;
@@ -227,6 +242,14 @@ void VendeMaisMais::showBottom10() const {
     vector<Client> tempClient = clientsVector;
 
     sort(tempClient.begin(), tempClient.end(), compareClients);
+    
+    cout << endl << "Showing 'Bottom10' Clients" << endl << endl;
+    
+    cout << setw(4) << "ID";
+    cout << setw(22) << "Name";
+    cout << setw(17) << "Join Date";
+    cout << setw(15) << "Shop Volume";
+    cout << endl << endl;
 
     for (vector<Client>::iterator index = tempClient.begin(); index!=tempClient.begin()+10 ; index++) {
         cout << *index;
@@ -284,7 +307,13 @@ void VendeMaisMais::showTransactionsBetweenDates() const {
     getline(cin, date2);
     Date d2 = Date(date2);
 
-    cout << "Transactions made between " << d1 << " and " << d2 << " (including themselves):" << endl;
+    cout << "Showing Transactions made between " << d1 << " and " << d2 << " (including themselves):" << endl;
+    
+    cout << setw(5) << "ID";
+    cout << setw(13) << "Date";
+    cout << setw(20) << "Products Bought";
+    cout << endl << endl;
+    
     for(int index = 0; index < transactionsVector.size(); index++){
         if(transactionsVector.at(index).getDateOfTransaction() >= d1 && transactionsVector.at(index).getDateOfTransaction() <= d2)
             cout << transactionsVector.at(index) << endl;
@@ -301,10 +330,15 @@ void VendeMaisMais::showTransactionsOnDate() const {
     getline(cin, date);
     Date d1 = Date(date);
 
-    cout << "Transactions made on " << d1 << ":" << endl;
+    cout << endl << "Showing Transactions made on " << d1 << ":" << endl << endl;
+    
+    cout << setw(5) << "ID";
+    cout << setw(19) << "Products Bought";
+    cout << endl << endl;
+    
     for(int mainindex = 0; mainindex < transactionsVector.size(); mainindex++){
         if(transactionsVector.at(mainindex).getDateOfTransaction() == d1){
-            cout << "ID Nr." << transactionsVector.at(mainindex).getClientId() << " bought ";
+            cout << setw(5) << transactionsVector.at(mainindex).getClientId() << setw(4) << "  ";
             for (int secondaryindex = 0; secondaryindex < transactionsVector.at(mainindex).getProductsBought().size(); secondaryindex++) {
                 cout << transactionsVector.at(mainindex).getProductsBought().at(secondaryindex);
                 /*Logical test: If there are more than 2 products left to show, after the first one is shown a comma is inserted.
@@ -325,7 +359,13 @@ void VendeMaisMais::showTransactionsOnDate() const {
 }
 
 void VendeMaisMais::showAllTransactions() const {
-    cout << "All transactions made in supermarket " << storeName << ":" << endl;
+    cout << "Showing all transactions made in supermarket " << storeName << ":" << endl;
+    
+    cout << setw(5) << "ID";
+    cout << setw(13) << "Date";
+    cout << setw(20) << "Products Bought";
+    cout << endl << endl;
+    
     for(int index = 0; index < transactionsVector.size(); index++)
         cout << transactionsVector.at(index) << endl;
 
@@ -357,6 +397,10 @@ void VendeMaisMais::showClientTransactions(unsigned int cliUniqueId) const {
     }
 
     else {
+        cout << setw(5) << "ID";
+        cout << setw(13) << "Date";
+        cout << setw(20) << "Products Bought";
+        cout << endl << endl;
         cout << endl;
         for(int index = 0; index < clientTransactionsTemp.size(); index++)
             cout << clientTransactionsTemp.at(index) << endl;

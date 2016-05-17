@@ -94,9 +94,15 @@ void Transaction::save(ofstream &out) const {
 }
 
 ostream& operator<<(ostream& out, const Transaction &trans) {
-    out << "ID Nr." << trans.getClientId() << " on " << trans.getDateOfTransaction() << " bought ";
+    
+    out << setw(4) << trans.getClientId();
+    out << setw(8) << trans.getDateOfTransaction();
+    out << setw(4) << "  ";
+    //out << "ID Nr." << trans.getClientId() << " on " << trans.getDateOfTransaction() << " bought ";
+    
     for (int index = 0; index < trans.getProductsBought().size(); index++) {
-		out << trans.getProductsBought().at(index);
+		
+        out << trans.getProductsBought().at(index);
 						/*Logical test: If there are more than 2 products left to show, after the first one is shown a comma is inserted.
 						If there are 2 products left, an 'and' is inserted. However, this is only done if there is more than one product.
 						If there is only one product, nothing is added after such product*/
