@@ -61,4 +61,6 @@ class VendeMaisMais{
   bool compareClients(const Client &client1, const Client &client2);
   //Compares two transactions; returns true if tran1 was made before tran2 in the Gregorian calendar
   bool compareTrans(const Transaction &tran1, const Transaction &tran2);
+  //Compares two <string,int> pairs and returns true if pair1 int is greater than pair2 int
+  bool comparePairs(const pair<string,int> &pair1, const pair<string,int> &pair2);
 

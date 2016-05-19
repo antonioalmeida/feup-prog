@@ -451,14 +451,14 @@ void VendeMaisMais::recommendProductSingleClient() const {
     for(int counter = 0; counter < idsThatMadeTransactions.size(); counter++)
         clientIdtoIndex.insert(pair<int,int>(idsThatMadeTransactions.at(counter), counter));
 
-    /*PRINTING TEST (DELETE)
+    /*PRINTING TEST
     for(map<int,int>::const_iterator p = clientIdtoIndex.begin(); p != clientIdtoIndex.end(); p++)
         cout << p->first << " - " << p->second << endl;*/
 
     //Matrix initialization with the conditions required
     vector<vector<bool>> marketingmatrix(clientIdtoIndex.size(), vector<bool>(productsVector.size(),false));
 
-    /*
+    /*DELETE BEFORE SENDING********************************************************************
     //Changing every bought product on each client boolean to #t (OLD WAY; DELETE LATER)
     for(int clientindex = 0; clientindex < marketingmatrix.size(); clientindex++){
         for(int transactionindex = 0; transactionindex < transactionsVector.size(); transactionindex++){
@@ -485,7 +485,7 @@ void VendeMaisMais::recommendProductSingleClient() const {
 
 
     /*
-    //PRINTING TEST (DELETE)
+    //PRINTING TEST
     for(int i = 0; i < marketingmatrix.size(); i++){
         cout << "Index " << i << " - ";
         for(int j = 0; j < productsVector.size(); j++)
@@ -557,7 +557,7 @@ void VendeMaisMais::recommendProductSingleClient() const {
         }
     }
 
-    /*PRINTING TEST (DELETE)
+    /*PRINTING TEST
     for(int k = 0; k < numberOfCommonProducts.size(); k++)
         cout << "index " << k << " - " << numberOfCommonProducts.at(k) << endl;*/
 
@@ -625,15 +625,15 @@ void VendeMaisMais::recommendProductBottom10() const {
             }
     }
 
-    /*
-    //PRINTING TEST (DELETE)
+
+    //PRINTING TEST
     for(int i = 0; i < bottom10matrix.size(); i++){
         cout << "Index " << i << " - ";
         for(int j = 0; j < productsVector.size(); j++)
             cout << bottom10matrix.at(i).at(j) << " ";
         cout << endl;
     }
-    */
+
 
     //Calculating vector that holds indexes of common products from Bottom10 clients
     vector<int> indexesOfCommonBottom10Products;
@@ -682,7 +682,7 @@ void VendeMaisMais::recommendProductBottom10() const {
         otherClientsIdtoIndex.insert(pair<int,int>(idsThatMadeTransactions.at(counter), counter));
 
     /*
-    //PRINTING TEST (DELETE)
+    //PRINTING TEST
     for(map<int,int>::const_iterator p = otherClientsIdtoIndex.begin(); p != otherClientsIdtoIndex.end(); p++)
         cout << p->first << " - " << p->second << endl;
     */
@@ -703,15 +703,100 @@ void VendeMaisMais::recommendProductBottom10() const {
             }
     }
 
-
-    //PRINTING TEST (DELETE)
+    /*
+    //PRINTING TEST
     for(int i = 0; i < otherClientsMatrix.size(); i++){
         cout << "Index " << i << " - ";
         for(int j = 0; j < productsVector.size(); j++)
             cout << otherClientsMatrix.at(i).at(j) << " ";
         cout << endl;
     }
+    */
 
+    //New matrix that copies from "other clients" matrix every client (and respective information) that has at least bought every common-to-all-Bottom10 product
+    vector<vector<bool>> interestingClients;
+    for(int clientindex = 0; clientindex < otherClientsMatrix.size(); clientindex++){
+        bool interestingClient = true;
+        for(int productindex = 0; productindex < indexesOfCommonBottom10Products.size(); productindex++){
+            int currentProductIndex = indexesOfCommonBottom10Products.at(productindex);
+            if(!otherClientsMatrix.at(clientindex).at(currentProductIndex)){ //If current client failed to buy at least one of the common-to-all-Bottom10 products, then he is not interesting
+                interestingClient = false;
+                break;
+            }
+        }
+
+        if(interestingClient)
+            interestingClients.push_back(otherClientsMatrix.at(clientindex));
+    }
+
+    /*
+    //PRINTING TEST
+    for(int i = 0; i < interestingClients.size(); i++){
+        cout << "Index " << i << " - ";
+        for(int j = 0; j < productsVector.size(); j++)
+            cout << interestingClients.at(i).at(j) << " ";
+        cout << endl;
+    }
+    */
+
+    //Pair vector that will hold a pair with each potential product to suggest and its number of occurrences in the interesting clients' matrix (serve as the "histogram" mentioned)
+    vector<pair<string,int>> productAppearances;
+
+    for(int productindex = 0; productindex < productsVector.size(); productindex++){
+        bool commonProductToBottom10 = isMember(indexesOfCommonBottom10Products, productindex); //Current product is not one of the common to Bottom10 clients so it is a possibility for later suggestion
+        if(!commonProductToBottom10){
+            string currentProductName = productsVector.at(productindex).getName();
+            int currentProductIndex = productIdx.find(currentProductName)->second;
+            pair<string,int> currentP = make_pair(currentProductName, 0);
+            for(int clientindex = 0; clientindex < interestingClients.size(); clientindex++){
+                bool productBoughtByCurrentClient = interestingClients.at(clientindex).at(productindex);
+                if(productBoughtByCurrentClient)
+                    (currentP.second)++;
+
+            }
+            productAppearances.push_back(currentP);
+        }
+    }
+
+    //Sorting so it is tested from the highest value to the lowest (note that comparePairs returns true if first is greater than second and not vice-versa like a normal sort)
+    sort(productAppearances.begin(), productAppearances.end(), comparePairs);
+
+
+    //PRINTING TEST
+    for(int x = 0; x < productAppearances.size(); x++)
+        cout << productAppearances.at(x).first << " - " << productAppearances.at(x).second << endl;
+
+
+    for(int mainindex = 0; mainindex < productAppearances.size(); mainindex++){
+        int occurrencesOfProductOnBottom10 = 0;
+        int productIndex = productIdx.find(productAppearances.at(mainindex).first)->second;
+        for(int secondaryindex = 0; secondaryindex < bottom10matrix.size(); secondaryindex++){
+            if(bottom10matrix.at(secondaryindex).at(productIndex))
+                occurrencesOfProductOnBottom10++;
+        }
+        if(occurrencesOfProductOnBottom10 == 0){
+            cout << /*inserir mensagem bonita <<*/ productAppearances.at(mainindex).first << " is suggested" /* just to test */ << endl;
+            return; //Product suggested so the function is done
+        }
+    }
+
+    //Loop that will only execute when in the potential products there is not at least one that was not bought by any of the Bottom10 clients
+    int indexToPrint; //Holds the index of product to suggest to print when loop is done
+    int minimumNumberOfOccurrencesOnBottom10 = numeric_limits<int>::max(); //Initial minimum number of occurrences is the highest integer value compiler can process
+    for(int mainindex = 0; mainindex < productAppearances.size(); mainindex++){
+        int occurrencesOfProductOnBottom10 = 0;
+        int productIndex = productIdx.find(productAppearances.at(mainindex).first)->second;
+        for(int secondaryindex = 0; secondaryindex < bottom10matrix.size(); secondaryindex++){
+            if(bottom10matrix.at(secondaryindex).at(productIndex))
+                occurrencesOfProductOnBottom10++;
+        }
+        if(occurrencesOfProductOnBottom10 < minimumNumberOfOccurrencesOnBottom10){
+            minimumNumberOfOccurrencesOnBottom10 = occurrencesOfProductOnBottom10;
+            indexToPrint = mainindex;
+        }
+    }
+
+    cout << /*inserir mensagem bonita <<*/ productAppearances.at(indexToPrint).first << " is suggested" /* just to test */ << endl;
 }
 
 
@@ -803,4 +888,8 @@ bool compareTrans(const Transaction &tran1, const Transaction &tran2) {
 //Compares two clients, returns true if clients1 spent less than client2
 bool compareClients(const Client &client1, const Client &client2) {
     return client1.getShopVolume() < client2.getShopVolume();
+}
+
+bool comparePairs(const pair<string,int> &pair1, const pair<string,int> &pair2){
+    return pair1.second > pair2.second;
 }

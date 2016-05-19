@@ -67,7 +67,7 @@ bool Date::verifyDate() const {
 
     bool result;
 
-    if(numDays(year, month) >= day && month > 0 && month < 13)
+    if((numDays(year, month) >= day && day > 0) && (month > 0 && month < 13))
         result = true;
     else {
         cout << "The date you inserted was not valid, please try again." << endl;
