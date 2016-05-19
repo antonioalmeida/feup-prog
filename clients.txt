@@ -12,5 +12,5 @@
 22 ; Luis Martins ; 9/9/2009 ; 0.5
 23 ; Joana Pimenta ; 6/2/2001 ; 0.5
 27 ; Diogo Sousa ; 6/2/2001 ; 0.5
-28 ; Gajo Piroxenado ; 6/2/2001 ; 0.5
-31 ; Rui Sousa ; 6/2/2002 ; 0.5
+28 ; Gajo Piroxenado ; 6/2/2001 ; 6.4
+31 ; Rui Sousa ; 6/2/2002 ; 7.5

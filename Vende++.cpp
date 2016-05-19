@@ -705,6 +705,7 @@ void VendeMaisMais::recommendProductBottom10() const {
 
     /*
     //PRINTING TEST
+    cout << endl;
     for(int i = 0; i < otherClientsMatrix.size(); i++){
         cout << "Index " << i << " - ";
         for(int j = 0; j < productsVector.size(); j++)
@@ -712,6 +713,7 @@ void VendeMaisMais::recommendProductBottom10() const {
         cout << endl;
     }
     */
+
 
     //New matrix that copies from "other clients" matrix every client (and respective information) that has at least bought every common-to-all-Bottom10 product
     vector<vector<bool>> interestingClients;
@@ -731,6 +733,7 @@ void VendeMaisMais::recommendProductBottom10() const {
 
     /*
     //PRINTING TEST
+    cout << endl;
     for(int i = 0; i < interestingClients.size(); i++){
         cout << "Index " << i << " - ";
         for(int j = 0; j < productsVector.size(); j++)
@@ -738,6 +741,7 @@ void VendeMaisMais::recommendProductBottom10() const {
         cout << endl;
     }
     */
+
 
     //Pair vector that will hold a pair with each potential product to suggest and its number of occurrences in the interesting clients' matrix (serve as the "histogram" mentioned)
     vector<pair<string,int>> productAppearances;
@@ -761,20 +765,11 @@ void VendeMaisMais::recommendProductBottom10() const {
     //Sorting so it is tested from the highest value to the lowest (note that comparePairs returns true if first is greater than second and not vice-versa like a normal sort)
     sort(productAppearances.begin(), productAppearances.end(), comparePairs);
 
-    
-    //Printing teste
-    for(int i = 0; i < clientsVector.size(); i++)
-        cout << clientsVector.at(i) << endl;
-    for(int i = 0; i < productsVector.size(); i++)
-        cout << productsVector.at(i) << endl;
-    for(int i = 0; i < transactionsVector.size(); i++)
-        cout << transactionsVector.at(i) << endl;
-    
-    
+    /*
     //PRINTING TEST
     for(int x = 0; x < productAppearances.size(); x++)
         cout << productAppearances.at(x).first << " - " << productAppearances.at(x).second << endl;
-
+    */
 
     for(int mainindex = 0; mainindex < productAppearances.size(); mainindex++){
         int occurrencesOfProductOnBottom10 = 0;
@@ -806,7 +801,7 @@ void VendeMaisMais::recommendProductBottom10() const {
     }
 
     cout << /*inserir mensagem bonita <<*/ productAppearances.at(indexToPrint).first << " is suggested" /* just to test */ << endl;
-    
+
 }
 
 
@@ -879,13 +874,10 @@ unsigned int readClientId(const VendeMaisMais &supermarket) {
 
 float totalAmountSpent(const VendeMaisMais &supermarket) {
     float sum = 0;
-    /*for(int mainindex = 0; mainindex < supermarket.transactionsVector.size(); mainindex++){
-        for(int secondaryindex = 0; secondaryindex < supermarket.transactionsVector.at(mainindex).getProductsBought().size(); secondaryindex++){
-            int currentProductIndex = (supermarket.productIdx.find(supermarket.transactionsVector.at(mainindex).getProductsBought().at(secondaryindex)))->second;
-            float currentProductCost = supermarket.productsVector.at(currentProductIndex).getCost();
-            sum = sum + currentProductCost;
-        }
-    }*/
+    for(int index = 0; index < supermarket.clientsVector.size(); index++){
+        float currentShopVolume = supermarket.clientsVector.at(index).getShopVolume();
+        sum += currentShopVolume;
+    }
 
     return sum;
 }
