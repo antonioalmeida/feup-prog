@@ -1,16 +1,16 @@
 15
-1 ; Gajo Random ; 1/12/2006 ; 0.5
+1 ; Jose Saraiva ; 1/12/2006 ; 0.5
 2 ; Rui Pereira ; 1/12/2008 ; 10.3
 3 ; Maria de Lurdes ; 23/4/2009 ; 0.5
 6 ; Joana Beires ; 15/10/2010 ; 7.6
-16 ; Manuela Moura ; 31/3/2016 ; 8.3
-17 ; Cyril Damascheta ; 31/12/2010 ; 7.2
-18 ; Cyril Cheta ; 2/2/2002 ; 0.5
-19 ; Cenas Piroxenadas ; 2/2/2002 ; 0.5
-20 ; Gajo das Piroxenas ; 3/3/2003 ; 1.5
-21 ; Diogo Torres ; 1/1/2001 ; 0.5
-22 ; Luis Martins ; 9/9/2009 ; 0.5
-23 ; Joana Pimenta ; 6/2/2001 ; 0.5
+16 ; Manuela Moura Guedes ; 31/3/2016 ; 8.3
+17 ; Joaquim Agostinho ; 31/12/2010 ; 7.2
+18 ; Cyril Damas ; 2/2/2002 ; 0.5
+19 ; Mario Coluna ; 2/2/2002 ; 0.5
+20 ; Oceano Basilio ; 3/3/2003 ; 1.5
+21 ; Davis Gouveia ; 1/1/2001 ; 0.5
+22 ; Francisca Portela ; 9/9/2009 ; 0.5
+23 ; Vitor Damas ; 6/2/2001 ; 0.5
 27 ; Diogo Sousa ; 6/2/2001 ; 0.5
-28 ; Gajo Piroxenado ; 6/2/2001 ; 6.4
+28 ; Bernardo Tengarrinha ; 6/2/2001 ; 6.4
 31 ; Rui Sousa ; 6/2/2002 ; 7.5
