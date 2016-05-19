@@ -1,10 +1,18 @@
-9
-1 ; 1/1/2016 ; laranja, banana
-1 ; 3/1/2016 ; peixe, laranja, batatas fritas
+17
+1 ; 1/1/2002 ; batatas fritas, pao
+2 ; 1/1/2016 ; laranja, banana, pao
+2 ; 3/1/2016 ; peixe, laranja, batatas fritas
 16 ; 15/3/2016 ; banana, laranja, peixe
-3 ; 20/12/2015 ; banana, batatas fritas
-6 ; 20/5/2016 ; peixe, batatas fritas, laranja
+3 ; 20/12/2015 ; batatas fritas, pao
+6 ; 20/5/2016 ; peixe, batatas fritas, laranja, pao
 17 ; 2/2/2002 ; banana, batatas fritas, peixe
 21 ; 2/2/2002 ; peixe, batatas fritas
 20 ; 1/1/2001 ; laranja
-18 ; 2/2/2021 ; batatas fritas
+18 ; 2/2/2021 ; batatas fritas, pao
+19 ; 1/1/2002 ; batatas fritas, pao
+21 ; 1/1/2002 ; batatas fritas, pao
+22 ; 1/1/2002 ; batatas fritas, pao
+23 ; 1/1/2002 ; batatas fritas, pao
+27 ; 1/1/2002 ; batatas fritas, pao
+28 ; 1/1/2002 ; batatas fritas, pao
+31 ; 1/1/2002 ; batatas fritas, pao

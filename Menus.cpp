@@ -133,10 +133,11 @@ unsigned short int transactionsManagementMenu(){
     cout << TAB << "2 - Show a client's transactions (by chronological order)" << endl;
     cout << TAB << "3 - Add a transaction (make a purchase)" << endl;
     cout << TAB << "4 - Show transactions made on a specific date" << endl;
-    cout << TAB << "5 - Show all transactions made" << endl;
+    cout << TAB << "5 - Show transactions since specific date" << endl;
+    cout << TAB << "6 - Show all transactions made" << endl;
     cout << TAB << "0 - Leave for main menu" << endl << endl;
     cout << TAB << "Choose an option: ";
-    option = readUnsignedShortInt(0, 5);
+    option = readUnsignedShortInt(0, 6);
     return option;
 }
 
@@ -181,6 +182,9 @@ void transactionsManagementOption(VendeMaisMais &supermarket){
         supermarket.showTransactionsOnDate();
         break;
     case 5:
+        supermarket.showTransactionsSince();
+        break;
+    case 6:
         supermarket.showAllTransactions();
         break;
     }

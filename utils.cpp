@@ -34,7 +34,7 @@ unsigned short int readUnsignedShortInt(unsigned short int minValue, unsigned sh
   do{
       cin >> number;
       if(number < minValue || number > maxValue)
-        cout << "ERROR: Out of range value, please insert a value between " << minValue << "-" << maxValue << endl;
+        cout << "ERROR: Out of range value, please insert a value between " << minValue << "-" << maxValue << ": ";
   }while(number < minValue || number > maxValue);
 
   return number;

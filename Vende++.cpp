@@ -84,7 +84,7 @@ void VendeMaisMais::listClientsAlphabetically() const {
     cout << setw(17) << "Join Date";
     cout << setw(15) << "Shop Volume";
     cout << endl << endl;
-    
+
     for(int index = 0; index < numberOfClients; index++)
         //cout << "- " << clientsVectorTemp.at(index).getName() << " ; ID: " << clientsVectorTemp.at(index).getId() << endl;
         cout << clientsVectorTemp.at(index);
@@ -97,15 +97,15 @@ void VendeMaisMais::listClientsAlphabetically() const {
 void VendeMaisMais::showSpecificClient(string name) const {
 
     map<string,int>::const_iterator p = clientIdx.find(name);
-    
+
     cout << endl << "Showing Specific Client" << endl << endl;
-    
+
     cout << setw(4) << "ID";
     cout << setw(22) << "Name";
     cout << setw(17) << "Join Date";
     cout << setw(15) << "Shop Volume";
     cout << endl << endl;
-    
+
     cout << clientsVector.at(p->second);
 
     cout << endl;
@@ -242,9 +242,9 @@ void VendeMaisMais::showBottom10() const {
     vector<Client> tempClient = clientsVector;
 
     sort(tempClient.begin(), tempClient.end(), compareClients);
-    
+
     cout << endl << "Showing 'Bottom10' Clients" << endl << endl;
-    
+
     cout << setw(4) << "ID";
     cout << setw(22) << "Name";
     cout << setw(17) << "Join Date";
@@ -264,7 +264,7 @@ void VendeMaisMais::addTransaction() {
     vector<int> idVector;
     for(int index = 0; index < clientsVector.size(); index++)
         idVector.push_back(clientsVector.at(index).getId());
-    Transaction newTransaction = Transaction(idVector,productIdx);
+    Transaction newTransaction(idVector,productIdx);
     transactionsVector.push_back(newTransaction);
     transactionsAltered = true;
 
@@ -302,18 +302,18 @@ void VendeMaisMais::showTransactionsBetweenDates() const {
     string date1, date2;
     cout << "Insert the date corresponding to the period beginning: ";
     getline(cin, date1);
-    Date d1 = Date(date1);
+    Date d1(date1);
     cout << "Insert the date corresponding to the period end: ";
     getline(cin, date2);
-    Date d2 = Date(date2);
+    Date d2(date2);
 
     cout << "Showing Transactions made between " << d1 << " and " << d2 << " (including themselves):" << endl;
-    
+
     cout << setw(5) << "ID";
     cout << setw(13) << "Date";
     cout << setw(20) << "Products Bought";
     cout << endl << endl;
-    
+
     for(int index = 0; index < transactionsVector.size(); index++){
         if(transactionsVector.at(index).getDateOfTransaction() >= d1 && transactionsVector.at(index).getDateOfTransaction() <= d2)
             cout << transactionsVector.at(index) << endl;
@@ -328,14 +328,14 @@ void VendeMaisMais::showTransactionsOnDate() const {
     string date;
     cout << "Insert the date intended: ";
     getline(cin, date);
-    Date d1 = Date(date);
+    Date d1(date);
 
     cout << endl << "Showing Transactions made on " << d1 << ":" << endl << endl;
-    
+
     cout << setw(5) << "ID";
     cout << setw(19) << "Products Bought";
     cout << endl << endl;
-    
+
     for(int mainindex = 0; mainindex < transactionsVector.size(); mainindex++){
         if(transactionsVector.at(mainindex).getDateOfTransaction() == d1){
             cout << setw(5) << transactionsVector.at(mainindex).getClientId() << setw(4) << "  ";
@@ -358,14 +358,37 @@ void VendeMaisMais::showTransactionsOnDate() const {
     pressToContinue();
 }
 
-void VendeMaisMais::showAllTransactions() const {
-    cout << "Showing all transactions made in supermarket " << storeName << ":" << endl;
-    
+void VendeMaisMais::showTransactionsSince() const {
+    cin.ignore(numeric_limits<int>::max(),'\n');
+    string date1, date2;
+    cout << "Insert the date corresponding to the period beginning: ";
+    getline(cin, date1);
+    Date d1(date1);
+
+    cout << "Showing Transactions made since " << d1 << endl;
+
     cout << setw(5) << "ID";
     cout << setw(13) << "Date";
     cout << setw(20) << "Products Bought";
     cout << endl << endl;
-    
+
+    for(int index = 0; index < transactionsVector.size(); index++){
+        if(transactionsVector.at(index).getDateOfTransaction() >= d1)
+            cout << transactionsVector.at(index) << endl;
+    }
+
+    cout << endl;
+    pressToContinue();
+}
+
+void VendeMaisMais::showAllTransactions() const {
+    cout << "Showing all transactions made in supermarket " << storeName << ":" << endl;
+
+    cout << setw(5) << "ID";
+    cout << setw(13) << "Date";
+    cout << setw(20) << "Products Bought";
+    cout << endl << endl;
+
     for(int index = 0; index < transactionsVector.size(); index++)
         cout << transactionsVector.at(index) << endl;
 
@@ -614,7 +637,7 @@ void VendeMaisMais::recommendProductBottom10() const {
 
     //Calculating vector that holds indexes of common products from Bottom10 clients
     vector<int> indexesOfCommonBottom10Products;
-    for(int productindex = 0; productindex < productsVector.size(); productindex){
+    for(int productindex = 0; productindex < productsVector.size(); productindex++){
         bool commonProduct = true;
         for(int clientindex = 0; clientindex < bottom10matrix.size(); clientindex++){
             if(!bottom10matrix.at(clientindex).at(productindex)) { //One client has not bought the product, so it is not common
