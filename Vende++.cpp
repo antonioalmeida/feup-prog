@@ -703,6 +703,7 @@ void VendeMaisMais::recommendProductBottom10() const {
             }
     }
 
+
     //PRINTING TEST (DELETE)
     for(int i = 0; i < otherClientsMatrix.size(); i++){
         cout << "Index " << i << " - ";
