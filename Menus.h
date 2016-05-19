@@ -12,6 +12,7 @@
 
 //using namespace std;
 
+
 bool initialInformation(string &store, string &clientsFileName, string &productsFileName, string &transactionsFileName);
 void mainOption(VendeMaisMais &supermarket);
 void clientManagementOption(VendeMaisMais &supermarket);

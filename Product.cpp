@@ -1,7 +1,6 @@
 #include "Product.h"
 using namespace std;
 
-
 Product::Product(ifstream &in){
   string line;
   getline(in, line);

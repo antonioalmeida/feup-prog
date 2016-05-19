@@ -27,7 +27,6 @@ void DeleteWhitespace(string &s){
      }
 }
 
-
 unsigned short int readUnsignedShortInt(unsigned short int minValue, unsigned short int  maxValue){
 
   unsigned short int number;

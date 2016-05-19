@@ -1,5 +1,5 @@
 17
-1 ; 1/1/2002 ; batatas fritas, pao
+1 ; 1/1/2001 ; batatas fritas, pao
 2 ; 1/1/2016 ; laranja, banana, pao
 2 ; 3/1/2016 ; peixe, laranja, batatas fritas
 16 ; 15/3/2016 ; banana, laranja, peixe

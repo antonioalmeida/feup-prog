@@ -1,6 +1,6 @@
 5
 laranja ; 1.5
 banana ; 1.2
-peixe ; 5.6
+peixe ; 5.5
 batatas fritas ; 0.4
 pao ; 0.1

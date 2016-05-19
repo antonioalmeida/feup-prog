@@ -1,7 +1,6 @@
 #include <iostream>
 #include <string>
 #include <vector>
-
 #include "Vende++.h"
 #include "Menus.h"
 #include "utils.h"
@@ -23,4 +22,5 @@ int main(){
   cout << supermarket << endl;
   cout << "See you soon!" << endl;
   return 0;
+    
 }

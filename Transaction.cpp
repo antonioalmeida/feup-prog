@@ -1,5 +1,6 @@
 #pragma once
 
+
 #include "Transaction.h"
 #include "utils.h"
 
@@ -115,3 +116,4 @@ ostream& operator<<(ostream& out, const Transaction &trans) {
     }
     return out;
 }
+

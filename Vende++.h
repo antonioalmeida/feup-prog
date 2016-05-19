@@ -64,3 +64,4 @@ class VendeMaisMais{
   //Compares two <string,int> pairs and returns true if pair1 int is greater than pair2 int
   bool comparePairs(const pair<string,int> &pair1, const pair<string,int> &pair2);
 
+

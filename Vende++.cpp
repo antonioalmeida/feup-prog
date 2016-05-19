@@ -761,7 +761,16 @@ void VendeMaisMais::recommendProductBottom10() const {
     //Sorting so it is tested from the highest value to the lowest (note that comparePairs returns true if first is greater than second and not vice-versa like a normal sort)
     sort(productAppearances.begin(), productAppearances.end(), comparePairs);
 
-
+    
+    //Printing teste
+    for(int i = 0; i < clientsVector.size(); i++)
+        cout << clientsVector.at(i) << endl;
+    for(int i = 0; i < productsVector.size(); i++)
+        cout << productsVector.at(i) << endl;
+    for(int i = 0; i < transactionsVector.size(); i++)
+        cout << transactionsVector.at(i) << endl;
+    
+    
     //PRINTING TEST
     for(int x = 0; x < productAppearances.size(); x++)
         cout << productAppearances.at(x).first << " - " << productAppearances.at(x).second << endl;
@@ -775,7 +784,7 @@ void VendeMaisMais::recommendProductBottom10() const {
                 occurrencesOfProductOnBottom10++;
         }
         if(occurrencesOfProductOnBottom10 == 0){
-            cout << /*inserir mensagem bonita <<*/ productAppearances.at(mainindex).first << " is suggested" /* just to test */ << endl;
+            cout << "The 'Bottom10' clients are likely to like " << productAppearances.at(mainindex).first << ", why not suggesting it to them?" << endl;
             return; //Product suggested so the function is done
         }
     }
@@ -797,6 +806,7 @@ void VendeMaisMais::recommendProductBottom10() const {
     }
 
     cout << /*inserir mensagem bonita <<*/ productAppearances.at(indexToPrint).first << " is suggested" /* just to test */ << endl;
+    
 }
 
 
@@ -893,3 +903,5 @@ bool compareClients(const Client &client1, const Client &client2) {
 bool comparePairs(const pair<string,int> &pair1, const pair<string,int> &pair2){
     return pair1.second > pair2.second;
 }
+
+
