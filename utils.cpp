@@ -8,7 +8,7 @@ void clearScreen(){
 
 void pressToContinue(){
     string lixo;
-    cout << "Press any key, followed by ENTER to continue" << endl;
+    cout << "Press ENTER to continue." << endl;
     getline(cin,lixo);
     clearScreen();
 }

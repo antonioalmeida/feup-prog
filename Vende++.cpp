@@ -121,13 +121,15 @@ void VendeMaisMais::listProductsAlphabetically() const {
 
     int numberOfProducts = productsVectorTemp.size();
 
-    cout << endl;
+    cout << endl << "Showing available products" << endl << endl;
+    
+    cout << setw(16) << "Name" << setw(9) << "Price" << endl << endl;
 
-    cout << "Current available products:" << endl;
-
-    for(int index = 0; index < numberOfProducts; index++)
-        cout << "- " << productsVectorTemp.at(index).getName() << ", at a cost of " << productsVectorTemp.at(index).getCost() << endl;
-
+    for(int index = 0; index < numberOfProducts; index++) {
+        cout << setw(16) << productsVectorTemp.at(index).getName();
+        cout << setw(7) << productsVectorTemp.at(index).getCost() << endl;
+    }
+    
     cin.ignore(numeric_limits<int>::max(),'\n');
     cout << endl;
     pressToContinue();
@@ -307,7 +309,7 @@ void VendeMaisMais::showTransactionsBetweenDates() const {
     getline(cin, date2);
     Date d2(date2);
 
-    cout << "Showing Transactions made between " << d1 << " and " << d2 << " (including themselves):" << endl;
+    cout << endl << "Showing Transactions made between " << d1 << " and " << d2 << " (including themselves):" << endl;
 
     cout << setw(5) << "ID";
     cout << setw(13) << "Date";
@@ -382,7 +384,7 @@ void VendeMaisMais::showTransactionsSince() const {
 }
 
 void VendeMaisMais::showAllTransactions() const {
-    cout << "Showing all transactions made in supermarket " << storeName << ":" << endl;
+    cout << endl << "Showing all transactions made in supermarket '" << storeName << "'" << endl;
 
     cout << setw(5) << "ID";
     cout << setw(13) << "Date";
@@ -416,7 +418,7 @@ void VendeMaisMais::showClientTransactions(unsigned int cliUniqueId) const {
 
     if(clientTransactionsTemp.size() == 0) { //No transactions made
         cout << endl;
-        cout << "ID Nr." << cliUniqueId << " has not made any transactions!" << endl;
+        cout << "Client with ID " << cliUniqueId << " has not made any transactions!" << endl;
     }
 
     else {
@@ -520,10 +522,12 @@ void VendeMaisMais::recommendProductSingleClient() const {
         }
 
         //Suggesting
-        cout << "ID Nr." << targetId << ", it seems that you have not made any transactions yet!" << endl;
+        cout << endl << "Recommending product for a single client:" << endl << endl;
+        cout << endl << "Client with ID " << targetId << " has not made any transactions yet!" << endl;
         cout << "The most bought product currently is " << productsVector.at(suggestedProductIndex).getName() << ", so why not start there? It only costs " << productsVector.at(suggestedProductIndex).getCost() << "!" << endl;
 
         cout << endl;
+        cin.ignore(INT_MAX,'\n');
         pressToContinue();
         return; //Exit function
     }
@@ -574,7 +578,7 @@ void VendeMaisMais::recommendProductSingleClient() const {
 
     //Suggesting
     cout << endl;
-    cout << "ID Nr." << targetId << " is likely to like " << productsVector.at(suggestedProductIndex).getName() << ", plus it only costs " << productsVector.at(suggestedProductIndex).getCost() << ", so why not suggest it?" << endl;
+    cout << "CLient with ID " << targetId << " is likely to like " << productsVector.at(suggestedProductIndex).getName() << ", plus it only costs " << productsVector.at(suggestedProductIndex).getCost() << ", so why not suggest it?" << endl;
     cout << endl;
 
     cin.ignore(numeric_limits<int>::max(),'\n');
@@ -765,11 +769,11 @@ void VendeMaisMais::recommendProductBottom10() const {
                 occurrencesOfProductOnBottom10++;
         }
         if(occurrencesOfProductOnBottom10 == 0){
+            cout << endl << "Recommmending product for 'Bottom10' clients" << endl;
             cout << endl;
             cout << "The 'Bottom10' clients are likely to like " << productAppearances.at(mainindex).first << ", why not suggesting it to them?" << endl;
             cout << endl;
             cin.ignore(numeric_limits<int>::max(),'\n');
-            cout << endl;
             pressToContinue();
             return; //Product suggested so the function is done
         }
