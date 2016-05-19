@@ -458,21 +458,6 @@ void VendeMaisMais::recommendProductSingleClient() const {
     //Matrix initialization with the conditions required
     vector<vector<bool>> marketingmatrix(clientIdtoIndex.size(), vector<bool>(productsVector.size(),false));
 
-    /*DELETE BEFORE SENDING********************************************************************
-    //Changing every bought product on each client boolean to #t (OLD WAY; DELETE LATER)
-    for(int clientindex = 0; clientindex < marketingmatrix.size(); clientindex++){
-        for(int transactionindex = 0; transactionindex < transactionsVector.size(); transactionindex++){
-            if(clientIdtoIndex[transactionsVector.at(transactionindex).getClientId()] == clientindex) { //If ID of the client from current transaction is the one from the current loop in the marketing matrix
-                    vector<string> products = transactionsVector.at(transactionindex).getProductsBought();
-                    for(int productindex = 0; productindex < products.size(); productindex++){
-                        int productIndexInMatrix = (productIdx.find(products.at(productindex)))->second;
-                        marketingmatrix.at(clientindex).at(productIndexInMatrix) = true;
-                    }
-            }
-        }
-    }
-    */
-
     //Changing every bought product on each client boolean to #t (NEW WAY: USING transactionIdx multimap (practically not used in the whole program))
     for(map<int,int>::const_iterator id_it = transactionIdx.begin(); id_it != transactionIdx.end(); id_it++){
             int clientIndex = (clientIdtoIndex.find(id_it->first))->second;
@@ -589,7 +574,7 @@ void VendeMaisMais::recommendProductSingleClient() const {
 
     //Suggesting
     cout << endl;
-    cout << "ID Nr." << targetId << ", you should buy " << productsVector.at(suggestedProductIndex).getName() << ", it only costs " << productsVector.at(suggestedProductIndex).getCost() << "!" << endl;
+    cout << "ID Nr." << targetId << " is likely to like " << productsVector.at(suggestedProductIndex).getName() << ", plus it only costs " << productsVector.at(suggestedProductIndex).getCost() << ", so why not suggest it?" << endl;
     cout << endl;
 
     cin.ignore(numeric_limits<int>::max(),'\n');
@@ -625,7 +610,7 @@ void VendeMaisMais::recommendProductBottom10() const {
             }
     }
 
-
+    /*
     //PRINTING TEST
     for(int i = 0; i < bottom10matrix.size(); i++){
         cout << "Index " << i << " - ";
@@ -633,6 +618,7 @@ void VendeMaisMais::recommendProductBottom10() const {
             cout << bottom10matrix.at(i).at(j) << " ";
         cout << endl;
     }
+    */
 
 
     //Calculating vector that holds indexes of common products from Bottom10 clients
@@ -779,7 +765,12 @@ void VendeMaisMais::recommendProductBottom10() const {
                 occurrencesOfProductOnBottom10++;
         }
         if(occurrencesOfProductOnBottom10 == 0){
+            cout << endl;
             cout << "The 'Bottom10' clients are likely to like " << productAppearances.at(mainindex).first << ", why not suggesting it to them?" << endl;
+            cout << endl;
+            cin.ignore(numeric_limits<int>::max(),'\n');
+            cout << endl;
+            pressToContinue();
             return; //Product suggested so the function is done
         }
     }
@@ -800,7 +791,10 @@ void VendeMaisMais::recommendProductBottom10() const {
         }
     }
 
-    cout << /*inserir mensagem bonita <<*/ productAppearances.at(indexToPrint).first << " is suggested" /* just to test */ << endl;
+    cout << endl;
+    cout << "The 'Bottom10' clients are likely to like " << productAppearances.at(indexToPrint).first << ", why not suggesting it to them?" << endl;
+    cout << endl;
+    pressToContinue();
 
 }
 
