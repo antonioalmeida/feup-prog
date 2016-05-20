@@ -22,5 +22,5 @@ int main(){
   cout << supermarket << endl;
   cout << "See you soon!" << endl;
   return 0;
-    
+
 }

@@ -4,13 +4,13 @@
 
 
 Date::Date(string date) {
-    istringstream dateTemp;
-    dateTemp.str(date);
-    dateTemp >> day;
-    dateTemp.ignore(numeric_limits<int>::max(), '/');
-    dateTemp >> month;
-    dateTemp.ignore(numeric_limits<int>::max(), '/');
-    dateTemp >> year;
+  istringstream dateTemp;
+  dateTemp.str(date);
+  dateTemp >> day;
+  dateTemp.ignore(numeric_limits<int>::max(), '/');
+  dateTemp >> month;
+  dateTemp.ignore(numeric_limits<int>::max(), '/');
+  dateTemp >> year;
 }
 
 unsigned int Date::getDay() const {
@@ -42,52 +42,37 @@ void Date::save(ofstream &out) const{
 }
 
 ostream& operator<<(ostream& out, const Date &date){
-  out << date.day << "-" << date.month << "-" << date.year; // - instead of / just to be different from the save method
-    return out;
+  out << date.day << "-" << date.month << "-" << date.year; // '-' instead of '/' just to be different from the save method
+  return out;
 }
 
 bool operator<=(const Date &date1, const Date &date2) {
-    bool isBefore = (date1.year < date2.year) || (date1.year == date2.year && date1.month < date2.month) || (date1.year == date2.year && date1.month == date2.month && date1.day < date2.day);
-    bool isEqual = (date1.year == date2.year) && (date1.month == date2.month) && (date1.day == date2.day);
-    return isBefore || isEqual;
+  bool isBefore = (date1.year < date2.year) || (date1.year == date2.year && date1.month < date2.month) || (date1.year == date2.year && date1.month == date2.month && date1.day < date2.day);
+  bool isEqual = (date1.year == date2.year) && (date1.month == date2.month) && (date1.day == date2.day);
+  return isBefore || isEqual;
 }
 
 bool operator>=(const Date &date1, const Date &date2) {
-    bool isAfter = (date1.year > date2.year) || (date1.year == date2.year && date1.month > date2.month) || (date1.year == date2.year && date1.month == date2.month && date1.day > date2.day);
-    bool isEqual = (date1.year == date2.year) && (date1.month == date2.month) && (date1.day == date2.day);
-    return isAfter || isEqual;
+  bool isAfter = (date1.year > date2.year) || (date1.year == date2.year && date1.month > date2.month) || (date1.year == date2.year && date1.month == date2.month && date1.day > date2.day);
+  bool isEqual = (date1.year == date2.year) && (date1.month == date2.month) && (date1.day == date2.day);
+  return isAfter || isEqual;
 }
 
 bool operator==(const Date &date1, const Date &date2) {
-    return (date1.year == date2.year) && (date1.month == date2.month) && (date1.day == date2.day);
+  return (date1.year == date2.year) && (date1.month == date2.month) && (date1.day == date2.day);
 }
 
 
 //Function to verify date
 bool Date::verifyDate() const {
 
-    bool result;
+  bool result;
 
-    if((numDays(year, month) >= day && day > 0) && (month > 0 && month < 13))
-        result = true;
-    else {
-        cout << "The date you inserted was not valid, please try again." << endl;
-        result = false;
-    }
-    return result;
+  if((numDays(year, month) >= day && day > 0) && (month > 0 && month < 13) && year > 0)
+    result = true;
+  else {
+    cout << "The date you inserted was not valid, please try again." << endl;
+    result = false;
+  }
+  return result;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

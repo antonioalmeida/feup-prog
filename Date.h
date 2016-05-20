@@ -10,12 +10,12 @@ using namespace std;
 
 
 class Date {
- private:
+private:
   unsigned int day;
   unsigned int month;
   unsigned int year;
 
- public:
+public:
   Date(){};
   Date(string date); //Date given according to the format: DD/MM/AAAA
   unsigned int getDay() const;

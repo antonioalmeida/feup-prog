@@ -1,6 +1,4 @@
-
 #include "Vende++.h"
-
 
 VendeMaisMais::VendeMaisMais(string store, string clientsFileName, string productsFileName, string transactionsFileName){
   storeName = store;
@@ -69,6 +67,7 @@ string VendeMaisMais::getStoreName() const {
     return storeName;
 }
 
+//Show all clients alphabetically
 void VendeMaisMais::listClientsAlphabetically() const {
 
     vector<Client> clientsVectorTemp = clientsVector;
@@ -94,6 +93,7 @@ void VendeMaisMais::listClientsAlphabetically() const {
     pressToContinue();
 }
 
+//Show a specific client's properties
 void VendeMaisMais::showSpecificClient(string name) const {
 
     map<string,int>::const_iterator p = clientIdx.find(name);
@@ -113,6 +113,7 @@ void VendeMaisMais::showSpecificClient(string name) const {
     pressToContinue();
 }
 
+//List all products alphabetically
 void VendeMaisMais::listProductsAlphabetically() const {
 
     vector<Product> productsVectorTemp = productsVector;
@@ -122,19 +123,20 @@ void VendeMaisMais::listProductsAlphabetically() const {
     int numberOfProducts = productsVectorTemp.size();
 
     cout << endl << "Showing available products" << endl << endl;
-    
+
     cout << setw(16) << "Name" << setw(9) << "Price" << endl << endl;
 
     for(int index = 0; index < numberOfProducts; index++) {
         cout << setw(16) << productsVectorTemp.at(index).getName();
         cout << setw(7) << productsVectorTemp.at(index).getCost() << endl;
     }
-    
+
     cin.ignore(numeric_limits<int>::max(),'\n');
     cout << endl;
     pressToContinue();
 }
 
+//Edit a specific client
 void VendeMaisMais::editSpecificClient(string name) {
 
     //Search for client
@@ -199,6 +201,7 @@ void VendeMaisMais::editSpecificClient(string name) {
 
 }
 
+//Add a client
 void VendeMaisMais::addClient(Client newClient) {
 
     //Set client's Id
@@ -217,6 +220,7 @@ void VendeMaisMais::addClient(Client newClient) {
     pressToContinue();
 }
 
+//Remove a client
 void VendeMaisMais::removeSpecificClient(string name) {
 
     //Search for client
@@ -262,7 +266,9 @@ void VendeMaisMais::showBottom10() const {
 
 }
 
+//Add a transaction (make a purchase)
 void VendeMaisMais::addTransaction() {
+
     vector<int> idVector;
     for(int index = 0; index < clientsVector.size(); index++)
         idVector.push_back(clientsVector.at(index).getId());
@@ -299,43 +305,43 @@ void VendeMaisMais::addTransaction() {
     pressToContinue();
 }
 
+//Show transactions made between two dates
 void VendeMaisMais::showTransactionsBetweenDates() const {
-    
-    
+
     cin.ignore(numeric_limits<int>::max(),'\n');
     string date1, date2;
-    
+
     bool exit = false;
-    
+
     //Get initial date
     do {
         cout << "Insert the date corresponding to the period beginning (DD/MM/YYYY) : ";
         getline(cin, date1);
         DeleteWhitespace(date1);
-        
+
         //Create temporary date
         Date tempDate(date1);
-        
+
         exit = tempDate.verifyDate();
-        
+
     } while(!exit);
-    
+
     exit = false;
     Date d1(date1);
-    
+
     //Get ending date
     do {
         cout << "Insert the date corresponding to the period end (DD/MM/YYYY) : ";
         getline(cin, date2);
         DeleteWhitespace(date2);
-        
+
         //Create temporary date
         Date tempDate(date2);
-        
+
         exit = tempDate.verifyDate();
-        
+
     } while(!exit);
-    
+
     Date d2(date2);
 
     cout << endl << "Showing Transactions made between " << d1 << " and " << d2 << " (including themselves)" << endl << endl;
@@ -354,40 +360,42 @@ void VendeMaisMais::showTransactionsBetweenDates() const {
     pressToContinue();
 }
 
+//Show transactions on a specific date
 void VendeMaisMais::showTransactionsOnDate() const {
+
     cin.ignore(numeric_limits<int>::max(),'\n');
     string date1;
-    
+
     bool exit = false;
-    
+
     do {
         cout << "Insert the date intended (DD/MM/YYYY) : ";
         getline(cin, date1);
         DeleteWhitespace(date1);
-        
+
         //Create temporary date
         Date tempDate(date1);
-        
+
         exit = tempDate.verifyDate();
-        
+
     } while(!exit);
-    
+
     Date d1(date1);
 
     cout << endl << "Showing Transactions made on " << d1 << endl << endl;
-    
+
     cout << setw(5) << "ID";
     cout << setw(19) << "Products Bought";
     cout << endl << endl;
-    
+
     //Boolean to verify if there's at least one transaction made on the entered day
     bool transactionsMade = false;
 
     for(int mainindex = 0; mainindex < transactionsVector.size(); mainindex++){
         if(transactionsVector.at(mainindex).getDateOfTransaction() == d1){
-            
+
             transactionsMade = true;
-            
+
             cout << setw(5) << transactionsVector.at(mainindex).getClientId() << setw(4) << "  ";
             for (int secondaryindex = 0; secondaryindex < transactionsVector.at(mainindex).getProductsBought().size(); secondaryindex++) {
                 cout << transactionsVector.at(mainindex).getProductsBought().at(secondaryindex);
@@ -404,33 +412,34 @@ void VendeMaisMais::showTransactionsOnDate() const {
             cout << endl;
         }
     }
-    
+
     if(!transactionsMade) cout << "There were no transactions made on " << d1 << endl;
     cout << endl;
     pressToContinue();
 }
 
+//Show transactions since 'date'
 void VendeMaisMais::showTransactionsSince() const {
-    
+
     cin.ignore(numeric_limits<int>::max(),'\n');
     string date1;
-    
+
     bool exit = false;
-    
+
     do {
         cout << "Insert the date corresponding to the period beginning (DD/MM/YYYY) : ";
         getline(cin, date1);
         DeleteWhitespace(date1);
-        
+
         //Create temporary date
         Date tempDate(date1);
-        
+
         exit = tempDate.verifyDate();
-        
+
     } while(!exit);
-    
+
     Date d1(date1);
-    
+
     cout << endl << "Showing Transactions made since " << d1 << endl << endl;
 
     cout << setw(5) << "ID";
@@ -447,6 +456,7 @@ void VendeMaisMais::showTransactionsSince() const {
     pressToContinue();
 }
 
+//Show all transactions
 void VendeMaisMais::showAllTransactions() const {
     cout << endl << "Showing all transactions made in supermarket '" << storeName << "'" << endl;
 
@@ -463,6 +473,7 @@ void VendeMaisMais::showAllTransactions() const {
     pressToContinue();
 }
 
+//Show a specific client's transactions
 void VendeMaisMais::showClientTransactions(string name) const {
     map<string,int>::const_iterator name_it = clientIdx.find(name); //returns iterator pointing to client's index in clients vector
     unsigned int cliUniqueId = clientsVector.at(name_it->second).getId(); //returns client's unique ID
@@ -470,6 +481,7 @@ void VendeMaisMais::showClientTransactions(string name) const {
 }
 
 void VendeMaisMais::showClientTransactions(unsigned int cliUniqueId) const {
+
     vector<Transaction> clientTransactionsTemp;
     multimap<int,int>::const_iterator id_it = transactionIdx.begin();
     for(id_it; id_it != transactionIdx.end(); id_it++){
@@ -499,7 +511,9 @@ void VendeMaisMais::showClientTransactions(unsigned int cliUniqueId) const {
     pressToContinue();
 }
 
+//Single Client Recommendation
 void VendeMaisMais::recommendProductSingleClient() const {
+
     map<int,int> clientIdtoIndex; //int to int map that translates each client's ID to his position in the matrix used
     /*vector that contains every ID that made at least one transaction and respective initialization
     Note that simply getting the IDs from current clients is not good practice,
@@ -649,6 +663,7 @@ void VendeMaisMais::recommendProductSingleClient() const {
     pressToContinue();
 }
 
+//Recommendation for 'Bottom10'
 void VendeMaisMais::recommendProductBottom10() const {
     /* ********************************************************
     ********BOTTOM10 CLIENTS DATA INITIALIZATION***************/
@@ -957,5 +972,3 @@ bool compareClients(const Client &client1, const Client &client2) {
 bool comparePairs(const pair<string,int> &pair1, const pair<string,int> &pair2){
     return pair1.second > pair2.second;
 }
-
-

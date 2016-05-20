@@ -1,6 +1,5 @@
 #include "Menus.h"
 
-
 bool initialInformation(string &store, string &clientsFileName, string &productsFileName, string &transactionsFileName) {
 
   cout << "Insert the store's name: " << endl;
@@ -82,7 +81,7 @@ void clientManagementOption(VendeMaisMais &supermarket){
                 case 1:{
                     unsigned int cliUniqueId = readClientId(supermarket);
                     cin.ignore(numeric_limits<int>::max(),'\n');
-                    
+
                     break;
                 }
                 case 2: {
@@ -96,7 +95,7 @@ void clientManagementOption(VendeMaisMais &supermarket){
             }
             break;
         }
-            
+
 
         case 3:{
             cout << "What is the client's name? : ";

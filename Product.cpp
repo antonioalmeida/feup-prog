@@ -24,7 +24,6 @@ ostream& operator<<(ostream& out, const Product & prod){
     return out;
 }
 
-
 bool operator<(const Product &prod1, const Product &prod2){
     string prod1Name = prod1.getName();
     string prod2Name = prod2.getName();

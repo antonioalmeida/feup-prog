@@ -18,7 +18,7 @@
 //using namespace std;
 
 class VendeMaisMais{
- private:
+private:
   string storeName;
   string clientsFile, productsFile, transactionsFile;
   bool transactionsAltered;
@@ -31,7 +31,7 @@ class VendeMaisMais{
   map<string, int> productIdx;
   multimap<int, int> transactionIdx;
 
- public:
+public:
   VendeMaisMais(string store, string clientsFileName, string productsFileName, string transactionsFileName);
   string getStoreName() const;
   void listClientsAlphabetically() const;
@@ -57,11 +57,9 @@ class VendeMaisMais{
   friend unsigned int readClientId(const VendeMaisMais &supermarket); //Loops until a valid client ID is read
   friend float totalAmountSpent(const VendeMaisMais &supermarket); //Calculates the total amount spent by all clients (used for showing supermarket's statistics)
 };
-  //Compares two clients, returns true if clients1 spent less than client2
-  bool compareClients(const Client &client1, const Client &client2);
-  //Compares two transactions; returns true if tran1 was made before tran2 in the Gregorian calendar
-  bool compareTrans(const Transaction &tran1, const Transaction &tran2);
-  //Compares two <string,int> pairs and returns true if pair1 int is greater than pair2 int
-  bool comparePairs(const pair<string,int> &pair1, const pair<string,int> &pair2);
-
-
+//Compares two clients, returns true if clients1 spent less than client2
+bool compareClients(const Client &client1, const Client &client2);
+//Compares two transactions; returns true if tran1 was made before tran2 in the Gregorian calendar
+bool compareTrans(const Transaction &tran1, const Transaction &tran2);
+//Compares two <string,int> pairs and returns true if pair1 int is greater than pair2 int
+bool comparePairs(const pair<string,int> &pair1, const pair<string,int> &pair2);
