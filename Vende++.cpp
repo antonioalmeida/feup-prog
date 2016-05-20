@@ -300,16 +300,45 @@ void VendeMaisMais::addTransaction() {
 }
 
 void VendeMaisMais::showTransactionsBetweenDates() const {
+    
+    
     cin.ignore(numeric_limits<int>::max(),'\n');
     string date1, date2;
-    cout << "Insert the date corresponding to the period beginning: ";
-    getline(cin, date1);
+    
+    bool exit = false;
+    
+    //Get initial date
+    do {
+        cout << "Insert the date corresponding to the period beginning (DD/MM/YYYY) : ";
+        getline(cin, date1);
+        DeleteWhitespace(date1);
+        
+        //Create temporary date
+        Date tempDate(date1);
+        
+        exit = tempDate.verifyDate();
+        
+    } while(!exit);
+    
+    exit = false;
     Date d1(date1);
-    cout << "Insert the date corresponding to the period end: ";
-    getline(cin, date2);
+    
+    //Get ending date
+    do {
+        cout << "Insert the date corresponding to the period end (DD/MM/YYYY) : ";
+        getline(cin, date2);
+        DeleteWhitespace(date2);
+        
+        //Create temporary date
+        Date tempDate(date2);
+        
+        exit = tempDate.verifyDate();
+        
+    } while(!exit);
+    
     Date d2(date2);
 
-    cout << endl << "Showing Transactions made between " << d1 << " and " << d2 << " (including themselves):" << endl;
+    cout << endl << "Showing Transactions made between " << d1 << " and " << d2 << " (including themselves)" << endl << endl;
 
     cout << setw(5) << "ID";
     cout << setw(13) << "Date";
@@ -327,19 +356,38 @@ void VendeMaisMais::showTransactionsBetweenDates() const {
 
 void VendeMaisMais::showTransactionsOnDate() const {
     cin.ignore(numeric_limits<int>::max(),'\n');
-    string date;
-    cout << "Insert the date intended: ";
-    getline(cin, date);
-    Date d1(date);
+    string date1;
+    
+    bool exit = false;
+    
+    do {
+        cout << "Insert the date intended (DD/MM/YYYY) : ";
+        getline(cin, date1);
+        DeleteWhitespace(date1);
+        
+        //Create temporary date
+        Date tempDate(date1);
+        
+        exit = tempDate.verifyDate();
+        
+    } while(!exit);
+    
+    Date d1(date1);
 
-    cout << endl << "Showing Transactions made on " << d1 << ":" << endl << endl;
-
+    cout << endl << "Showing Transactions made on " << d1 << endl << endl;
+    
     cout << setw(5) << "ID";
     cout << setw(19) << "Products Bought";
     cout << endl << endl;
+    
+    //Boolean to verify if there's at least one transaction made on the entered day
+    bool transactionsMade = false;
 
     for(int mainindex = 0; mainindex < transactionsVector.size(); mainindex++){
         if(transactionsVector.at(mainindex).getDateOfTransaction() == d1){
+            
+            transactionsMade = true;
+            
             cout << setw(5) << transactionsVector.at(mainindex).getClientId() << setw(4) << "  ";
             for (int secondaryindex = 0; secondaryindex < transactionsVector.at(mainindex).getProductsBought().size(); secondaryindex++) {
                 cout << transactionsVector.at(mainindex).getProductsBought().at(secondaryindex);
@@ -356,18 +404,34 @@ void VendeMaisMais::showTransactionsOnDate() const {
             cout << endl;
         }
     }
+    
+    if(!transactionsMade) cout << "There were no transactions made on " << d1 << endl;
     cout << endl;
     pressToContinue();
 }
 
 void VendeMaisMais::showTransactionsSince() const {
+    
     cin.ignore(numeric_limits<int>::max(),'\n');
-    string date1, date2;
-    cout << "Insert the date corresponding to the period beginning: ";
-    getline(cin, date1);
+    string date1;
+    
+    bool exit = false;
+    
+    do {
+        cout << "Insert the date corresponding to the period beginning (DD/MM/YYYY) : ";
+        getline(cin, date1);
+        DeleteWhitespace(date1);
+        
+        //Create temporary date
+        Date tempDate(date1);
+        
+        exit = tempDate.verifyDate();
+        
+    } while(!exit);
+    
     Date d1(date1);
-
-    cout << "Showing Transactions made since " << d1 << endl;
+    
+    cout << endl << "Showing Transactions made since " << d1 << endl << endl;
 
     cout << setw(5) << "ID";
     cout << setw(13) << "Date";
