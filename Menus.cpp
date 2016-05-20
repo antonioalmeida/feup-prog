@@ -81,7 +81,7 @@ void clientManagementOption(VendeMaisMais &supermarket){
                 case 1:{
                     unsigned int cliUniqueId = readClientId(supermarket);
                     cin.ignore(numeric_limits<int>::max(),'\n');
-
+                    supermarket.showSpecificClient(cliUniqueId);
                     break;
                 }
                 case 2: {
@@ -95,14 +95,31 @@ void clientManagementOption(VendeMaisMais &supermarket){
             }
             break;
         }
-
-
-        case 3:{
-            cout << "What is the client's name? : ";
-            cin.ignore(numeric_limits<int>::max(),'\n');
-            string clientName = readClientName(supermarket);
-            cout << endl;
-            supermarket.editSpecificClient(clientName);
+        case 3: {
+            cout << TAB << "Choose the way you want to identify the client:" << endl;
+            cout << TAB << "1 - Specify client unique ID" << endl;
+            cout << TAB << "2 - Specify client name" << endl;
+            cout << TAB << "0 - Back to client menu" << endl;
+            cout << TAB << "Your option: ";
+            unsigned int option = readUnsignedShortInt(0,2);
+            switch(option){
+                case 0:
+                    break;
+                case 1:{
+                    unsigned int cliUniqueId = readClientId(supermarket);
+                    cin.ignore(numeric_limits<int>::max(),'\n');
+                    supermarket.editSpecificClient(cliUniqueId);
+                    break;
+                }
+                case 2: {
+                    cout << "What is the client's name? : ";
+                    cin.ignore(numeric_limits<int>::max(),'\n');
+                    string clientName = readClientName(supermarket);
+                    cout << endl;
+                    supermarket.editSpecificClient(clientName);
+                    break;
+                }
+            }
             break;
         }
         case 4:{
@@ -122,12 +139,31 @@ void clientManagementOption(VendeMaisMais &supermarket){
             supermarket.addClient(tempClient);
             break;
         }
-        case 5:{
-            cout << "What is the client's name? : ";
-            cin.ignore(numeric_limits<int>::max(),'\n');
-            string clientName = readClientName(supermarket);
-            cout << endl;
-            supermarket.removeSpecificClient(clientName);
+        case 5: {
+            cout << TAB << "Choose the way you want to identify the client:" << endl;
+            cout << TAB << "1 - Specify client unique ID" << endl;
+            cout << TAB << "2 - Specify client name" << endl;
+            cout << TAB << "0 - Back to client menu" << endl;
+            cout << TAB << "Your option: ";
+            unsigned int option = readUnsignedShortInt(0,2);
+            switch(option){
+                case 0:
+                    break;
+                case 1:{
+                    unsigned int cliUniqueId = readClientId(supermarket);
+                    cin.ignore(numeric_limits<int>::max(),'\n');
+                    supermarket.removeSpecificClient(cliUniqueId);
+                    break;
+                }
+                case 2: {
+                    cout << "What is the client's name? : ";
+                    cin.ignore(numeric_limits<int>::max(),'\n');
+                    string clientName = readClientName(supermarket);
+                    cout << endl;
+                    supermarket.removeSpecificClient(clientName);
+                    break;
+                }
+            }
             break;
         }
         case 6:{

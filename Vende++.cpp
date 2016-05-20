@@ -93,6 +93,17 @@ void VendeMaisMais::listClientsAlphabetically() const {
     pressToContinue();
 }
 
+//Show a specific client's properties (input ID -> calls string version)
+void VendeMaisMais::showSpecificClient(unsigned int cliUniqueId) const {
+    
+    for (int i = 0; i < clientsVector.size(); i++) {
+        
+        if (clientsVector.at(i).getId() == cliUniqueId) {
+            showSpecificClient(clientsVector.at(i).getName());
+        }
+    }
+}
+
 //Show a specific client's properties
 void VendeMaisMais::showSpecificClient(string name) const {
 
@@ -134,6 +145,17 @@ void VendeMaisMais::listProductsAlphabetically() const {
     cin.ignore(numeric_limits<int>::max(),'\n');
     cout << endl;
     pressToContinue();
+}
+
+//Edit a specific client (ID version -> calls Name version)
+void VendeMaisMais::editSpecificClient(unsigned int cliUniqueId) {
+    
+    for (int i = 0; i < clientsVector.size(); i++) {
+        
+        if (clientsVector.at(i).getId() == cliUniqueId) {
+            editSpecificClient(clientsVector.at(i).getName());
+        }
+    }
 }
 
 //Edit a specific client
@@ -194,7 +216,7 @@ void VendeMaisMais::editSpecificClient(string name) {
     }
 
     cout << endl;
-    cout << "Client successfully altered!" << endl;
+    cout << "The client was successfully saved according to your inputs." << endl;
     cout << endl;
 
     pressToContinue();
@@ -220,26 +242,45 @@ void VendeMaisMais::addClient(Client newClient) {
     pressToContinue();
 }
 
+//Remove a client ID version -> Calls string version
+void VendeMaisMais::removeSpecificClient(unsigned int cliUniqueId) {
+    
+    for (int i = 0; i < clientsVector.size(); i++) {
+        
+        if (clientsVector.at(i).getId() == cliUniqueId) {
+            removeSpecificClient(clientsVector.at(i).getName());
+        }
+    }
+}
+
 //Remove a client
 void VendeMaisMais::removeSpecificClient(string name) {
 
     //Search for client
     map<string,int>::const_iterator p = clientIdx.find(name);
+    
+    //Verification
+    cout << endl << "Are you sure you want to remove " << clientsVector.at(p->second).getName() << " from the client's list? (yes or no) : ";
+    string answer = readYesNo();
+    
+    if(answer == "no")
+        cout << endl << "The client was not removed." << endl << endl;
+    else {
+        //Remove in vector
+        clientsVector.erase(clientsVector.begin() + p->second);
 
-    //Remove in vector
-    clientsVector.erase(clientsVector.begin() + p->second);
+        clientIdx.clear();
 
-    clientIdx.clear();
-
-    //Change index in map
-    //<string,int> map - Each product's name to its position on the products vector
-    for( int counter = 0 ; counter < clientsVector.size() ; counter++){
+        //Change index in map
+        //<string,int> map - Each product's name to its position on the products vector
+        for( int counter = 0 ; counter < clientsVector.size() ; counter++){
 
         clientIdx.insert(pair<string,int>(clientsVector.at(counter).getName(), counter));
-    }
+        }
 
-    cout << "Client successfully removed!" << endl;
-    cout << endl;
+        cout << endl << "Client successfully removed!" << endl;
+        cout << endl;
+    }
     pressToContinue();
 }
 

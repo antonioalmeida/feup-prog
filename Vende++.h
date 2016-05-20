@@ -36,10 +36,13 @@ public:
   string getStoreName() const;
   void listClientsAlphabetically() const;
   void listProductsAlphabetically() const;
-  void showSpecificClient(string name) const;
-  void editSpecificClient(string name);
+  void showSpecificClient(unsigned int cliUniqueId) const; //Overloaded function since user can choose between specifying client ID or name to show the client's properties
+  void showSpecificClient(string name) const;  //Overloaded function since user can choose between specifying client ID or name to show the client's properties
+  void editSpecificClient(unsigned int cliUniqueId);  //Overloaded function since user can choose between specifying client ID or name to edit the client's properties
+  void editSpecificClient(string name);  //Overloaded function since user can choose between specifying client ID or name to edit the client's properties
   void addClient(Client newClient);
-  void removeSpecificClient(string name);
+  void removeSpecificClient(unsigned int cliUniqueId); //Overloaded function since user can choose between specifying client ID or name to remove a client
+  void removeSpecificClient(string name); //Overloaded function since user can choose between specifying client ID or name to remove a client
   void showBottom10() const;
   void addTransaction();
   void showTransactionsBetweenDates() const;
