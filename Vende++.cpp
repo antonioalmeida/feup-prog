@@ -398,6 +398,7 @@ void VendeMaisMais::showTransactionsBetweenDates() const {
     }
 
     cout << endl;
+    cin.ignore(INT_MAX,'\n');
     pressToContinue();
 }
 

@@ -15,16 +15,13 @@ void pressToContinue(){
 
 
 void DeleteWhitespace(string &s){
-  //Delete whitespace characters in the beginning
-    while(s.at(0) == ' ')
-        s.erase(0,1);
-    //Delete whitespace characters in the end
-    int lastindex = s.size()-1;
-    while(s.at(lastindex) == ' ')
-     {
-        s.erase(lastindex,1);
-        lastindex--;
-     }
+    //Function copied from first mini midterm
+    while (s.find("  ") != string::npos)
+        s.erase(s.find("  "), 1);
+    if (s[0] == ' ')
+        s.erase(0, 1);
+    if (s[s.length() - 1] == ' ')
+        s.erase(s.length() -1, 1);
 }
 
 unsigned short int readUnsignedShortInt(unsigned short int minValue, unsigned short int  maxValue){
