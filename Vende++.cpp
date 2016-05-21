@@ -398,7 +398,6 @@ void VendeMaisMais::showTransactionsBetweenDates() const {
     }
 
     cout << endl;
-    cin.ignore(INT_MAX,'\n');
     pressToContinue();
 }
 
@@ -646,8 +645,8 @@ void VendeMaisMais::recommendProductSingleClient() const {
         cout << endl << "Client with ID " << targetId << " has not made any transactions yet!" << endl;
         cout << "The most bought product currently is " << productsVector.at(suggestedProductIndex).getName() << ", so why not start there? It only costs " << productsVector.at(suggestedProductIndex).getCost() << "!" << endl;
 
+        cin.ignore(numeric_limits<int>::max(),'\n');
         cout << endl;
-        cin.ignore(INT_MAX,'\n');
         pressToContinue();
         return; //Exit function
     }
@@ -699,9 +698,9 @@ void VendeMaisMais::recommendProductSingleClient() const {
     //Suggesting
     cout << endl;
     cout << "CLient with ID " << targetId << " is likely to like " << productsVector.at(suggestedProductIndex).getName() << ", plus it only costs " << productsVector.at(suggestedProductIndex).getCost() << ", so why not suggest it?" << endl;
-    cout << endl;
 
     cin.ignore(numeric_limits<int>::max(),'\n');
+    cout << endl;
     pressToContinue();
 }
 
@@ -893,8 +892,8 @@ void VendeMaisMais::recommendProductBottom10() const {
             cout << endl << "Recommmending product for 'Bottom10' clients" << endl;
             cout << endl;
             cout << "The 'Bottom10' clients are likely to like " << productAppearances.at(mainindex).first << ", why not suggesting it to them?" << endl;
-            cout << endl;
             cin.ignore(numeric_limits<int>::max(),'\n');
+            cout << endl;
             pressToContinue();
             return; //Product suggested so the function is done
         }
@@ -946,8 +945,9 @@ void VendeMaisMais::saveChanges() const{
 
 //Print supermarket
 ostream& operator<<(ostream &out, const VendeMaisMais &supermarket){
-	out << endl << "supermarket " << supermarket.getStoreName() << endl << "Conta atualmente com:" << endl << supermarket.clientsVector.size() << " clientes" << endl << supermarket.productsVector.size() << " produtos no stock" << endl << supermarket.transactionsVector.size() << "transacoes realizadas, num valor total de " << totalAmountSpent(supermarket) << endl;
-
+    out << endl << "Number of clients: " << supermarket.clientsVector.size() << endl;
+    out << "Number of products: "  << supermarket.productsVector.size() << endl;
+    out << "Number of transactions: " << supermarket.transactionsVector.size() << " for a total spent of " << totalAmountSpent(supermarket) << endl;
     return out;
 }
 

@@ -14,11 +14,11 @@ int main(){
 
   VendeMaisMais supermarket(store, clientsFileName, productsFileName, transactionsFileName);
 
-  cout << "Initial statistics on '" << store << "' from supermarket Vende++:" << endl;
+  cout << endl << "Initial statistics on '" << store << "' on Sell++ platform:" << endl;
   cout << supermarket << endl;
+  pressToContinue();
   mainOption(supermarket);
-  cout << endl;
-  cout << "Final statistics on '" << store << "' from supermarket Vende++:" << endl;
+  cout << endl << endl << "Final statistics on '" << store << "' on Sell++ platform:" << endl;
   cout << supermarket << endl;
   cout << "See you soon!" << endl;
   return 0;
